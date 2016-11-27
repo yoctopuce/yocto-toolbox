@@ -1,0 +1,21 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <include layout="@layout/detail_layout_generic_module"/>
+
+        <TextView
+            android:text="@string/sensors"
+            style="@style/detail_section"/>
+
+        <include layout="@layout/detail_template_two_sensors_min_max"/>
+
+    </LinearLayout>
+</ScrollView>

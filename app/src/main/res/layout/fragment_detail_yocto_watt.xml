@@ -1,0 +1,122 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <include layout="@layout/detail_layout_generic_module"/>
+
+        <TextView
+            style="@style/detail_section"
+            android:text="@string/sensors"/>
+
+        <GridLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:useDefaultMargins="true"
+            >
+
+            <TextView android:text=""/>
+
+            <TextView
+
+                android:layout_columnWeight="1"
+                android:layout_gravity="right"
+                android:text="@string/dc"
+                />
+
+            <TextView
+                android:layout_gravity="right"
+                android:text="@string/ac"
+                />
+
+            <TextView android:text="@string/voltage"/>
+
+            <TextView
+                android:id="@+id/volt_dc"
+                android:layout_gravity="right"
+                tools:text="0.099 V"
+                />
+
+            <TextView
+                android:id="@+id/volt_ac"
+                android:layout_gravity="right"
+                tools:text="0.099 V"
+                />
+
+            <TextView android:text="@string/current"/>
+
+            <TextView
+                android:id="@+id/amp_dc"
+                android:layout_gravity="right"
+                tools:text="9 mA"
+                />
+
+            <TextView
+                android:id="@+id/amp_ac"
+                android:layout_gravity="right"
+                tools:text="9 mA"
+                />
+
+
+            <TextView
+                android:layout_columnSpan="2"
+                android:text="@string/power"
+                />
+
+            <TextView
+                android:id="@+id/power"
+                android:layout_gravity="right"
+                tools:text="0 W"
+                />
+
+            <TextView
+                android:layout_columnSpan="2"
+                android:text="@string/cos_phi"
+                />
+
+            <TextView
+                android:id="@+id/cosfi"
+                android:layout_gravity="right"
+                tools:text="1"
+                />
+
+            <TextView android:text="@string/energy"/>
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_gravity="right"
+                tools:text="for 8m 32s"
+                />
+
+            <TextView
+                android:id="@+id/energy"
+                android:layout_gravity="right"
+                tools:text="0.311 Wh"
+                />
+
+            <Button
+                android:id="@+id/reset_button"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_columnSpan="3"
+                android:layout_gravity="right"
+                android:text="@string/reset"
+                />
+        </GridLayout>
+
+    </LinearLayout>
+</ScrollView>

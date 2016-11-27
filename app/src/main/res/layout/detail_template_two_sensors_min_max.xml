@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnCount="4"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp"
+    android:useDefaultMargins="true"
+    tools:showIn="@layout/fragment_detail_yocto_dual_generic_sensor">
+
+    <TextView android:text=""/>
+
+    <TextView android:text="@string/min"/>
+
+    <TextView android:text="@string/current"/>
+
+    <TextView android:text="@string/max"/>
+
+    <TextView
+        android:layout_rowSpan="2"
+        android:text="@string/sensor_1"
+        />
+
+    <TextView
+        android:id="@+id/sens1_min"
+        android:layout_rowSpan="2"
+        tools:text="0.099 V"
+        />
+
+    <TextView
+        android:id="@+id/sens1_cur"
+        tools:text="0.099 V"/>
+
+
+    <TextView
+        android:id="@+id/sens1_max"
+        android:layout_rowSpan="2"
+        tools:text="0.099 V"/>
+
+    <TextView
+        android:id="@+id/sens1_signal"
+        tools:text="0.099 V"/>
+
+
+    <TextView
+        android:layout_rowSpan="2"
+        android:text="@string/sensor_2"
+        />
+
+
+    <TextView
+        android:id="@+id/sens2_min"
+        android:layout_rowSpan="2"
+        tools:text="0.099 V"/>
+
+
+    <TextView
+        android:id="@+id/sens2_cur"
+        tools:text="0.099 V"/>
+
+
+    <TextView
+        android:id="@+id/sens2_max"
+        android:layout_rowSpan="2"
+        tools:text="0.099 V"/>
+
+    <TextView
+        android:id="@+id/sens2_signal"
+        tools:text="0.099 V"/>
+
+
+</GridLayout>

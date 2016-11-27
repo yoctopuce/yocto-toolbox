@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:padding="@dimen/hub_list_item_margin"
+    tools:context=".HubListActivity">
+    <!-- android:background="?android:attr/selectableItemBackground"-->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:src="@drawable/yocto_circle_40_dp"
+        android:layout_width="@dimen/hub_list_item_icon_size"
+        android:layout_height="@dimen/hub_list_item_icon_size"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/hub_list_item_margin"
+        android:layout_marginRight="@dimen/hub_list_item_margin"
+        android:contentDescription="@string/icon_of_the_yoctohub" />
+
+    <ImageView
+        android:id="@+id/edit"
+        android:src="@drawable/ic_add_white_36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/hub_list_item_margin"
+        android:layout_marginLeft="@dimen/hub_list_item_margin"
+        android:contentDescription="@string/open_hub" />
+
+    <TextView
+        android:id="@+id/hub_line1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageView"
+        android:layout_toRightOf="@id/imageView"
+        tools:text="YoctoHub-Ethernet"
+        style="@style/first_line_list"/>
+
+    <TextView
+        android:id="@+id/hub_line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hub_line1"
+        android:layout_toEndOf="@id/imageView"
+        android:layout_toRightOf="@id/imageView"
+        tools:text="172.17.17.72:4444"
+        style="@style/second_line_list"/>
+
+
+</RelativeLayout>

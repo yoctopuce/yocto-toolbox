@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <TextView
+        android:text="@string/power_saving_timer"
+        style="@style/detail_section"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:useDefaultMargins="true">
+
+
+        <TextView
+            android:text="@string/rtc_time"/>
+
+        <TextView
+            android:id="@+id/rtc_time"
+            android:layout_gravity="fill_horizontal"
+            tools:text="2016/11/22 13:48:10"/>
+
+        <TextView
+            android:text="@string/next_wake_up"/>
+
+        <TextView
+            android:id="@+id/next_wake_up"
+            android:layout_gravity="fill_horizontal"
+            tools:text="2016/11/22 14:10:00	"/>
+
+        <TextView
+            android:text="@string/power_saving"/>
+
+        <TextView
+            android:id="@+id/power_saving"
+            android:layout_gravity="fill_horizontal"
+            tools:text="YHUBETH1-22D8A"/>
+
+        <TextView
+            android:text="@string/wakeup_schedule_1_next_occurrence"/>
+
+        <TextView
+            android:id="@+id/next_wakeup_occurrence1"
+            android:layout_gravity="fill_horizontal"
+            tools:text="not configured"/>
+
+        <TextView
+            android:text="@string/wakeup_schedule_2_next_occurrence"/>
+
+        <TextView
+            android:id="@+id/next_wakeup_occurrence2"
+            android:layout_gravity="fill_horizontal"
+            tools:text="2016/11/22 14:10:00"/>
+
+
+    </GridLayout>
+
+</merge>

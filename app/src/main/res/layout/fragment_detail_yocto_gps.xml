@@ -1,0 +1,88 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <include layout="@layout/detail_layout_generic_module"/>
+
+        <TextView
+            android:text="@string/gps_data"
+            style="@style/detail_section"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:useDefaultMargins="true">
+
+            <TextView android:text="@string/status"/>
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_gravity="fill_horizontal"
+                tools:text="fixing..."/>
+
+            <TextView android:text="@string/time"/>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_gravity="fill_horizontal"
+                tools:text="N/A"/>
+
+            <TextView android:text="@string/latitude"/>
+
+            <TextView
+                android:id="@+id/latitude"
+                android:layout_gravity="fill_horizontal"
+                tools:text="N/A"/>
+
+            <TextView android:text="@string/longitude"/>
+
+            <TextView
+                android:id="@+id/longitude"
+                android:layout_gravity="fill_horizontal"
+                tools:text="N/A"/>
+
+            <TextView android:text="@string/altitude"/>
+
+            <TextView
+                android:id="@+id/altitude"
+                android:layout_gravity="fill_horizontal"
+                tools:text="N/A"/>
+
+            <TextView android:text="@string/ground_speed"/>
+
+            <TextView
+                android:id="@+id/ground_speed"
+                android:layout_gravity="fill_horizontal"
+                tools:text="N/A"/>
+
+            <TextView android:text="@string/dilution_of_precision"/>
+
+            <TextView
+                android:id="@+id/precision"
+                android:layout_gravity="fill_horizontal"
+                tools:text="N/A"/>
+            <Button
+                android:id="@+id/open_map_button"
+                android:enabled="false"
+                android:layout_columnSpan="2"
+                android:layout_gravity="fill_horizontal"
+                android:text="Open in Maps"
+
+                />
+
+        </GridLayout>
+
+    </LinearLayout>
+</ScrollView>

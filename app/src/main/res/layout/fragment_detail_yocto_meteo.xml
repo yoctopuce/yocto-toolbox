@@ -1,0 +1,97 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <include layout="@layout/detail_layout_generic_module"/>
+
+        <TextView
+            style="@style/detail_section"
+            android:text="@string/sensors"/>
+
+        <GridLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:useDefaultMargins="true"
+            >
+
+            <TextView android:text=""/>
+
+            <TextView android:text="@string/humidity"/>
+
+            <TextView android:text="@string/temperature"/>
+
+            <TextView android:text="@string/pressure"/>
+
+            <TextView
+                android:text="@string/current_value"
+                />
+
+            <TextView
+                android:id="@+id/hum_cur"
+                tools:text="40.417 % RH"
+                />
+
+            <TextView
+                android:id="@+id/temp_cur"
+                tools:text="24.707 'C"/>
+
+
+            <TextView
+                android:id="@+id/pres_cur"
+                tools:text="963 mbar"/>
+
+            <TextView
+                android:text="@string/minimum_value"
+                />
+
+            <TextView
+                android:id="@+id/hum_min"
+                tools:text="37.487 % RH"
+                />
+
+            <TextView
+                android:id="@+id/temp_min"
+                tools:text="24.707 'C"/>
+
+
+            <TextView
+                android:id="@+id/pres_min"
+                tools:text="963 mbar"/>
+
+            <TextView
+                android:text="@string/maximum_value"
+                />
+
+            <TextView
+                android:id="@+id/hum_max"
+                tools:text="40.417 % RH"
+                />
+
+            <TextView
+                android:id="@+id/temp_max"
+                tools:text="24.707 'C"/>
+
+
+            <TextView
+                android:id="@+id/pres_max"
+                tools:text="963 mbar"/>
+
+
+        </GridLayout>
+
+    </LinearLayout>
+</ScrollView>

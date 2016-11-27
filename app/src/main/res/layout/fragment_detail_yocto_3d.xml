@@ -1,0 +1,136 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <include layout="@layout/detail_layout_generic_module"/>
+
+        <TextView
+            android:text="@string/sensors"
+            style="@style/detail_section"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:useDefaultMargins="true">
+
+            <TextView android:text="@string/tilt_roll"/>
+
+            <TextView
+                android:id="@+id/tilt_roll"
+                android:layout_gravity="fill_horizontal"
+                tools:text="5.5 º"/>
+
+            <TextView android:text="@string/tilt_pitch"/>
+
+            <TextView
+                android:id="@+id/tilt_pitch"
+                android:layout_gravity="fill_horizontal"
+                tools:text="3.5 º"/>
+
+            <TextView android:text="@string/compass"/>
+
+            <TextView
+                android:id="@+id/compass"
+                android:layout_gravity="fill_horizontal"
+                tools:text="358.5 º"/>
+
+            <TextView android:text="@string/accelerometer"/>
+
+            <TextView
+                android:id="@+id/accelerometer"
+                android:layout_gravity="fill_horizontal"
+                tools:text="-0.991 g"/>
+
+            <TextView android:text="@string/accelerometer_x"/>
+
+            <TextView
+                android:id="@+id/accelerometer_x"
+                android:layout_gravity="fill_horizontal"
+                tools:text="-0.991 g"/>
+
+            <TextView android:text="@string/accelerometer_y"/>
+
+            <TextView
+                android:id="@+id/accelerometer_y"
+                android:layout_gravity="fill_horizontal"
+                tools:text="-0.991 g"/>
+
+            <TextView android:text="@string/accelerometer_z"/>
+
+            <TextView
+                android:id="@+id/accelerometer_z"
+                android:layout_gravity="fill_horizontal"
+                tools:text="-0.991 g"/>
+
+            <TextView android:text="@string/magnetometer"/>
+
+            <TextView
+                android:id="@+id/magnetometer"
+                android:layout_gravity="fill_horizontal"
+                tools:text="0.022 gauss"/>
+
+            <TextView android:text="@string/magnetometer_x"/>
+
+            <TextView
+                android:id="@+id/magnetometer_x"
+                android:layout_gravity="fill_horizontal"
+                tools:text="0.022 gauss"/>
+
+            <TextView android:text="@string/magnetometer_y"/>
+
+            <TextView
+                android:id="@+id/magnetometer_y"
+                android:layout_gravity="fill_horizontal"
+                tools:text="0.022 gauss"/>
+
+            <TextView android:text="@string/magnetometer_z"/>
+
+            <TextView
+                android:id="@+id/magnetometer_z"
+                android:layout_gravity="fill_horizontal"
+                tools:text="0.022 gauss"/>
+
+            <TextView android:text="@string/gyro"/>
+
+            <TextView
+                android:id="@+id/gyro"
+                android:layout_gravity="fill_horizontal"
+                tools:text="0 º/s"/>
+
+            <TextView android:text="@string/gyro_x"/>
+
+            <TextView
+                android:id="@+id/gyro_x"
+                android:layout_gravity="fill_horizontal"
+                tools:text="0 º/s"/>
+
+            <TextView android:text="@string/gyro_y"/>
+
+            <TextView
+                android:id="@+id/gyro_y"
+                android:layout_gravity="fill_horizontal"
+                tools:text="0 º/s"/>
+
+            <TextView android:text="@string/gyro_z"/>
+
+            <TextView
+                android:id="@+id/gyro_z"
+                android:layout_gravity="fill_horizontal"
+                tools:text="0 º/s"/>
+
+        </GridLayout>
+
+    </LinearLayout>
+</ScrollView>

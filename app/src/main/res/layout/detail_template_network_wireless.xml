@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:text="@string/network"
+        style="@style/detail_section"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:useDefaultMargins="true">
+
+        <TextView
+            android:text="@string/ssid"/>
+
+        <TextView
+            android:id="@+id/network_ssid"
+            android:layout_gravity="fill_horizontal"
+            tools:text="sunrise"/>
+
+        <TextView
+            android:text="@string/readiness"/>
+
+        <TextView
+            android:id="@+id/network_state"
+            android:layout_gravity="fill_horizontal"
+            tools:text="4- WWW ready"/>
+
+
+        <TextView
+            android:text="@string/mac_address"/>
+
+        <TextView
+            android:id="@+id/mac_addr"
+            android:layout_gravity="fill_horizontal"
+            tools:text="00:04:A3:BD:59:18"/>
+
+        <TextView
+            android:text="@string/ip_address"/>
+
+        <TextView
+            android:id="@+id/ip_addr"
+            android:layout_gravity="fill_horizontal"
+            tools:text="172.17.17.142"/>
+
+
+        <TextView
+            android:text="@string/device_name"/>
+
+        <TextView
+            android:id="@+id/device_name"
+            android:layout_gravity="fill_horizontal"
+            tools:text="YHUBETH1-22D8A"/>
+
+
+    </GridLayout>
+
+</merge>

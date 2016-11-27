@@ -1,0 +1,81 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <TextView
+            android:text="@string/kernel"
+            style="@style/detail_section"/>
+
+
+        <include layout="@layout/detail_layout_generic_module"/>
+
+        <TextView
+            android:text="@string/hub_ports"
+            style="@style/detail_section"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:useDefaultMargins="true">
+
+            <TextView
+                android:text="@string/port_1"/>
+
+            <TextView
+                android:id="@+id/port1_state"
+                android:layout_gravity="fill_horizontal"
+                tools:text="RUN : RELAYLO1-1A62C"/>
+
+            <com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch
+                android:id="@+id/port1_switch"/>
+
+            <TextView
+                android:text="@string/port_2"/>
+
+            <TextView
+                android:id="@+id/port2_state"
+                android:layout_gravity="fill_horizontal"
+                tools:text="RUN : RELAYLO1-1A62C"/>
+
+            <com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch
+                android:id="@+id/port2_switch"/>
+
+            <TextView
+                android:text="@string/port_3"/>
+
+            <TextView
+                android:id="@+id/port3_state"
+                android:layout_gravity="fill_horizontal"
+                tools:text="RUN : RELAYLO1-1A62C"/>
+
+            <com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch
+                android:id="@+id/port3_switch"/>
+
+            <TextView
+                android:text="@string/port_4"/>
+
+            <TextView
+                android:id="@+id/port4_state"
+                android:layout_gravity="fill_horizontal"
+                tools:text="RUN : RELAYLO1-1A62C"/>
+
+            <com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch
+                android:id="@+id/port4_switch"/>
+
+        </GridLayout>
+
+
+    </LinearLayout>
+</ScrollView>

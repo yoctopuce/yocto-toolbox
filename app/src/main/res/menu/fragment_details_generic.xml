@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.yoctopuce.yoctopucetoolbox.HubDetailActivity">
+    <item
+        android:id="@+id/show_doc"
+        android:orderInCategory="90"
+        android:title="@string/get_user_manual"
+        app:showAsAction="never"/>
+</menu>

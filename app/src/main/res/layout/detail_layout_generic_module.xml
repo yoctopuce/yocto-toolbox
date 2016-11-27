@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:text="@string/kernel"
+        style="@style/detail_section"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alignmentMode="alignBounds"
+        android:columnCount="2"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:useDefaultMargins="true"
+        tools:showIn="@layout/fragment_detail_yoctohub_ethernet">
+
+        <TextView
+            android:text="@string/serial_number"
+            />
+
+        <TextView
+            android:id="@+id/serial_number"
+            android:layout_gravity="fill_horizontal"
+            tools:text="RELAYHI1-05116"/>
+
+        <TextView
+            android:text="@string/product_name"
+            />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_gravity="fill_horizontal"
+            tools:text="Yocto-PowerRelay"/>
+
+        <TextView
+            android:text="@string/logical_name"
+            />
+
+        <TextView
+            android:id="@+id/logical_name"
+            android:layout_gravity="fill_horizontal"
+            tools:text=""/>
+
+        <TextView
+            android:text="@string/firmware"
+            />
+
+        <TextView
+            android:id="@+id/firmware"
+            android:layout_gravity="fill_horizontal"
+            tools:text="20710"/>
+
+        <TextView
+            android:text="@string/consumption"
+            />
+
+        <TextView
+            android:id="@+id/consumption"
+            android:layout_gravity="fill_horizontal"
+            tools:text="58 mA"/>
+
+        <TextView
+            android:text="@string/beacon"
+            />
+
+        <com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch
+            android:id="@+id/beacon_switch"
+            android:checked="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:text="@string/luminosity"
+            />
+
+        <TextView
+            android:id="@+id/luminosity"
+            android:layout_gravity="fill_horizontal"
+            tools:text="50%"/>
+
+
+    </GridLayout>
+</merge>
