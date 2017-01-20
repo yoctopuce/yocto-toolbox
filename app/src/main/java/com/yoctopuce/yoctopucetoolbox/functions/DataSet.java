@@ -39,7 +39,10 @@
 
 package com.yoctopuce.yoctopucetoolbox.functions;
 
+import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YDataSet;
+import com.yoctopuce.YoctoAPI.YDataStream;
+import com.yoctopuce.YoctoAPI.YMeasure;
 
 import java.util.ArrayList;
 //--- (generated code: YDataSet class start)
@@ -65,18 +68,6 @@ import java.util.ArrayList;
  @SuppressWarnings("UnusedDeclaration")
 public class DataSet
 {
-// parent
-// hardwareId
-// functionId
-// unit
-// startTime
-// endTime
-// progress
-// calib
-// streams
-// summary
-// preview
-// measures
 //--- (end of generated code: YDataSet class start)
 }
 

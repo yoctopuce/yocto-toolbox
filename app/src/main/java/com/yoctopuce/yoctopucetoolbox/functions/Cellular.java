@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Cellular.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Cellular.java 26331 2017-01-11 16:50:06Z seb $
  *
  * Implements Cellular wrapper for Android toolbox
  *
@@ -40,7 +40,10 @@
 package com.yoctopuce.yoctopucetoolbox.functions;
 import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
+import com.yoctopuce.YoctoAPI.YCellRecord;
 import com.yoctopuce.YoctoAPI.YCellular;
+
+import java.util.ArrayList;
 
 //--- (generated code: YCellular class start)
 /**
@@ -458,6 +461,36 @@ public class Cellular extends Function
     {
         _command = newval;
         _ycellular.set_command(newval);
+    }
+
+    public static YCellular FindCellular(String func)
+    {
+        return YCellular.FindCellular(func);
+    }
+
+    public int sendPUK(String puk, String newPin) throws YAPI_Exception
+    {
+        return _ycellular.sendPUK(puk, newPin);
+    }
+
+    public int set_apnAuth(String username, String password) throws YAPI_Exception
+    {
+        return _ycellular.set_apnAuth(username, password);
+    }
+
+    public int clearDataCounters() throws YAPI_Exception
+    {
+        return _ycellular.clearDataCounters();
+    }
+
+    public ArrayList<String> get_availableOperators() throws YAPI_Exception
+    {
+        return _ycellular.get_availableOperators();
+    }
+
+    public ArrayList<YCellRecord> quickCellSurvey() throws YAPI_Exception
+    {
+        return _ycellular.quickCellSurvey();
     }
 
 //--- (end of generated code: YCellular class start)

@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: LightSensor.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements LightSensor wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YLightSensor;
 
@@ -115,6 +115,11 @@ public class LightSensor extends Sensor
     {
         _measureType = newval;
         _ylightsensor.set_measureType(newval);
+    }
+
+    public static YLightSensor FindLightSensor(String func)
+    {
+        return YLightSensor.FindLightSensor(func);
     }
 
 //--- (end of YLightSensor class start)

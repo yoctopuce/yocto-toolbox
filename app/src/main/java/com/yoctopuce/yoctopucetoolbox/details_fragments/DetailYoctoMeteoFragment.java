@@ -59,9 +59,9 @@ public class DetailYoctoMeteoFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _temperature = new Temperature(_serial + ".temperature");
-        _humidity = new Humidity(_serial + ".humidity");
-        _pressure = new Pressure(_serial + ".pressure");
+        _temperature = new Temperature(_argSerial + ".temperature");
+        _humidity = new Humidity(_argSerial + ".humidity");
+        _pressure = new Pressure(_argSerial + ".pressure");
         _tempCurTextView = (TextView) rootView.findViewById(R.id.temp_cur);
         _tempMaxTextView = (TextView) rootView.findViewById(R.id.temp_max);
         _tempMinTextView = (TextView) rootView.findViewById(R.id.temp_min);
@@ -75,11 +75,11 @@ public class DetailYoctoMeteoFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         Locale locale = Locale.US;
-        updateUI_temperature(_temperature, _tempCurTextView, _tempMaxTextView, _tempMinTextView);
+        com.yoctopuce.yoctopucetoolbox.misc.MiscHelper.updateUI_temperature(_temperature, _tempCurTextView, _tempMaxTextView, _tempMinTextView);
         String unit = _humidity.getUnit();
         _humCurTextView.setText(String.format(locale, "%s %s", Double.toString(_humidity.getCurrentValue()), unit));
         _humMaxTextView.setText(String.format(locale, "%s %s", Double.toString(_humidity.getHighestValue()), unit));

@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: CarbonDioxide.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements CarbonDioxide wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YCarbonDioxide;
 
@@ -118,6 +118,31 @@ public class CarbonDioxide extends Sensor
     {
         _command = newval;
         _ycarbondioxide.set_command(newval);
+    }
+
+    public static YCarbonDioxide FindCarbonDioxide(String func)
+    {
+        return YCarbonDioxide.FindCarbonDioxide(func);
+    }
+
+    public int triggerBaselineCalibration() throws YAPI_Exception
+    {
+        return _ycarbondioxide.triggerBaselineCalibration();
+    }
+
+    public int triggetBaselineCalibration() throws YAPI_Exception
+    {
+        return _ycarbondioxide.triggetBaselineCalibration();
+    }
+
+    public int triggerZeroCalibration() throws YAPI_Exception
+    {
+        return _ycarbondioxide.triggerZeroCalibration();
+    }
+
+    public int triggetZeroCalibration() throws YAPI_Exception
+    {
+        return _ycarbondioxide.triggetZeroCalibration();
     }
 
 //--- (end of YCarbonDioxide class start)

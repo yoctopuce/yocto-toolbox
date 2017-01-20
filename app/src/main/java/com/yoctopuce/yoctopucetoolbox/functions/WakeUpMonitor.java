@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: WakeUpMonitor.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements WakeUpMonitor wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YWakeUpMonitor;
 
@@ -200,6 +200,36 @@ public class WakeUpMonitor extends Function
     public long getRtcTime()
     {
         return _rtcTime;
+    }
+
+    public static YWakeUpMonitor FindWakeUpMonitor(String func)
+    {
+        return YWakeUpMonitor.FindWakeUpMonitor(func);
+    }
+
+    public int wakeUp() throws YAPI_Exception
+    {
+        return _ywakeupmonitor.wakeUp();
+    }
+
+    public int sleep(int secBeforeSleep) throws YAPI_Exception
+    {
+        return _ywakeupmonitor.sleep(secBeforeSleep);
+    }
+
+    public int sleepFor(int secUntilWakeUp, int secBeforeSleep) throws YAPI_Exception
+    {
+        return _ywakeupmonitor.sleepFor(secUntilWakeUp, secBeforeSleep);
+    }
+
+    public int sleepUntil(int wakeUpTime, int secBeforeSleep) throws YAPI_Exception
+    {
+        return _ywakeupmonitor.sleepUntil(wakeUpTime, secBeforeSleep);
+    }
+
+    public int resetSleepCountDown() throws YAPI_Exception
+    {
+        return _ywakeupmonitor.resetSleepCountDown();
     }
 
 //--- (end of YWakeUpMonitor class start)

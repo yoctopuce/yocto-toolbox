@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Latitude.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements Latitude wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YLatitude;
 
@@ -73,6 +73,11 @@ public class Latitude extends Sensor
     {
         super.reloadBg();
     }
+    public static YLatitude FindLatitude(String func)
+    {
+        return YLatitude.FindLatitude(func);
+    }
+
 //--- (end of YLatitude class start)
 }
 

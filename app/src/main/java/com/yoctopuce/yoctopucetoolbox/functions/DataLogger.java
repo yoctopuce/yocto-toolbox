@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: DataLogger.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: DataLogger.java 26143 2016-12-02 16:58:26Z seb $
  *
  * Implements DataLogger wrapper for Android toolbox
  *
@@ -41,6 +41,9 @@ package com.yoctopuce.yoctopucetoolbox.functions;
 import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YDataLogger;
+import com.yoctopuce.YoctoAPI.YDataSet;
+
+import java.util.ArrayList;
 
 //--- (generated code: YDataLogger class start)
 /**
@@ -224,6 +227,26 @@ public class DataLogger extends Function
     {
         _clearHistory = newval;
         _ydatalogger.set_clearHistory(newval);
+    }
+
+    public static YDataLogger FindDataLogger(String func)
+    {
+        return YDataLogger.FindDataLogger(func);
+    }
+
+    public int forgetAllDataStreams() throws YAPI_Exception
+    {
+        return _ydatalogger.forgetAllDataStreams();
+    }
+
+    public ArrayList<YDataSet> get_dataSets() throws YAPI_Exception
+    {
+        return _ydatalogger.get_dataSets();
+    }
+
+    public ArrayList<YDataSet> parse_dataSets(byte[] json) throws YAPI_Exception
+    {
+        return _ydatalogger.parse_dataSets(json);
     }
 
 //--- (end of generated code: YDataLogger class start)

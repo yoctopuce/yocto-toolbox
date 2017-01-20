@@ -13,7 +13,7 @@ public class FragmentChooser
     public static Fragment GetFragment(String serial)
     {
         String base_serial = serial.substring(0, YOCTO_BASE_SERIAL_LEN);
-        DetailGenericModuleFragment fragment = null;
+        DetailGenericModuleFragment fragment;
         Bundle args = new Bundle();
         args.putString(DetailGenericModuleFragment.ARG_SERIAL, serial);
         switch (base_serial) {
@@ -42,9 +42,6 @@ public class FragmentChooser
             case "RXMVOLT1": //Yocto-milliVolt-Rx
             case "RXMVOLT2": //Yocto-milliVolt-Rx-BNC
                 fragment = new DetailYoctomilliVoltRxFragment();
-                break;
-            case "MINIIIO0": //Yocto-IO
-                fragment = new DetailYoctoIOFragment();
                 break;
             case "YSERIAL1": //Yocto-Serial
                 fragment = new DetailYoctoSerialFragment();
@@ -96,8 +93,6 @@ public class FragmentChooser
                 fragment = new DetailYoctoKnobFragment();
                 break;
             case "YD128X32": //Yocto-Display
-                fragment = new DetailYoctoDisplayFragment();
-                break;
             case "YD128X64": //Yocto-MaxiDisplay
             case "YD128G64": //Yocto-MaxiDisplay-G
                 fragment = new DetailYoctoMaxiDisplayFragment();
@@ -164,6 +159,9 @@ public class FragmentChooser
                 break;
             case "YVOCMK01": //Yocto-VOC
                 fragment = new DetailYoctoVOCFragment();
+                break;
+            case "YPROXIM1": //Yocto-Proxmitiy
+                fragment = new DetailYoctoProximityFragment();
                 break;
             default:
                 fragment = new DetailGenericModuleFragment();

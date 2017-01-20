@@ -8,4 +8,8 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#212121</color>
     <color name="divider">#BDBDBD</color>
+    <color name="icons_dark_active">#8a000000</color>
+    <color name="icons_dark_inactive">#42000000</color>
+    <color name="beacon_background">#7979e7</color>
+
 </resources>

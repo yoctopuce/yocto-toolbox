@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: ColorLedCluster.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements ColorLedCluster wrapper for Android toolbox
  *
@@ -38,9 +38,10 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YColorLedCluster;
+import java.util.ArrayList;
 
 //--- (YColorLedCluster class start)
 /**
@@ -158,6 +159,186 @@ public class ColorLedCluster extends Function
     {
         _command = newval;
         _ycolorledcluster.set_command(newval);
+    }
+
+    public static YColorLedCluster FindColorLedCluster(String func)
+    {
+        return YColorLedCluster.FindColorLedCluster(func);
+    }
+
+    public int sendCommand(String command) throws YAPI_Exception
+    {
+        return _ycolorledcluster.sendCommand(command);
+    }
+
+    public int set_rgbColor(int ledIndex, int count, int rgbValue) throws YAPI_Exception
+    {
+        return _ycolorledcluster.set_rgbColor(ledIndex, count, rgbValue);
+    }
+
+    public int set_rgbColorAtPowerOn(int ledIndex, int count, int rgbValue) throws YAPI_Exception
+    {
+        return _ycolorledcluster.set_rgbColorAtPowerOn(ledIndex, count, rgbValue);
+    }
+
+    public int set_hslColor(int ledIndex, int count, int hslValue) throws YAPI_Exception
+    {
+        return _ycolorledcluster.set_hslColor(ledIndex, count, hslValue);
+    }
+
+    public int rgb_move(int ledIndex, int count, int rgbValue, int delay) throws YAPI_Exception
+    {
+        return _ycolorledcluster.rgb_move(ledIndex, count, rgbValue, delay);
+    }
+
+    public int hsl_move(int ledIndex, int count, int hslValue, int delay) throws YAPI_Exception
+    {
+        return _ycolorledcluster.hsl_move(ledIndex, count, hslValue, delay);
+    }
+
+    public int addRgbMoveToBlinkSeq(int seqIndex, int rgbValue, int delay) throws YAPI_Exception
+    {
+        return _ycolorledcluster.addRgbMoveToBlinkSeq(seqIndex, rgbValue, delay);
+    }
+
+    public int addHslMoveToBlinkSeq(int seqIndex, int hslValue, int delay) throws YAPI_Exception
+    {
+        return _ycolorledcluster.addHslMoveToBlinkSeq(seqIndex, hslValue, delay);
+    }
+
+    public int addMirrorToBlinkSeq(int seqIndex) throws YAPI_Exception
+    {
+        return _ycolorledcluster.addMirrorToBlinkSeq(seqIndex);
+    }
+
+    public int linkLedToBlinkSeq(int ledIndex, int count, int seqIndex, int offset) throws YAPI_Exception
+    {
+        return _ycolorledcluster.linkLedToBlinkSeq(ledIndex, count, seqIndex, offset);
+    }
+
+    public int linkLedToBlinkSeqAtPowerOn(int ledIndex, int count, int seqIndex, int offset) throws YAPI_Exception
+    {
+        return _ycolorledcluster.linkLedToBlinkSeqAtPowerOn(ledIndex, count, seqIndex, offset);
+    }
+
+    public int linkLedToPeriodicBlinkSeq(int ledIndex, int count, int seqIndex, int periods) throws YAPI_Exception
+    {
+        return _ycolorledcluster.linkLedToPeriodicBlinkSeq(ledIndex, count, seqIndex, periods);
+    }
+
+    public int unlinkLedFromBlinkSeq(int ledIndex, int count) throws YAPI_Exception
+    {
+        return _ycolorledcluster.unlinkLedFromBlinkSeq(ledIndex, count);
+    }
+
+    public int startBlinkSeq(int seqIndex) throws YAPI_Exception
+    {
+        return _ycolorledcluster.startBlinkSeq(seqIndex);
+    }
+
+    public int stopBlinkSeq(int seqIndex) throws YAPI_Exception
+    {
+        return _ycolorledcluster.stopBlinkSeq(seqIndex);
+    }
+
+    public int resetBlinkSeq(int seqIndex) throws YAPI_Exception
+    {
+        return _ycolorledcluster.resetBlinkSeq(seqIndex);
+    }
+
+    public int set_blinkSeqStateAtPowerOn(int seqIndex, int autostart) throws YAPI_Exception
+    {
+        return _ycolorledcluster.set_blinkSeqStateAtPowerOn(seqIndex, autostart);
+    }
+
+    public int set_blinkSeqSpeed(int seqIndex, int speed) throws YAPI_Exception
+    {
+        return _ycolorledcluster.set_blinkSeqSpeed(seqIndex, speed);
+    }
+
+    public int saveLedsConfigAtPowerOn() throws YAPI_Exception
+    {
+        return _ycolorledcluster.saveLedsConfigAtPowerOn();
+    }
+
+    public int saveLedsState() throws YAPI_Exception
+    {
+        return _ycolorledcluster.saveLedsState();
+    }
+
+    public int saveBlinkSeq(int seqIndex) throws YAPI_Exception
+    {
+        return _ycolorledcluster.saveBlinkSeq(seqIndex);
+    }
+
+    public int set_rgbColorBuffer(int ledIndex, byte[] buff) throws YAPI_Exception
+    {
+        return _ycolorledcluster.set_rgbColorBuffer(ledIndex, buff);
+    }
+
+    public int set_rgbColorArray(int ledIndex, ArrayList<Integer> rgbList) throws YAPI_Exception
+    {
+        return _ycolorledcluster.set_rgbColorArray(ledIndex, rgbList);
+    }
+
+    public int rgbArray_move(ArrayList<Integer> rgbList, int delay) throws YAPI_Exception
+    {
+        return _ycolorledcluster.rgbArray_move(rgbList, delay);
+    }
+
+    public int set_hslColorBuffer(int ledIndex, byte[] buff) throws YAPI_Exception
+    {
+        return _ycolorledcluster.set_hslColorBuffer(ledIndex, buff);
+    }
+
+    public int set_hslColorArray(int ledIndex, ArrayList<Integer> hslList) throws YAPI_Exception
+    {
+        return _ycolorledcluster.set_hslColorArray(ledIndex, hslList);
+    }
+
+    public int hslArray_move(ArrayList<Integer> hslList, int delay) throws YAPI_Exception
+    {
+        return _ycolorledcluster.hslArray_move(hslList, delay);
+    }
+
+    public byte[] get_rgbColorBuffer(int ledIndex, int count) throws YAPI_Exception
+    {
+        return _ycolorledcluster.get_rgbColorBuffer(ledIndex, count);
+    }
+
+    public ArrayList<Integer> get_rgbColorArray(int ledIndex, int count) throws YAPI_Exception
+    {
+        return _ycolorledcluster.get_rgbColorArray(ledIndex, count);
+    }
+
+    public ArrayList<Integer> get_rgbColorArrayAtPowerOn(int ledIndex, int count) throws YAPI_Exception
+    {
+        return _ycolorledcluster.get_rgbColorArrayAtPowerOn(ledIndex, count);
+    }
+
+    public ArrayList<Integer> get_linkedSeqArray(int ledIndex, int count) throws YAPI_Exception
+    {
+        return _ycolorledcluster.get_linkedSeqArray(ledIndex, count);
+    }
+
+    public ArrayList<Integer> get_blinkSeqSignatures(int seqIndex, int count) throws YAPI_Exception
+    {
+        return _ycolorledcluster.get_blinkSeqSignatures(seqIndex, count);
+    }
+
+    public ArrayList<Integer> get_blinkSeqStateSpeed(int seqIndex, int count) throws YAPI_Exception
+    {
+        return _ycolorledcluster.get_blinkSeqStateSpeed(seqIndex, count);
+    }
+
+    public ArrayList<Integer> get_blinkSeqStateAtPowerOn(int seqIndex, int count) throws YAPI_Exception
+    {
+        return _ycolorledcluster.get_blinkSeqStateAtPowerOn(seqIndex, count);
+    }
+
+    public ArrayList<Integer> get_blinkSeqState(int seqIndex, int count) throws YAPI_Exception
+    {
+        return _ycolorledcluster.get_blinkSeqState(seqIndex, count);
     }
 
 //--- (end of YColorLedCluster class start)

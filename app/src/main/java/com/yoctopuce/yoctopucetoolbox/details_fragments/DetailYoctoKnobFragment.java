@@ -1,6 +1,5 @@
 package com.yoctopuce.yoctopucetoolbox.details_fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,11 +58,11 @@ public class DetailYoctoKnobFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _anButton1 = new AnButton(_serial + ".anButton1");
-        _anButton2 = new AnButton(_serial + ".anButton2");
-        _anButton3 = new AnButton(_serial + ".anButton3");
-        _anButton4 = new AnButton(_serial + ".anButton4");
-        _anButton5 = new AnButton(_serial + ".anButton5");
+        _anButton1 = new AnButton(_argSerial + ".anButton1");
+        _anButton2 = new AnButton(_argSerial + ".anButton2");
+        _anButton3 = new AnButton(_argSerial + ".anButton3");
+        _anButton4 = new AnButton(_argSerial + ".anButton4");
+        _anButton5 = new AnButton(_argSerial + ".anButton5");
 
         _isPressed1TextView = (TextView) rootView.findViewById(R.id.ispressed1);
         _progress1 = (ProgressBar) rootView.findViewById(R.id.progressBar1);
@@ -79,9 +78,9 @@ public class DetailYoctoKnobFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
 
         _isPressed1TextView.setText(_anButton1.getIsPressed() == YAnButton.ISPRESSED_TRUE ? R.string.pressed:R.string.released);
         _progress1.setProgress(_anButton1.getCalibratedValue());

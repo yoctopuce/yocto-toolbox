@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Buzzer.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements Buzzer wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YBuzzer;
 
@@ -185,6 +185,61 @@ public class Buzzer extends Function
     {
         _command = newval;
         _ybuzzer.set_command(newval);
+    }
+
+    public static YBuzzer FindBuzzer(String func)
+    {
+        return YBuzzer.FindBuzzer(func);
+    }
+
+    public int sendCommand(String command) throws YAPI_Exception
+    {
+        return _ybuzzer.sendCommand(command);
+    }
+
+    public int addFreqMoveToPlaySeq(int freq, int msDelay) throws YAPI_Exception
+    {
+        return _ybuzzer.addFreqMoveToPlaySeq(freq, msDelay);
+    }
+
+    public int addPulseToPlaySeq(int freq, int msDuration) throws YAPI_Exception
+    {
+        return _ybuzzer.addPulseToPlaySeq(freq, msDuration);
+    }
+
+    public int addVolMoveToPlaySeq(int volume, int msDuration) throws YAPI_Exception
+    {
+        return _ybuzzer.addVolMoveToPlaySeq(volume, msDuration);
+    }
+
+    public int startPlaySeq() throws YAPI_Exception
+    {
+        return _ybuzzer.startPlaySeq();
+    }
+
+    public int stopPlaySeq() throws YAPI_Exception
+    {
+        return _ybuzzer.stopPlaySeq();
+    }
+
+    public int resetPlaySeq() throws YAPI_Exception
+    {
+        return _ybuzzer.resetPlaySeq();
+    }
+
+    public int pulse(int frequency, int duration) throws YAPI_Exception
+    {
+        return _ybuzzer.pulse(frequency, duration);
+    }
+
+    public int freqMove(int frequency, int duration) throws YAPI_Exception
+    {
+        return _ybuzzer.freqMove(frequency, duration);
+    }
+
+    public int volumeMove(int volume, int duration) throws YAPI_Exception
+    {
+        return _ybuzzer.volumeMove(volume, duration);
     }
 
 //--- (end of YBuzzer class start)

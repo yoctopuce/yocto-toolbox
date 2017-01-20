@@ -1,5 +1,5 @@
 /*********************************************************************
- * $Id: Module.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Module.java 26331 2017-01-11 16:50:06Z seb $
  * <p>
  * Implements Relay wrapper for Android toolbox
  * <p>
@@ -38,7 +38,10 @@
 package com.yoctopuce.yoctopucetoolbox.functions;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
+import com.yoctopuce.YoctoAPI.YFirmwareUpdate;
 import com.yoctopuce.YoctoAPI.YModule;
+
+import java.util.ArrayList;
 
 //--- (generated code: YModule class start)
 /**
@@ -301,6 +304,136 @@ public class Module extends Function
     {
         _userVar = newval;
         _ymodule.set_userVar(newval);
+    }
+
+    public static YModule FindModule(String func)
+    {
+        return YModule.FindModule(func);
+    }
+
+    public int saveToFlash() throws YAPI_Exception
+    {
+        return _ymodule.saveToFlash();
+    }
+
+    public int revertFromFlash() throws YAPI_Exception
+    {
+        return _ymodule.revertFromFlash();
+    }
+
+    public int reboot(int secBeforeReboot) throws YAPI_Exception
+    {
+        return _ymodule.reboot(secBeforeReboot);
+    }
+
+    public int triggerFirmwareUpdate(int secBeforeReboot) throws YAPI_Exception
+    {
+        return _ymodule.triggerFirmwareUpdate(secBeforeReboot);
+    }
+
+    public String checkFirmware(String path, boolean onlynew) throws YAPI_Exception
+    {
+        return _ymodule.checkFirmware(path, onlynew);
+    }
+
+    public YFirmwareUpdate updateFirmwareEx(String path, boolean force) throws YAPI_Exception
+    {
+        return _ymodule.updateFirmwareEx(path, force);
+    }
+
+    public YFirmwareUpdate updateFirmware(String path) throws YAPI_Exception
+    {
+        return _ymodule.updateFirmware(path);
+    }
+
+    public byte[] get_allSettings() throws YAPI_Exception
+    {
+        return _ymodule.get_allSettings();
+    }
+
+    public int loadThermistorExtra(String funcId, String jsonExtra) throws YAPI_Exception
+    {
+        return _ymodule.loadThermistorExtra(funcId, jsonExtra);
+    }
+
+    public int set_extraSettings(String jsonExtra) throws YAPI_Exception
+    {
+        return _ymodule.set_extraSettings(jsonExtra);
+    }
+
+    public int set_allSettingsAndFiles(byte[] settings) throws YAPI_Exception
+    {
+        return _ymodule.set_allSettingsAndFiles(settings);
+    }
+
+    public boolean hasFunction(String funcId) throws YAPI_Exception
+    {
+        return _ymodule.hasFunction(funcId);
+    }
+
+    public ArrayList<String> get_functionIds(String funType) throws YAPI_Exception
+    {
+        return _ymodule.get_functionIds(funType);
+    }
+
+    public int calibVersion(String cparams)
+    {
+        return _ymodule.calibVersion(cparams);
+    }
+
+    public int calibScale(String unit_name, String sensorType)
+    {
+        return _ymodule.calibScale(unit_name, sensorType);
+    }
+
+    public int calibOffset(String unit_name)
+    {
+        return _ymodule.calibOffset(unit_name);
+    }
+
+    public String calibConvert(String param, String currentFuncValue, String unit_name, String sensorType)
+    {
+        return _ymodule.calibConvert(param, currentFuncValue, unit_name, sensorType);
+    }
+
+    public int set_allSettings(byte[] settings) throws YAPI_Exception
+    {
+        return _ymodule.set_allSettings(settings);
+    }
+
+    public byte[] download(String pathname) throws YAPI_Exception
+    {
+        return _ymodule.download(pathname);
+    }
+
+    public byte[] get_icon2d() throws YAPI_Exception
+    {
+        return _ymodule.get_icon2d();
+    }
+
+    public String get_lastLogs() throws YAPI_Exception
+    {
+        return _ymodule.get_lastLogs();
+    }
+
+    public int log(String text) throws YAPI_Exception
+    {
+        return _ymodule.log(text);
+    }
+
+    public ArrayList<String> get_subDevices() throws YAPI_Exception
+    {
+        return _ymodule.get_subDevices();
+    }
+
+    public String get_parentHub() throws YAPI_Exception
+    {
+        return _ymodule.get_parentHub();
+    }
+
+    public String get_url() throws YAPI_Exception
+    {
+        return _ymodule.get_url();
     }
 
 //--- (end of generated code: YModule class start)

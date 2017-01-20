@@ -38,6 +38,8 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
+import com.yoctopuce.YoctoAPI.YAPI_Exception;
+import com.yoctopuce.YoctoAPI.YDataSet;
 import com.yoctopuce.YoctoAPI.YDataStream;
 
 import java.util.ArrayList;
@@ -59,31 +61,6 @@ import java.util.ArrayList;
  @SuppressWarnings("UnusedDeclaration")
 public class DataStream
 {
-// parent
-// runNo
-// utcStamp
-// nCols
-// nRows
-// duration
-// columnNames
-// functionId
-// isClosed
-// isAvg
-// isScal
-// isScal32
-// decimals
-// offset
-// scale
-// samplesPerHour
-// minVal
-// avgVal
-// maxVal
-// decexp
-// caltyp
-// calpar
-// calraw
-// calref
-// values
 //--- (end of generated code: YDataStream class start)
 }
 

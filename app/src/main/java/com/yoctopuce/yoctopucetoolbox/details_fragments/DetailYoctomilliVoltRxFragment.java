@@ -10,8 +10,6 @@ import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.GenericSensor;
 
-import java.util.Locale;
-
 /**
  * Created by seb on 22.11.2016.
  */
@@ -45,7 +43,7 @@ public class DetailYoctomilliVoltRxFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _sensor1 = new GenericSensor(_serial + ".genericSensor1");
+        _sensor1 = new GenericSensor(_argSerial + ".genericSensor1");
         _sens1_min = (TextView) rootView.findViewById(R.id.sens1_min);
         _sens1_cur = (TextView) rootView.findViewById(R.id.sens1_cur);
         _sens1_sig = (TextView) rootView.findViewById(R.id.sens1_signal);
@@ -53,10 +51,10 @@ public class DetailYoctomilliVoltRxFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
-        updateUI_genericSensor(_sens1_min, _sensor1, _sens1_cur, _sens1_sig, _sens1_max);
+        super.updateUI(firstUpdate);
+        com.yoctopuce.yoctopucetoolbox.misc.MiscHelper.updateUI_genericSensor(_sens1_min, _sensor1, _sens1_cur, _sens1_sig, _sens1_max);
     }
 
 

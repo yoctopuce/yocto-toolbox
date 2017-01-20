@@ -65,12 +65,12 @@ public class DetailYocto3DFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _tilt1 = new Tilt(_serial + ".tilt1");
-        _tilt2 = new Tilt(_serial + ".tilt2");
-        _compass = new Compass(_serial + ".compass");
-        _accelerometer = new Accelerometer(_serial + ".accelerometer");
-        _magnetometer = new Magnetometer(_serial + ".magnetometer");
-        _gyro = new Gyro(_serial + ".gyro");
+        _tilt1 = new Tilt(_argSerial + ".tilt1");
+        _tilt2 = new Tilt(_argSerial + ".tilt2");
+        _compass = new Compass(_argSerial + ".compass");
+        _accelerometer = new Accelerometer(_argSerial + ".accelerometer");
+        _magnetometer = new Magnetometer(_argSerial + ".magnetometer");
+        _gyro = new Gyro(_argSerial + ".gyro");
 
 
         _tilt_rollTextView = (TextView) rootView.findViewById(R.id.tilt_roll);
@@ -91,9 +91,9 @@ public class DetailYocto3DFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         _tilt_rollTextView.setText(String.format(Locale.US, "%.1f °", _tilt1.getCurrentValue()));
         _tilt_pitchTextView.setText(String.format(Locale.US, "%.1f °", _tilt2.getCurrentValue()));
         _compassTextView.setText(String.format(Locale.US, "%.1f °", _compass.getCurrentValue()));

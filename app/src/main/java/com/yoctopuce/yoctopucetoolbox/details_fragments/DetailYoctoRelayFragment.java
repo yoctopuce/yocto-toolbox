@@ -5,13 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YRelay;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.Relay;
-import com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch;
+import com.yoctopuce.yoctopucetoolbox.widget.CustomCompoundButton;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -46,7 +47,7 @@ public class DetailYoctoRelayFragment extends DetailGenericModuleFragment
         super.setupUI(rootView);
         GridLayout gridLayout = (GridLayout) rootView.findViewById(R.id.relays_grid_layout);
         _relayUIRefs = new ArrayList<>();
-        String base_serial = _serial.substring(0, FragmentChooser.YOCTO_BASE_SERIAL_LEN);
+        String base_serial = _argSerial.substring(0, FragmentChooser.YOCTO_BASE_SERIAL_LEN);
         int relay_count = 1;
         boolean useAB = true;
         switch (base_serial) {
@@ -71,9 +72,9 @@ public class DetailYoctoRelayFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         for (RelayUIRef ref : _relayUIRefs) {
             ref.updateUI();
         }
@@ -82,26 +83,27 @@ public class DetailYoctoRelayFragment extends DetailGenericModuleFragment
     class RelayUIRef
     {
         final Relay _relay;
-        final CustomSwitch _customSwitch;
+        final CustomCompoundButton _customCompoundButton;
         private final boolean _useAB;
 
         RelayUIRef(GridLayout gv, int i, boolean useAB)
         {
-            final String hwid = _serial + ".relay" + i;
+            final String hwid = _argSerial + ".relay" + i;
             _relay = new Relay(hwid);
             TextView tv = new TextView(getContext());
             tv.setText(String.format(Locale.US, "State of relay %d", i));
             gv.addView(tv);
-            _customSwitch = new CustomSwitch(getContext());
+            Switch relaySwitch = new Switch(getContext());
             _useAB = useAB;
             if (_useAB) {
-                _customSwitch.setTextOn("B");
-                _customSwitch.setTextOff("A");
+                relaySwitch.setTextOn("B");
+                relaySwitch.setTextOff("A");
             }
-            _customSwitch.setOnCheckedChangeListener(new CustomOnCheckedChangeListener()
+            gv.addView(relaySwitch);
+            _customCompoundButton = new CustomCompoundButton(relaySwitch, _bgHandler, new BgSwitchListener()
             {
                 @Override
-                void onCheckedChangedBg(boolean isChecked) throws YAPI_Exception
+                public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
                 {
                     if (_useAB) {
                         _relay.setStateBg(isChecked ? YRelay.STATE_B : YRelay.STATE_A);
@@ -110,15 +112,14 @@ public class DetailYoctoRelayFragment extends DetailGenericModuleFragment
                     }
                 }
             });
-            gv.addView(_customSwitch);
         }
 
         public void updateUI()
         {
             if (_useAB) {
-                _customSwitch.setCheckedNoNotify(_relay.getOutput() == YRelay.OUTPUT_ON);
+                _customCompoundButton.setCheckedNoNotify(_relay.getOutput() == YRelay.OUTPUT_ON);
             } else {
-                _customSwitch.setCheckedNoNotify(_relay.getState() == YRelay.STATE_B);
+                _customCompoundButton.setCheckedNoNotify(_relay.getState() == YRelay.STATE_B);
             }
         }
 

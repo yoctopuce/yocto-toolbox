@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Current.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Current.java 26403 2017-01-16 17:29:21Z seb $
  *
  * Implements Current wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YCurrent;
 
@@ -55,6 +55,7 @@ public class Current extends Sensor
 {
 // valueCallbackCurrent
 // timedReportCallbackCurrent
+    protected int _enabled =  YCurrent.ENABLED_INVALID;
     protected YCurrent _ycurrent;
 
     public Current(YCurrent yfunc)
@@ -71,7 +72,24 @@ public class Current extends Sensor
     public void reloadBg () throws YAPI_Exception
     {
         super.reloadBg();
+        _enabled = _ycurrent.get_enabled();
     }
+    public int getEnabled()
+    {
+        return _enabled;
+    }
+
+    public void setEnabledBg(int newval) throws YAPI_Exception
+    {
+        _enabled = newval;
+        _ycurrent.set_enabled(newval);
+    }
+
+    public static YCurrent FindCurrent(String func)
+    {
+        return YCurrent.FindCurrent(func);
+    }
+
 //--- (end of YCurrent class start)
 }
 

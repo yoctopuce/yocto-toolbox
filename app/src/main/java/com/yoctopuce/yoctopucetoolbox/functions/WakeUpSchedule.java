@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: WakeUpSchedule.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements WakeUpSchedule wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YWakeUpSchedule;
 
@@ -257,6 +257,21 @@ public class WakeUpSchedule extends Function
     public long getNextOccurence()
     {
         return _nextOccurence;
+    }
+
+    public static YWakeUpSchedule FindWakeUpSchedule(String func)
+    {
+        return YWakeUpSchedule.FindWakeUpSchedule(func);
+    }
+
+    public long get_minutes() throws YAPI_Exception
+    {
+        return _ywakeupschedule.get_minutes();
+    }
+
+    public int set_minutes(long bitmap) throws YAPI_Exception
+    {
+        return _ywakeupschedule.set_minutes(bitmap);
     }
 
 //--- (end of YWakeUpSchedule class start)

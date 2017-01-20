@@ -42,6 +42,8 @@ import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YSms;
 
+import java.util.ArrayList;
+
 //--- (generated code: YSms class start)
 /**
  * YSms Class: SMS message sent or received
@@ -51,25 +53,6 @@ import com.yoctopuce.YoctoAPI.YSms;
  @SuppressWarnings("UnusedDeclaration")
 public class Sms
 {
-// mbox
-// slot
-// deliv
-// smsc
-// mref
-// orig
-// dest
-// pid
-// alphab
-// mclass
-// stamp
-// udh
-// udata
-// npdu
-// pdu
-// parts
-// aggSig
-// aggIdx
-// aggCnt
 //--- (end of generated code: YSms class start)
 }
 

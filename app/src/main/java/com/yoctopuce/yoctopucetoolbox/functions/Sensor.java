@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Sensor.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Sensor.java 26331 2017-01-11 16:50:06Z seb $
  *
  * Implements Sensor wrapper for Android toolbox
  *
@@ -40,6 +40,8 @@
 package com.yoctopuce.yoctopucetoolbox.functions;
 import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
+import com.yoctopuce.YoctoAPI.YDataSet;
+import com.yoctopuce.YoctoAPI.YMeasure;
 import com.yoctopuce.YoctoAPI.YSensor;
 
 import java.util.ArrayList;
@@ -326,6 +328,41 @@ public class Sensor extends Function
     public int getSensorState()
     {
         return _sensorState;
+    }
+
+    public static YSensor FindSensor(String func)
+    {
+        return YSensor.FindSensor(func);
+    }
+
+    public boolean isSensorReady()
+    {
+        return _ysensor.isSensorReady();
+    }
+
+    public int startDataLogger() throws YAPI_Exception
+    {
+        return _ysensor.startDataLogger();
+    }
+
+    public int stopDataLogger() throws YAPI_Exception
+    {
+        return _ysensor.stopDataLogger();
+    }
+
+    public YDataSet get_recordedData(long startTime, long endTime) throws YAPI_Exception
+    {
+        return _ysensor.get_recordedData(startTime, endTime);
+    }
+
+    public int calibrateFromPoints(ArrayList<Double> rawValues, ArrayList<Double> refValues) throws YAPI_Exception
+    {
+        return _ysensor.calibrateFromPoints(rawValues, refValues);
+    }
+
+    public int loadCalibrationPoints(ArrayList<Double> rawValues, ArrayList<Double> refValues) throws YAPI_Exception
+    {
+        return _ysensor.loadCalibrationPoints(rawValues, refValues);
     }
 
 //--- (end of generated code: YSensor class start)

@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: PowerOutput.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements PowerOutput wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YPowerOutput;
 
@@ -104,6 +104,11 @@ public class PowerOutput extends Function
     {
         _voltage = newval;
         _ypoweroutput.set_voltage(newval);
+    }
+
+    public static YPowerOutput FindPowerOutput(String func)
+    {
+        return YPowerOutput.FindPowerOutput(func);
     }
 
 //--- (end of YPowerOutput class start)

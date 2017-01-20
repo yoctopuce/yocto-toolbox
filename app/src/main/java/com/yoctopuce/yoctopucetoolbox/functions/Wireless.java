@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Wireless.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Wireless.java 26143 2016-12-02 16:58:26Z seb $
  *
  * Implements Wireless wrapper for Android toolbox
  *
@@ -41,6 +41,9 @@ package com.yoctopuce.yoctopucetoolbox.functions;
 import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YWireless;
+import com.yoctopuce.YoctoAPI.YWlanRecord;
+
+import java.util.ArrayList;
 
 //--- (generated code: YWireless class start)
 /**
@@ -153,6 +156,31 @@ public class Wireless extends Function
     {
         _wlanConfig = newval;
         _ywireless.set_wlanConfig(newval);
+    }
+
+    public static YWireless FindWireless(String func)
+    {
+        return YWireless.FindWireless(func);
+    }
+
+    public int joinNetwork(String ssid, String securityKey) throws YAPI_Exception
+    {
+        return _ywireless.joinNetwork(ssid, securityKey);
+    }
+
+    public int adhocNetwork(String ssid, String securityKey) throws YAPI_Exception
+    {
+        return _ywireless.adhocNetwork(ssid, securityKey);
+    }
+
+    public int softAPNetwork(String ssid, String securityKey) throws YAPI_Exception
+    {
+        return _ywireless.softAPNetwork(ssid, securityKey);
+    }
+
+    public ArrayList<YWlanRecord> get_detectedWlans() throws YAPI_Exception
+    {
+        return _ywireless.get_detectedWlans();
     }
 
 //--- (end of generated code: YWireless class start)

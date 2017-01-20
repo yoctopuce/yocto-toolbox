@@ -51,11 +51,6 @@ import com.yoctopuce.YoctoAPI.YMeasure;
  @SuppressWarnings("UnusedDeclaration")
 public class Measure
 {
-// start
-// end
-// minVal
-// avgVal
-// maxVal
 //--- (end of generated code: YMeasure class start)
 }
 

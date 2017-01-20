@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
@@ -12,7 +13,8 @@ import com.yoctopuce.YoctoAPI.YNetwork;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.HubPort;
 import com.yoctopuce.yoctopucetoolbox.functions.Network;
-import com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch;
+import com.yoctopuce.yoctopucetoolbox.misc.MiscHelper;
+import com.yoctopuce.yoctopucetoolbox.widget.CustomCompoundButton;
 
 public class DetailYoctoHubEthernetFragment extends DetailGenericModuleFragment
 {
@@ -23,9 +25,9 @@ public class DetailYoctoHubEthernetFragment extends DetailGenericModuleFragment
     private TextView _port1TextView;
     private TextView _port2TextView;
     private TextView _port3TextView;
-    private CustomSwitch _port1Switch;
-    private CustomSwitch _port2Switch;
-    private CustomSwitch _port3Switch;
+    private CustomCompoundButton _port1Switch;
+    private CustomCompoundButton _port2Switch;
+    private CustomCompoundButton _port3Switch;
     private TextView _networkTextView;
     private TextView _macTextView;
     private TextView _ipTextView;
@@ -46,39 +48,81 @@ public class DetailYoctoHubEthernetFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _hubport1 = new HubPort(_serial + ".hubPort1");
-        _hubport2 = new HubPort(_serial + ".hubPort2");
-        _hubport3 = new HubPort(_serial + ".hubPort3");
-        _network = new Network(_serial + ".network");
+        _hubport1 = new HubPort(_argSerial + ".hubPort1");
+        _hubport2 = new HubPort(_argSerial + ".hubPort2");
+        _hubport3 = new HubPort(_argSerial + ".hubPort3");
+        _network = new Network(_argSerial + ".network");
 
         _port1TextView = (TextView) rootView.findViewById(R.id.port1_state);
         _port2TextView = (TextView) rootView.findViewById(R.id.port2_state);
         _port3TextView = (TextView) rootView.findViewById(R.id.port3_state);
-        _port1Switch = (CustomSwitch) rootView.findViewById(R.id.port1_switch);
-        _port1Switch.setOnCheckedChangeListener(new CustomOnCheckedChangeListener()
+        Switch port1Switch = (Switch) rootView.findViewById(R.id.port1_switch);
+        _port1Switch = new CustomCompoundButton(port1Switch, _bgHandler, new BgSwitchListener()
         {
+
             @Override
-            void onCheckedChangedBg(boolean isChecked) throws YAPI_Exception
+            public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
             {
                 _hubport1.setEnabledBg(isChecked ? YHubPort.ENABLED_TRUE : YHubPort.ENABLED_FALSE);
             }
+
         });
-        _port2Switch = (CustomSwitch) rootView.findViewById(R.id.port2_switch);
-        _port2Switch.setOnCheckedChangeListener(new CustomOnCheckedChangeListener()
+
+        Switch port2Switch = (Switch) rootView.findViewById(R.id.port2_switch);
+        _port2Switch = new CustomCompoundButton(port2Switch, _bgHandler, new CustomCompoundButton.CustomSwitchListener()
         {
             @Override
-            void onCheckedChangedBg(boolean isChecked) throws YAPI_Exception
+            public void onPreChangedFg(boolean isChecked)
+            {
+
+            }
+
+            @Override
+            public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
             {
                 _hubport2.setEnabledBg(isChecked ? YHubPort.ENABLED_TRUE : YHubPort.ENABLED_FALSE);
             }
+
+            @Override
+            public void onPostChangedDoneFg(boolean isChecked)
+            {
+
+            }
+
+            @Override
+            public void onErrorFg(YAPI_Exception error)
+            {
+                onIOError(error.getLocalizedMessage());
+            }
         });
-        _port3Switch = (CustomSwitch) rootView.findViewById(R.id.port3_switch);
-        _port3Switch.setOnCheckedChangeListener(new CustomOnCheckedChangeListener()
+
+        Switch port3Switch = (Switch) rootView.findViewById(R.id.port3_switch);
+        _port3Switch = new CustomCompoundButton(port3Switch, _bgHandler, new CustomCompoundButton.CustomSwitchListener()
         {
             @Override
-            void onCheckedChangedBg(boolean isChecked) throws YAPI_Exception
+            public void onPreChangedFg(boolean isChecked)
+            {
+
+            }
+
+            @Override
+            public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
             {
                 _hubport3.setEnabledBg(isChecked ? YHubPort.ENABLED_TRUE : YHubPort.ENABLED_FALSE);
+                ;
+
+            }
+
+            @Override
+            public void onPostChangedDoneFg(boolean isChecked)
+            {
+
+            }
+
+            @Override
+            public void onErrorFg(YAPI_Exception error)
+            {
+                onIOError(error.getLocalizedMessage());
             }
         });
         _networkTextView = (TextView) rootView.findViewById(R.id.network_state);
@@ -97,12 +141,12 @@ public class DetailYoctoHubEthernetFragment extends DetailGenericModuleFragment
         _network.reloadBg();
     }
 
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
-        updateUI_HubPort(_hubport1, _port1TextView, _port1Switch);
-        updateUI_HubPort(_hubport2, _port2TextView, _port2Switch);
-        updateUI_HubPort(_hubport3, _port3TextView, _port3Switch);
+        super.updateUI(firstUpdate);
+        MiscHelper.updateUI_HubPort(_hubport1, _port1TextView, _port1Switch);
+        MiscHelper.updateUI_HubPort(_hubport2, _port2TextView, _port2Switch);
+        MiscHelper.updateUI_HubPort(_hubport3, _port3TextView, _port3Switch);
 
         int readiness = _network.getReadiness();
         int msg = R.string.invalid;

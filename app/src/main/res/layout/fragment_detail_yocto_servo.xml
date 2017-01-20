@@ -1,0 +1,101 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <include layout="@layout/detail_layout_generic_module"/>
+
+
+        <TextView
+            style="@style/detail_section"
+            android:text="@string/servos"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:useDefaultMargins="true">
+
+            <TextView android:text="@string/servo_1"/>
+
+            <SeekBar
+                android:id="@+id/servo1"
+                android:layout_gravity="fill_horizontal"
+                android:max="2000"/>
+
+            <TextView android:text="@string/servo_2"/>
+
+            <SeekBar
+                android:id="@+id/servo2"
+                android:layout_gravity="fill_horizontal"
+                android:max="2000"/>
+
+            <TextView android:text="@string/servo_3"/>
+
+            <SeekBar
+                android:id="@+id/servo3"
+                android:layout_gravity="fill_horizontal"
+                android:max="2000"/>
+
+            <TextView android:text="@string/servo_4"/>
+
+            <SeekBar
+                android:id="@+id/servo4"
+                android:layout_gravity="fill_horizontal"
+                android:max="2000"/>
+
+            <TextView android:text="@string/servo_5"/>
+
+            <SeekBar
+                android:id="@+id/servo5"
+                android:layout_gravity="fill_horizontal"
+                android:max="2000"/>
+
+
+        </GridLayout>
+
+        <TextView
+            style="@style/detail_section"
+            android:text="@string/power"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:useDefaultMargins="true">
+
+            <TextView android:text="@string/power_mode"/>
+
+            <TextView
+                android:id="@+id/power_mode"
+                tools:text="Automatic"/>
+            <TextView android:text="@string/status"/>
+
+            <TextView
+                android:id="@+id/power_status"
+                tools:text="USB"/>
+            <TextView android:text="@string/ext_voltage"/>
+
+            <TextView
+                android:id="@+id/ext_voltage"
+                tools:text="0 V"/>
+
+        </GridLayout>
+
+
+    </LinearLayout>
+</ScrollView>

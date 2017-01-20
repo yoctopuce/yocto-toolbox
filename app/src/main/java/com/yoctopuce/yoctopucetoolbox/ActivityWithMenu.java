@@ -1,16 +1,19 @@
 package com.yoctopuce.yoctopucetoolbox;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.yoctopuce.yoctopucetoolbox.misc.AboutDialog;
 
+@SuppressLint("Registered")
 public class ActivityWithMenu extends AppCompatActivity
 {
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
+        super.onCreateOptionsMenu(menu);
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_global, menu);
         return true;

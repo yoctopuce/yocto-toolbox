@@ -49,10 +49,6 @@ import com.yoctopuce.YoctoAPI.YWlanRecord;
  @SuppressWarnings("UnusedDeclaration")
 public class WlanRecord
 {
-// ssid
-// channel
-// sec
-// rssi
 //--- (end of generated code: YWlanRecord class start)
 }
 

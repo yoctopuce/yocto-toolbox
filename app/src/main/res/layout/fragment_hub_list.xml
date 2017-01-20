@@ -1,9 +1,16 @@
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/hub_list_recycler_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical"
-    tools:listitem="@layout/list_item_hub"
-    tools:context="com.yoctopuce.yoctopucetoolbox.HubListActivityFragment"
-    tools:showIn="@layout/activity_hub_list" />
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/hub_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        tools:context="com.yoctopuce.yoctopucetoolbox.HubListActivityFragment"
+        tools:listitem="@layout/list_item_hub"
+        tools:showIn="@layout/activity_hub_list"/>
+</android.support.v4.widget.SwipeRefreshLayout>

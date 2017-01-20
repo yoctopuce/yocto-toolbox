@@ -10,6 +10,7 @@ public class DbSchemas {
         public static final class Cols {
             public static final String UUID = "uuid";
             public static final String SERIAL = "serial";
+            public static final String NAME = "name";
             public static final String HOST = "host";
             public static final String PORT = "port";
             public static final String USER = "user";

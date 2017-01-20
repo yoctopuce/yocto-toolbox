@@ -4,39 +4,192 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
+import com.yoctopuce.yoctopucetoolbox.R;
+import com.yoctopuce.yoctopucetoolbox.functions.DigitalIO;
+import com.yoctopuce.yoctopucetoolbox.widget.CustomCompoundButton;
 
 /**
  * Created by seb on 22.11.2016.
  */
-public class DetailYoctoMaxiIOFragment extends DetailGenericModuleFragment
+public class DetailYoctoMaxiIOFragment extends DetailGenericModuleFragment implements  CustomCompoundButton.CustomSwitchListener
 {
+    private DigitalIO _digitalIO;
+    private CustomCompoundButton _channel0;
+    private ImageView _channel0Dir;
+    private CustomCompoundButton _channel1;
+    private ImageView _channel1Dir;
+    private CustomCompoundButton _channel2;
+    private ImageView _channel2Dir;
+    private CustomCompoundButton _channel3;
+    private ImageView _channel3Dir;
+    private CustomCompoundButton _channel4;
+    private ImageView _channel4Dir;
+    private CustomCompoundButton _channel5;
+    private ImageView _channel5Dir;
+    private CustomCompoundButton _channel6;
+    private ImageView _channel6Dir;
+    private CustomCompoundButton _channel7;
+    private ImageView _channel7Dir;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return super.onCreateView(inflater, container, savedInstanceState);
-        // todo: implement stub
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_detail_yocto_maxi_io, container, false);
+        setupUI(rootView);
+        return rootView;
     }
 
     @Override
     protected void reloadDataInBG() throws YAPI_Exception
     {
         super.reloadDataInBG();
-        // todo: implement stub
+        _digitalIO.reloadBg();
     }
 
     @Override
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        // todo: implement stub
+        _digitalIO = new DigitalIO(_argSerial + ".digitalIO");
+
+        CheckBox checkBox = (CheckBox) rootView.findViewById(R.id.channel0);
+        _channel0 = new CustomCompoundButton(checkBox,_bgHandler,this);
+        _channel0Dir = (ImageView) rootView.findViewById(R.id.channel0_dir);
+
+        checkBox = (CheckBox) rootView.findViewById(R.id.channel1);
+        _channel1 = new CustomCompoundButton(checkBox,_bgHandler,this);
+        _channel1Dir = (ImageView) rootView.findViewById(R.id.channel1_dir);
+
+        checkBox = (CheckBox) rootView.findViewById(R.id.channel2);
+        _channel2 = new CustomCompoundButton(checkBox,_bgHandler,this);
+        _channel2Dir = (ImageView) rootView.findViewById(R.id.channel2_dir);
+
+        checkBox = (CheckBox) rootView.findViewById(R.id.channel3);
+        _channel3 = new CustomCompoundButton(checkBox,_bgHandler,this);
+        _channel3Dir = (ImageView) rootView.findViewById(R.id.channel3_dir);
+
+        checkBox = (CheckBox) rootView.findViewById(R.id.channel4);
+        _channel4 = new CustomCompoundButton(checkBox,_bgHandler,this);
+        _channel4Dir = (ImageView) rootView.findViewById(R.id.channel4_dir);
+
+        checkBox = (CheckBox) rootView.findViewById(R.id.channel5);
+        _channel5 = new CustomCompoundButton(checkBox,_bgHandler,this);
+        _channel5Dir = (ImageView) rootView.findViewById(R.id.channel5_dir);
+
+        checkBox = (CheckBox) rootView.findViewById(R.id.channel6);
+        _channel6 = new CustomCompoundButton(checkBox,_bgHandler,this);
+        _channel6Dir = (ImageView) rootView.findViewById(R.id.channel6_dir);
+
+        checkBox = (CheckBox) rootView.findViewById(R.id.channel7);
+        _channel7 = new CustomCompoundButton(checkBox,_bgHandler,this);
+        _channel7Dir = (ImageView) rootView.findViewById(R.id.channel7_dir);
     }
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
-        // todo: implement stub
+        super.updateUI(firstUpdate);
+        final int portDirection = _digitalIO.getPortDirection();
+        boolean out = (portDirection & 1) != 0;
+        _channel0Dir.setImageResource(out ? R.drawable.right_arrow : R.drawable.left_arrow);
+        _channel0.setEnabled(out);
+        out = (portDirection & 2) != 0;
+        _channel1Dir.setImageResource(out ? R.drawable.right_arrow : R.drawable.left_arrow);
+        _channel1.setEnabled(out);
+        out = (portDirection & 4) != 0;
+        _channel2Dir.setImageResource(out ? R.drawable.right_arrow : R.drawable.left_arrow);
+        _channel2.setEnabled(out);
+        out = (portDirection & 8) != 0;
+        _channel3Dir.setImageResource(out ? R.drawable.right_arrow : R.drawable.left_arrow);
+        _channel3.setEnabled(out);
+        out = (portDirection & 16) != 0;
+        _channel4Dir.setImageResource(out ? R.drawable.right_arrow : R.drawable.left_arrow);
+        _channel4.setEnabled(out);
+        out = (portDirection & 32) != 0;
+        _channel5Dir.setImageResource(out ? R.drawable.right_arrow : R.drawable.left_arrow);
+        _channel5.setEnabled(out);
+        out = (portDirection & 64) != 0;
+        _channel6Dir.setImageResource(out ? R.drawable.right_arrow : R.drawable.left_arrow);
+        _channel6.setEnabled(out);
+        out = (portDirection & 128) != 0;
+        _channel7Dir.setImageResource(out ? R.drawable.right_arrow : R.drawable.left_arrow);
+        _channel7.setEnabled(out);
+        final int portState = _digitalIO.getPortState();
+        _channel0.setCheckedNoNotify((portState & 1) != 0);
+        _channel1.setCheckedNoNotify((portState & 2) != 0);
+        _channel2.setCheckedNoNotify((portState & 4) != 0);
+        _channel3.setCheckedNoNotify((portState & 8) != 0);
+        _channel4.setCheckedNoNotify((portState & 16) != 0);
+        _channel5.setCheckedNoNotify((portState & 32) != 0);
+        _channel6.setCheckedNoNotify((portState & 64) != 0);
+        _channel7.setCheckedNoNotify((portState & 128) != 0);
+    }
+
+    @Override
+    public void onPreChangedFg(boolean isChecked)
+    {
+
+    }
+
+    @Override
+    public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
+    {
+        final int bitno;
+        final int value = isChecked ? 1 : 0;
+        switch (id) {
+            case R.id.channel0:
+                bitno = 0;
+                break;
+            case R.id.channel1:
+                bitno = 1;
+                break;
+            case R.id.channel2:
+                bitno = 2;
+                break;
+            case R.id.channel3:
+                bitno = 3;
+                break;
+            case R.id.channel4:
+                bitno = 4;
+                break;
+            case R.id.channel5:
+                bitno = 5;
+                break;
+            case R.id.channel6:
+                bitno = 6;
+                break;
+            case R.id.channel7:
+                bitno = 7;
+                break;
+            default:
+                return;
+        }
+        _bgHandler.post(new BGHandler.BgRunnable()
+        {
+            @Override
+            public void runBg() throws YAPI_Exception
+            {
+                _digitalIO.set_bitState(bitno, value);
+
+            }
+        });
+    }
+
+    @Override
+    public void onPostChangedDoneFg(boolean isChecked)
+    {
+
+    }
+
+    @Override
+    public void onErrorFg(YAPI_Exception error)
+    {
+
     }
 }

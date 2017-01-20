@@ -1,5 +1,5 @@
 /*********************************************************************
- * $Id: Function.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Function.java 26331 2017-01-11 16:50:06Z seb $
  * <p>
  * Implements Relay wrapper for Android toolbox
  * <p>
@@ -138,8 +138,22 @@ public class Function
         _yfunction.set_advertisedValue(newval);
     }
 
+    public static YFunction FindFunction(String func)
+    {
+        return YFunction.FindFunction(func);
+    }
 
+    public int muteValueCallbacks() throws YAPI_Exception
+    {
+        return _yfunction.muteValueCallbacks();
+    }
 
+    public int unmuteValueCallbacks() throws YAPI_Exception
+    {
+        return _yfunction.unmuteValueCallbacks();
+    }
+
+//--- (end of generated code: YFunction class start)
 
 }
 

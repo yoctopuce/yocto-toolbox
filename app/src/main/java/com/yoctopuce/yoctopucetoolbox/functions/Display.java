@@ -1,46 +1,45 @@
 /*********************************************************************
- *
- * $Id: Display.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Display.java 26331 2017-01-11 16:50:06Z seb $
  *
  * Implements Display wrapper for Android toolbox
  *
- * - - - - - - - - - License information: - - - - - - - - - 
+ * - - - - - - - - - License information: - - - - - - - - -
  *
- *  Copyright (C) 2011 and beyond by Yoctopuce Sarl, Switzerland.
+ * Copyright (C) 2011 and beyond by Yoctopuce Sarl, Switzerland.
  *
- *  Yoctopuce Sarl (hereafter Licensor) grants to you a perpetual
- *  non-exclusive license to use, modify, copy and integrate this
- *  file into your software for the sole purpose of interfacing
- *  with Yoctopuce products.
+ * Yoctopuce Sarl (hereafter Licensor) grants to you a perpetual
+ * non-exclusive license to use, modify, copy and integrate this
+ * file into your software for the sole purpose of interfacing
+ * with Yoctopuce products.
  *
- *  You may reproduce and distribute copies of this file in
- *  source or object form, as long as the sole purpose of this
- *  code is to interface with Yoctopuce products. You must retain
- *  this notice in the distributed source file.
+ * You may reproduce and distribute copies of this file in
+ * source or object form, as long as the sole purpose of this
+ * code is to interface with Yoctopuce products. You must retain
+ * this notice in the distributed source file.
  *
- *  You should refer to Yoctopuce General Terms and Conditions
- *  for additional information regarding your rights and
- *  obligations.
+ * You should refer to Yoctopuce General Terms and Conditions
+ * for additional information regarding your rights and
+ * obligations.
  *
- *  THE SOFTWARE AND DOCUMENTATION ARE PROVIDED 'AS IS' WITHOUT
- *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING 
- *  WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, FITNESS
- *  FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO
- *  EVENT SHALL LICENSOR BE LIABLE FOR ANY INCIDENTAL, SPECIAL,
- *  INDIRECT OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA,
- *  COST OF PROCUREMENT OF SUBSTITUTE GOODS, TECHNOLOGY OR 
- *  SERVICES, ANY CLAIMS BY THIRD PARTIES (INCLUDING BUT NOT 
- *  LIMITED TO ANY DEFENSE THEREOF), ANY CLAIMS FOR INDEMNITY OR
- *  CONTRIBUTION, OR OTHER SIMILAR COSTS, WHETHER ASSERTED ON THE
- *  BASIS OF CONTRACT, TORT (INCLUDING NEGLIGENCE), BREACH OF
- *  WARRANTY, OR OTHERWISE.
- *
+ * THE SOFTWARE AND DOCUMENTATION ARE PROVIDED 'AS IS' WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING
+ * WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO
+ * EVENT SHALL LICENSOR BE LIABLE FOR ANY INCIDENTAL, SPECIAL,
+ * INDIRECT OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA,
+ * COST OF PROCUREMENT OF SUBSTITUTE GOODS, TECHNOLOGY OR
+ * SERVICES, ANY CLAIMS BY THIRD PARTIES (INCLUDING BUT NOT
+ * LIMITED TO ANY DEFENSE THEREOF), ANY CLAIMS FOR INDEMNITY OR
+ * CONTRIBUTION, OR OTHER SIMILAR COSTS, WHETHER ASSERTED ON THE
+ * BASIS OF CONTRACT, TORT (INCLUDING NEGLIGENCE), BREACH OF
+ * WARRANTY, OR OTHERWISE.
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YDisplay;
+import com.yoctopuce.YoctoAPI.YDisplayLayer;
 
 //--- (generated code: YDisplay class start)
 /**
@@ -294,6 +293,83 @@ public class Display extends Function
         _ydisplay.set_command(newval);
     }
 
+    public static YDisplay FindDisplay(String func)
+    {
+        return YDisplay.FindDisplay(func);
+    }
+
+    public int resetAll() throws YAPI_Exception
+    {
+        return _ydisplay.resetAll();
+    }
+
+    public int fade(int brightness, int duration) throws YAPI_Exception
+    {
+        return _ydisplay.fade(brightness, duration);
+    }
+
+    public int newSequence() throws YAPI_Exception
+    {
+        return _ydisplay.newSequence();
+    }
+
+    public int saveSequence(String sequenceName) throws YAPI_Exception
+    {
+        return _ydisplay.saveSequence(sequenceName);
+    }
+
+    public int playSequence(String sequenceName) throws YAPI_Exception
+    {
+        return _ydisplay.playSequence(sequenceName);
+    }
+
+    public int pauseSequence(int delay_ms) throws YAPI_Exception
+    {
+        return _ydisplay.pauseSequence(delay_ms);
+    }
+
+    public int stopSequence() throws YAPI_Exception
+    {
+        return _ydisplay.stopSequence();
+    }
+
+    public int upload(String pathname, byte[] content) throws YAPI_Exception
+    {
+        return _ydisplay.upload(pathname, content);
+    }
+
+    public int copyLayerContent(int srcLayerId, int dstLayerId) throws YAPI_Exception
+    {
+        return _ydisplay.copyLayerContent(srcLayerId, dstLayerId);
+    }
+
+    public int swapLayerContent(int layerIdA, int layerIdB) throws YAPI_Exception
+    {
+        return _ydisplay.swapLayerContent(layerIdA, layerIdB);
+    }
+
 //--- (end of generated code: YDisplay class start)
+
+
+    public synchronized YDisplayLayer get_displayLayer(int layerId) throws YAPI_Exception
+    {
+
+        return _ydisplay.get_displayLayer(layerId);
+    }
+
+    public synchronized int flushLayers() throws YAPI_Exception
+    {
+        return _ydisplay.flushLayers();
+    }
+
+    public synchronized void resetHiddenLayerFlags()
+    {
+        _ydisplay.resetHiddenLayerFlags();
+    }
+
+    public synchronized int sendCommand(String cmd) throws YAPI_Exception
+    {
+        return _ydisplay.sendCommand(cmd);
+    }
 }
 

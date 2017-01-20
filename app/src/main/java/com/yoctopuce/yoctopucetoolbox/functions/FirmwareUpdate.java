@@ -38,7 +38,10 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
+import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YFirmwareUpdate;
+
+import java.util.ArrayList;
 
 //--- (generated code: YFirmwareUpdate class start)
 /**
@@ -51,14 +54,6 @@ import com.yoctopuce.YoctoAPI.YFirmwareUpdate;
  @SuppressWarnings("UnusedDeclaration")
 public class FirmwareUpdate
 {
-// serial
-// settings
-// firmwarepath
-// progress_msg
-// progress_c
-// progress
-// restore_step
-// force
 //--- (end of generated code: YFirmwareUpdate class start)
 
 }

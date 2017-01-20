@@ -9,16 +9,11 @@
         android:orientation="vertical"
         android:padding="0dp">
 
-        <TextView
-            android:text="@string/kernel"
-            style="@style/detail_section"/>
-
-
         <include layout="@layout/detail_layout_generic_module"/>
 
         <TextView
-            android:text="@string/hub_ports"
-            style="@style/detail_section"/>
+            style="@style/detail_section"
+            android:text="@string/hub_ports"/>
 
         <GridLayout
             android:layout_width="match_parent"
@@ -38,7 +33,7 @@
                 android:layout_gravity="fill_horizontal"
                 tools:text="RUN : RELAYLO1-1A62C"/>
 
-            <com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch
+            <Switch
                 android:id="@+id/port1_switch"/>
 
             <TextView
@@ -49,7 +44,7 @@
                 android:layout_gravity="fill_horizontal"
                 tools:text="RUN : RELAYLO1-1A62C"/>
 
-            <com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch
+            <Switch
                 android:id="@+id/port2_switch"/>
 
             <TextView
@@ -60,7 +55,7 @@
                 android:layout_gravity="fill_horizontal"
                 tools:text="RUN : RELAYLO1-1A62C"/>
 
-            <com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch
+            <Switch
                 android:id="@+id/port3_switch"/>
 
             <TextView
@@ -71,7 +66,7 @@
                 android:layout_gravity="fill_horizontal"
                 tools:text="RUN : RELAYLO1-1A62C"/>
 
-            <com.yoctopuce.yoctopucetoolbox.widget.CustomSwitch
+            <Switch
                 android:id="@+id/port4_switch"/>
 
         </GridLayout>

@@ -43,8 +43,8 @@ public class DetailYoctoVoltFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _voltageDC = new Voltage(_serial + ".voltage1");
-        _voltageAC = new Voltage(_serial + ".voltage2");
+        _voltageDC = new Voltage(_argSerial + ".voltage1");
+        _voltageAC = new Voltage(_argSerial + ".voltage2");
         _curDCTextView = (TextView) rootView.findViewById(R.id.current_value_dc);
         _curACTextView = (TextView) rootView.findViewById(R.id.current_value_ac);
         _minDCTextView = (TextView) rootView.findViewById(R.id.min_value_dc);
@@ -55,9 +55,9 @@ public class DetailYoctoVoltFragment extends DetailGenericModuleFragment
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         _curDCTextView.setText(Double.toString(_voltageDC.getCurrentValue()) + " V");
         _curACTextView.setText(Double.toString(_voltageAC.getHighestValue()) + " V");
         _minDCTextView.setText(Double.toString(_voltageDC.getLowestValue()) + " V");

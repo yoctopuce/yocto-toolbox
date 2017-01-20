@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Motor.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements Motor wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YMotor;
 
@@ -364,6 +364,31 @@ public class Motor extends Function
     {
         _command = newval;
         _ymotor.set_command(newval);
+    }
+
+    public static YMotor FindMotor(String func)
+    {
+        return YMotor.FindMotor(func);
+    }
+
+    public int keepALive() throws YAPI_Exception
+    {
+        return _ymotor.keepALive();
+    }
+
+    public int resetStatus() throws YAPI_Exception
+    {
+        return _ymotor.resetStatus();
+    }
+
+    public int drivingForceMove(double targetPower, int delay) throws YAPI_Exception
+    {
+        return _ymotor.drivingForceMove(targetPower, delay);
+    }
+
+    public int brakingForceMove(double targetPower, int delay) throws YAPI_Exception
+    {
+        return _ymotor.brakingForceMove(targetPower, delay);
     }
 
 //--- (end of YMotor class start)

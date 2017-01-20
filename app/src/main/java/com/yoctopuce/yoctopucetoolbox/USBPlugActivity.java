@@ -7,6 +7,8 @@ import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 
 import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.yoctopucetoolbox.hub.Hub;
+import com.yoctopuce.yoctopucetoolbox.hub.HubStorage;
 
 public class USBPlugActivity extends Activity
 {
@@ -24,9 +26,12 @@ public class USBPlugActivity extends Activity
                 finish();
                 return;
             }
-            Intent usbListIntent = ModuleListActivity.intentWithParams(this, "usb");
-            startActivity(usbListIntent);
-
+            final HubStorage hubStorage = HubStorage.get(this);
+            final Hub pseudoHub = hubStorage.getUsbPseudoHub();
+            if (pseudoHub != null) {
+                Intent usbListIntent = ModuleListActivity.intentWithParams(this, pseudoHub.getUuid());
+                startActivity(usbListIntent);
+            }
         }
     }
 }

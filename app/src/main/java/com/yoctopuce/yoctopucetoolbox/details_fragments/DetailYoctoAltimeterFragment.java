@@ -57,9 +57,9 @@ public class DetailYoctoAltimeterFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _temperature = new Temperature(_serial + ".temperature");
-        _altitude = new Altitude(_serial + ".altitude");
-        _pressure = new Pressure(_serial + ".pressure");
+        _temperature = new Temperature(_argSerial + ".temperature");
+        _altitude = new Altitude(_argSerial + ".altitude");
+        _pressure = new Pressure(_argSerial + ".pressure");
         _tempCurTextView = (TextView) rootView.findViewById(R.id.temp_cur);
         _tempMaxTextView = (TextView) rootView.findViewById(R.id.temp_max);
         _tempMinTextView = (TextView) rootView.findViewById(R.id.temp_min);
@@ -73,11 +73,11 @@ public class DetailYoctoAltimeterFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         Locale locale = Locale.US;
-        updateUI_temperature(_temperature, _tempCurTextView, _tempMaxTextView, _tempMinTextView);
+        com.yoctopuce.yoctopucetoolbox.misc.MiscHelper.updateUI_temperature(_temperature, _tempCurTextView, _tempMaxTextView, _tempMinTextView);
         _altCurTextView.setText(String.format(locale, "%s m", Double.toString(_altitude.getCurrentValue())));
         _altMaxTextView.setText(String.format(locale, "%s m", Double.toString(_altitude.getHighestValue())));
         _altMinTextView.setText(String.format(locale, "%s m", Double.toString(_altitude.getLowestValue())));

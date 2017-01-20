@@ -14,6 +14,7 @@ import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.Current;
 import com.yoctopuce.yoctopucetoolbox.functions.Power;
 import com.yoctopuce.yoctopucetoolbox.functions.Voltage;
+import com.yoctopuce.yoctopucetoolbox.misc.MiscHelper;
 
 import java.util.Locale;
 
@@ -61,11 +62,11 @@ public class DetailYoctoWattFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _power = new Power(_serial + ".power");
-        _voltageDC = new Voltage(_serial + ".voltage1");
-        _voltageAC = new Voltage(_serial + ".voltage2");
-        _currentDC = new Current(_serial + ".current1");
-        _currentAC = new Current(_serial + ".current2");
+        _power = new Power(_argSerial + ".power");
+        _voltageDC = new Voltage(_argSerial + ".voltage1");
+        _voltageAC = new Voltage(_argSerial + ".voltage2");
+        _currentDC = new Current(_argSerial + ".current1");
+        _currentAC = new Current(_argSerial + ".current2");
         _voltDCTextView = (TextView) rootView.findViewById(R.id.volt_dc);
         _voltACTextView = (TextView) rootView.findViewById(R.id.volt_ac);
         _ampDCTextView = (TextView) rootView.findViewById(R.id.amp_dc);
@@ -99,9 +100,9 @@ public class DetailYoctoWattFragment extends DetailGenericModuleFragment
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         Locale locale = Locale.US;
 
         _voltDCTextView.setText(String.format(locale, "%s %s", Double.toString(_voltageDC.getCurrentValue()), _voltageDC.getUnit()));
@@ -110,8 +111,8 @@ public class DetailYoctoWattFragment extends DetailGenericModuleFragment
         _ampACTextView.setText(String.format(locale, "%s %s", Double.toString(_currentAC.getCurrentValue()), _currentAC.getUnit()));
 
         double powerResolution = _power.getResolution();
-        _powerTextView.setText(String.format(locale, "%s W", Double.toString(applyResolution(_power.getCurrentValue(), powerResolution))));
-        _energy.setText(String.format(locale, "%s Wh", Double.toString(applyResolution(_power.getMeter(), powerResolution))));
+        _powerTextView.setText(String.format(locale, "%s W", Double.toString(com.yoctopuce.yoctopucetoolbox.misc.MiscHelper.applyResolution(_power.getCurrentValue(), powerResolution))));
+        _energy.setText(String.format(locale, "%s Wh", Double.toString(MiscHelper.applyResolution(_power.getMeter(), powerResolution))));
         int s = _power.getMeterTimer();
         String t = "";
         boolean c = false;

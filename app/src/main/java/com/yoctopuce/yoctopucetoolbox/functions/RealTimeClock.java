@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: RealTimeClock.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements RealTimeClock wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YRealTimeClock;
 
@@ -159,6 +159,11 @@ public class RealTimeClock extends Function
     public int getTimeSet()
     {
         return _timeSet;
+    }
+
+    public static YRealTimeClock FindRealTimeClock(String func)
+    {
+        return YRealTimeClock.FindRealTimeClock(func);
     }
 
 //--- (end of YRealTimeClock class start)

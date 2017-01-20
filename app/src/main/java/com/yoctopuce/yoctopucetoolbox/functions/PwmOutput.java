@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: PwmOutput.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements PwmOutput wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YPwmOutput;
 
@@ -291,6 +291,21 @@ public class PwmOutput extends Function
     public double getDutyCycleAtPowerOn()
     {
         return _dutyCycleAtPowerOn;
+    }
+
+    public static YPwmOutput FindPwmOutput(String func)
+    {
+        return YPwmOutput.FindPwmOutput(func);
+    }
+
+    public int pulseDurationMove(double ms_target, int ms_duration) throws YAPI_Exception
+    {
+        return _ypwmoutput.pulseDurationMove(ms_target, ms_duration);
+    }
+
+    public int dutyCycleMove(double target, int ms_duration) throws YAPI_Exception
+    {
+        return _ypwmoutput.dutyCycleMove(target, ms_duration);
     }
 
 //--- (end of YPwmOutput class start)

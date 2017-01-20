@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: SpiPort.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements SpiPort wrapper for Android toolbox
  *
@@ -38,9 +38,10 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YSpiPort;
+import java.util.ArrayList;
 
 //--- (YSpiPort class start)
 /**
@@ -405,6 +406,121 @@ public class SpiPort extends Function
     {
         _shitftSampling = newval;
         _yspiport.set_shitftSampling(newval);
+    }
+
+    public static YSpiPort FindSpiPort(String func)
+    {
+        return YSpiPort.FindSpiPort(func);
+    }
+
+    public int sendCommand(String text) throws YAPI_Exception
+    {
+        return _yspiport.sendCommand(text);
+    }
+
+    public int reset() throws YAPI_Exception
+    {
+        return _yspiport.reset();
+    }
+
+    public int writeByte(int code) throws YAPI_Exception
+    {
+        return _yspiport.writeByte(code);
+    }
+
+    public int writeStr(String text) throws YAPI_Exception
+    {
+        return _yspiport.writeStr(text);
+    }
+
+    public int writeBin(byte[] buff) throws YAPI_Exception
+    {
+        return _yspiport.writeBin(buff);
+    }
+
+    public int writeArray(ArrayList<Integer> byteList) throws YAPI_Exception
+    {
+        return _yspiport.writeArray(byteList);
+    }
+
+    public int writeHex(String hexString) throws YAPI_Exception
+    {
+        return _yspiport.writeHex(hexString);
+    }
+
+    public int writeLine(String text) throws YAPI_Exception
+    {
+        return _yspiport.writeLine(text);
+    }
+
+    public int readByte() throws YAPI_Exception
+    {
+        return _yspiport.readByte();
+    }
+
+    public String readStr(int nChars) throws YAPI_Exception
+    {
+        return _yspiport.readStr(nChars);
+    }
+
+    public byte[] readBin(int nChars) throws YAPI_Exception
+    {
+        return _yspiport.readBin(nChars);
+    }
+
+    public ArrayList<Integer> readArray(int nChars) throws YAPI_Exception
+    {
+        return _yspiport.readArray(nChars);
+    }
+
+    public String readHex(int nBytes) throws YAPI_Exception
+    {
+        return _yspiport.readHex(nBytes);
+    }
+
+    public String readLine() throws YAPI_Exception
+    {
+        return _yspiport.readLine();
+    }
+
+    public ArrayList<String> readMessages(String pattern, int maxWait) throws YAPI_Exception
+    {
+        return _yspiport.readMessages(pattern, maxWait);
+    }
+
+    public int read_seek(int absPos)
+    {
+        return _yspiport.read_seek(absPos);
+    }
+
+    public int read_tell()
+    {
+        return _yspiport.read_tell();
+    }
+
+    public int read_avail() throws YAPI_Exception
+    {
+        return _yspiport.read_avail();
+    }
+
+    public String queryLine(String query, int maxWait) throws YAPI_Exception
+    {
+        return _yspiport.queryLine(query, maxWait);
+    }
+
+    public int uploadJob(String jobfile, String jsonDef) throws YAPI_Exception
+    {
+        return _yspiport.uploadJob(jobfile, jsonDef);
+    }
+
+    public int selectJob(String jobfile) throws YAPI_Exception
+    {
+        return _yspiport.selectJob(jobfile);
+    }
+
+    public int set_SS(int val) throws YAPI_Exception
+    {
+        return _yspiport.set_SS(val);
     }
 
 //--- (end of YSpiPort class start)

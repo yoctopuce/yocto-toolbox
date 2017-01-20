@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Qt.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Qt.java 26143 2016-12-02 16:58:26Z seb $
  *
  * Implements Qt wrapper for Android toolbox
  *
@@ -71,6 +71,11 @@ public class Qt extends Sensor
     {
         super.reloadBg();
     }
+    public static YQt FindQt(String func)
+    {
+        return YQt.FindQt(func);
+    }
+
 //--- (end of generated code: YQt class start)
 }
 

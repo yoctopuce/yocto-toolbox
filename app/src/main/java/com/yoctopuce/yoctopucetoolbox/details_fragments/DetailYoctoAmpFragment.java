@@ -42,8 +42,8 @@ public class DetailYoctoAmpFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _currentDC = new Current(_serial + ".current1");
-        _currentAC = new Current(_serial + ".current2");
+        _currentDC = new Current(_argSerial + ".current1");
+        _currentAC = new Current(_argSerial + ".current2");
         _curDCTextView = (TextView) rootView.findViewById(R.id.current_value_dc);
         _curACTextView = (TextView) rootView.findViewById(R.id.current_value_ac);
         _minDCTextView = (TextView) rootView.findViewById(R.id.min_value_dc);
@@ -53,9 +53,9 @@ public class DetailYoctoAmpFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         _curDCTextView.setText(Double.toString(_currentDC.getCurrentValue())+" "+_currentDC.getUnit());
         _curACTextView.setText(Double.toString(_currentAC.getHighestValue())+" "+_currentAC.getUnit());
         _minDCTextView.setText(Double.toString(_currentDC.getLowestValue())+" "+_currentDC.getUnit());

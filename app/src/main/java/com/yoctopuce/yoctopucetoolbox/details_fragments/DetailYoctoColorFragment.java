@@ -35,9 +35,9 @@ public class DetailYoctoColorFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         // todo: implement stub
     }
 }

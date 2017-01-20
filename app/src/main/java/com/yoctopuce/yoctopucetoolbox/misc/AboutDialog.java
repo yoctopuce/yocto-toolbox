@@ -1,5 +1,6 @@
 package com.yoctopuce.yoctopucetoolbox.misc;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -65,7 +66,7 @@ public class AboutDialog extends DialogFragment {
 
         LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        TextView aboutBodyView = (TextView) layoutInflater.inflate(R.layout.about, null);
+        @SuppressLint("InflateParams") TextView aboutBodyView = (TextView) layoutInflater.inflate(R.layout.about, null);
         aboutBodyView.setText(aboutBody);
         aboutBodyView.setMovementMethod(new LinkMovementMethod());
 

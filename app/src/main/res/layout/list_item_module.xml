@@ -13,7 +13,7 @@
     tools:context=".HubListActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/icon"
         android:src="@drawable/yocto_circle_40_dp"
         android:layout_width="@dimen/hub_list_item_icon_size"
         android:layout_height="@dimen/hub_list_item_icon_size"
@@ -43,8 +43,8 @@
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/imageView"
-        android:layout_toRightOf="@id/imageView"
+        android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"
         tools:text="YoctoHub-Ethernet" />
 
     <TextView
@@ -54,8 +54,8 @@
         android:fontFamily="sans-serif"
         android:textSize="14sp"
         android:layout_below="@id/product_name"
-        android:layout_toEndOf="@id/imageView"
-        android:layout_toRightOf="@id/imageView"
+        android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"
         tools:text="YHUBETH1-4C147" />
 
 

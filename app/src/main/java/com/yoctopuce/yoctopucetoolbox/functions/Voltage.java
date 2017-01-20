@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Voltage.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Voltage.java 26403 2017-01-16 17:29:21Z seb $
  *
  * Implements Voltage wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YVoltage;
 
@@ -55,6 +55,7 @@ public class Voltage extends Sensor
 {
 // valueCallbackVoltage
 // timedReportCallbackVoltage
+    protected int _enabled =  YVoltage.ENABLED_INVALID;
     protected YVoltage _yvoltage;
 
     public Voltage(YVoltage yfunc)
@@ -71,7 +72,24 @@ public class Voltage extends Sensor
     public void reloadBg () throws YAPI_Exception
     {
         super.reloadBg();
+        _enabled = _yvoltage.get_enabled();
     }
+    public int getEnabled()
+    {
+        return _enabled;
+    }
+
+    public void setEnabledBg(int newval) throws YAPI_Exception
+    {
+        _enabled = newval;
+        _yvoltage.set_enabled(newval);
+    }
+
+    public static YVoltage FindVoltage(String func)
+    {
+        return YVoltage.FindVoltage(func);
+    }
+
 //--- (end of YVoltage class start)
 }
 

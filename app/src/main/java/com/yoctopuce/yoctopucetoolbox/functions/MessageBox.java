@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: MessageBox.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: MessageBox.java 26143 2016-12-02 16:58:26Z seb $
  *
  * Implements MessageBox wrapper for Android toolbox
  *
@@ -184,6 +184,81 @@ public class MessageBox extends Function
     {
         _command = newval;
         _ymessagebox.set_command(newval);
+    }
+
+    public static YMessageBox FindMessageBox(String func)
+    {
+        return YMessageBox.FindMessageBox(func);
+    }
+
+    public int nextMsgRef()
+    {
+        return _ymessagebox.nextMsgRef();
+    }
+
+    public int clearSIMSlot(int slot) throws YAPI_Exception
+    {
+        return _ymessagebox.clearSIMSlot(slot);
+    }
+
+    public YSms fetchPdu(int slot) throws YAPI_Exception
+    {
+        return _ymessagebox.fetchPdu(slot);
+    }
+
+    public int initGsm2Unicode()
+    {
+        return _ymessagebox.initGsm2Unicode();
+    }
+
+    public ArrayList<Integer> gsm2unicode(byte[] gsm)
+    {
+        return _ymessagebox.gsm2unicode(gsm);
+    }
+
+    public String gsm2str(byte[] gsm)
+    {
+        return _ymessagebox.gsm2str(gsm);
+    }
+
+    public byte[] str2gsm(String msg)
+    {
+        return _ymessagebox.str2gsm(msg);
+    }
+
+    public int checkNewMessages() throws YAPI_Exception
+    {
+        return _ymessagebox.checkNewMessages();
+    }
+
+    public ArrayList<YSms> get_pdus() throws YAPI_Exception
+    {
+        return _ymessagebox.get_pdus();
+    }
+
+    public int clearPduCounters() throws YAPI_Exception
+    {
+        return _ymessagebox.clearPduCounters();
+    }
+
+    public int sendTextMessage(String recipient, String message) throws YAPI_Exception
+    {
+        return _ymessagebox.sendTextMessage(recipient, message);
+    }
+
+    public int sendFlashMessage(String recipient, String message) throws YAPI_Exception
+    {
+        return _ymessagebox.sendFlashMessage(recipient, message);
+    }
+
+    public YSms newMessage(String recipient) throws YAPI_Exception
+    {
+        return _ymessagebox.newMessage(recipient);
+    }
+
+    public ArrayList<YSms> get_messages() throws YAPI_Exception
+    {
+        return _ymessagebox.get_messages();
     }
 
 //--- (end of generated code: YMessageBox class start)

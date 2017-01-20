@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Network.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements Network wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YNetwork;
 
@@ -708,6 +708,31 @@ public class Network extends Function
     public int getPoeCurrent()
     {
         return _poeCurrent;
+    }
+
+    public static YNetwork FindNetwork(String func)
+    {
+        return YNetwork.FindNetwork(func);
+    }
+
+    public int useDHCP(String fallbackIpAddr, int fallbackSubnetMaskLen, String fallbackRouter) throws YAPI_Exception
+    {
+        return _ynetwork.useDHCP(fallbackIpAddr, fallbackSubnetMaskLen, fallbackRouter);
+    }
+
+    public int useStaticIP(String ipAddress, int subnetMaskLen, String router) throws YAPI_Exception
+    {
+        return _ynetwork.useStaticIP(ipAddress, subnetMaskLen, router);
+    }
+
+    public String ping(String host) throws YAPI_Exception
+    {
+        return _ynetwork.ping(host);
+    }
+
+    public int triggerCallback() throws YAPI_Exception
+    {
+        return _ynetwork.triggerCallback();
     }
 
 //--- (end of YNetwork class start)

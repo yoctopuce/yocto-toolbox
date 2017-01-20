@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: RefFrame.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements RefFrame wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YRefFrame;
 import java.util.ArrayList;
@@ -163,6 +163,101 @@ public class RefFrame extends Function
     {
         _calibrationParam = newval;
         _yrefframe.set_calibrationParam(newval);
+    }
+
+    public static YRefFrame FindRefFrame(String func)
+    {
+        return YRefFrame.FindRefFrame(func);
+    }
+
+    public YRefFrame.MOUNTPOSITION get_mountPosition() throws YAPI_Exception
+    {
+        return _yrefframe.get_mountPosition();
+    }
+
+    public YRefFrame.MOUNTORIENTATION get_mountOrientation() throws YAPI_Exception
+    {
+        return _yrefframe.get_mountOrientation();
+    }
+
+    public int set_mountPosition(YRefFrame.MOUNTPOSITION position, YRefFrame.MOUNTORIENTATION orientation) throws YAPI_Exception
+    {
+        return _yrefframe.set_mountPosition(position, orientation);
+    }
+
+    public int get_calibrationState() throws YAPI_Exception
+    {
+        return _yrefframe.get_calibrationState();
+    }
+
+    public int get_measureQuality() throws YAPI_Exception
+    {
+        return _yrefframe.get_measureQuality();
+    }
+
+    public int start3DCalibration() throws YAPI_Exception
+    {
+        return _yrefframe.start3DCalibration();
+    }
+
+    public int more3DCalibration() throws YAPI_Exception
+    {
+        return _yrefframe.more3DCalibration();
+    }
+
+    public int more3DCalibrationV1() throws YAPI_Exception
+    {
+        return _yrefframe.more3DCalibrationV1();
+    }
+
+    public int more3DCalibrationV2() throws YAPI_Exception
+    {
+        return _yrefframe.more3DCalibrationV2();
+    }
+
+    public String get_3DCalibrationHint()
+    {
+        return _yrefframe.get_3DCalibrationHint();
+    }
+
+    public int get_3DCalibrationProgress()
+    {
+        return _yrefframe.get_3DCalibrationProgress();
+    }
+
+    public int get_3DCalibrationStage()
+    {
+        return _yrefframe.get_3DCalibrationStage();
+    }
+
+    public int get_3DCalibrationStageProgress()
+    {
+        return _yrefframe.get_3DCalibrationStageProgress();
+    }
+
+    public String get_3DCalibrationLogMsg()
+    {
+        return _yrefframe.get_3DCalibrationLogMsg();
+    }
+
+    public int save3DCalibration() throws YAPI_Exception
+    {
+        return _yrefframe.save3DCalibration();
+    }
+
+    public int save3DCalibrationV1() throws YAPI_Exception
+    {
+        return _yrefframe.save3DCalibrationV1();
+    }
+
+    public int save3DCalibrationV2() throws YAPI_Exception
+    {
+        return _yrefframe.save3DCalibrationV2();
+    }
+
+    public int cancel3DCalibration() throws YAPI_Exception
+    {
+        return _yrefframe.cancel3DCalibration();
     }
 
 //--- (end of YRefFrame class start)

@@ -2,6 +2,7 @@ package com.yoctopuce.yoctopucetoolbox.service;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.yoctopuce.YoctoAPI.YAPI;
@@ -16,6 +17,8 @@ import com.yoctopuce.yoctopucetoolbox.functions.Module;
 class WorkerThread extends Thread implements YAPI.DeviceArrivalCallback, YAPI.DeviceRemovalCallback
 {
     private static final String TAG = "WThread";
+    public static final String ACTION_IO_ERROR = "com.yoctopuce.yoctopucetoolbox.service.WorkerThread.ACTION_IO_ERROR";
+    public static final String EXTRA_ERROR_MESSAGE = "EXTRA_ERROR_MESSAGE";
     @SuppressLint("StaticFieldLeak")
     private static WorkerThread __instance;
     private static int __instanceUsage;
@@ -32,8 +35,8 @@ class WorkerThread extends Thread implements YAPI.DeviceArrivalCallback, YAPI.De
 
         Log.d(TAG, String.format("Start usage (count was %d)", __instanceUsage));
         if (__instance != null && !hubsURL.equals(__instance._hubURL)) {
-            // todo: stop previous thread
-            Log.e(TAG, "multiples url not yet supporte");
+            Log.e(TAG, "multiples hub not yet supported");
+            __instance.reportFatalError("multiples hub are not yet supported");
         }
 
         if (__instance == null) {
@@ -99,11 +102,18 @@ class WorkerThread extends Thread implements YAPI.DeviceArrivalCallback, YAPI.De
                 YAPI.Sleep(1000);
             }
         } catch (YAPI_Exception e) {
-            // todo: report IO error on UI thread
             e.printStackTrace();
+            reportFatalError(e.getLocalizedMessage());
         }
         YAPI.UnregisterHub(_hubURL);
         _modulesCache.resetCache();
+    }
+
+    private void reportFatalError(String message)
+    {
+        Intent intentUpdate = new Intent(ACTION_IO_ERROR);
+        intentUpdate.putExtra(EXTRA_ERROR_MESSAGE, message);
+        _appContext.sendBroadcast(intentUpdate);
     }
 
     @Override

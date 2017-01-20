@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Temperature.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements Temperature wrapper for Android toolbox
  *
@@ -38,9 +38,10 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YTemperature;
+import java.util.ArrayList;
 
 //--- (YTemperature class start)
 /**
@@ -177,6 +178,26 @@ public class Temperature extends Sensor
     {
         _command = newval;
         _ytemperature.set_command(newval);
+    }
+
+    public static YTemperature FindTemperature(String func)
+    {
+        return YTemperature.FindTemperature(func);
+    }
+
+    public int set_ntcParameters(double res25, double beta) throws YAPI_Exception
+    {
+        return _ytemperature.set_ntcParameters(res25, beta);
+    }
+
+    public int set_thermistorResponseTable(ArrayList<Double> tempValues, ArrayList<Double> resValues) throws YAPI_Exception
+    {
+        return _ytemperature.set_thermistorResponseTable(tempValues, resValues);
+    }
+
+    public int loadThermistorResponseTable(ArrayList<Double> tempValues, ArrayList<Double> resValues) throws YAPI_Exception
+    {
+        return _ytemperature.loadThermistorResponseTable(tempValues, resValues);
     }
 
 //--- (end of YTemperature class start)

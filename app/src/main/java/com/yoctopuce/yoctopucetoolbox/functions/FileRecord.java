@@ -49,9 +49,6 @@ import com.yoctopuce.YoctoAPI.YFileRecord;
  @SuppressWarnings("UnusedDeclaration")
 public class FileRecord
 {
-// name
-// size
-// crc
 //--- (end of generated code: YFileRecord class start)
 }
 

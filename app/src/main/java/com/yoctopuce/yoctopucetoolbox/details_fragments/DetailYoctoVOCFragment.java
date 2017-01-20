@@ -48,7 +48,7 @@ public class DetailYoctoVOCFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _voc = new Voc(_serial + ".voc");
+        _voc = new Voc(_argSerial + ".voc");
         _currentTextView = (TextView) rootView.findViewById(R.id.current_value);
         _maxTextView = (TextView) rootView.findViewById(R.id.max_value);
         _minTextView = (TextView) rootView.findViewById(R.id.min_value);
@@ -59,9 +59,9 @@ public class DetailYoctoVOCFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
 
         long upTime = _module.getUpTime() / 1000;
         Locale locale = Locale.US;

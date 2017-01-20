@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: DigitalIO.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements DigitalIO wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YDigitalIO;
 
@@ -258,6 +258,66 @@ public class DigitalIO extends Function
     {
         _command = newval;
         _ydigitalio.set_command(newval);
+    }
+
+    public static YDigitalIO FindDigitalIO(String func)
+    {
+        return YDigitalIO.FindDigitalIO(func);
+    }
+
+    public int set_bitState(int bitno, int bitstate) throws YAPI_Exception
+    {
+        return _ydigitalio.set_bitState(bitno, bitstate);
+    }
+
+    public int get_bitState(int bitno) throws YAPI_Exception
+    {
+        return _ydigitalio.get_bitState(bitno);
+    }
+
+    public int toggle_bitState(int bitno) throws YAPI_Exception
+    {
+        return _ydigitalio.toggle_bitState(bitno);
+    }
+
+    public int set_bitDirection(int bitno, int bitdirection) throws YAPI_Exception
+    {
+        return _ydigitalio.set_bitDirection(bitno, bitdirection);
+    }
+
+    public int get_bitDirection(int bitno) throws YAPI_Exception
+    {
+        return _ydigitalio.get_bitDirection(bitno);
+    }
+
+    public int set_bitPolarity(int bitno, int bitpolarity) throws YAPI_Exception
+    {
+        return _ydigitalio.set_bitPolarity(bitno, bitpolarity);
+    }
+
+    public int get_bitPolarity(int bitno) throws YAPI_Exception
+    {
+        return _ydigitalio.get_bitPolarity(bitno);
+    }
+
+    public int set_bitOpenDrain(int bitno, int opendrain) throws YAPI_Exception
+    {
+        return _ydigitalio.set_bitOpenDrain(bitno, opendrain);
+    }
+
+    public int get_bitOpenDrain(int bitno) throws YAPI_Exception
+    {
+        return _ydigitalio.get_bitOpenDrain(bitno);
+    }
+
+    public int pulse(int bitno, int ms_duration) throws YAPI_Exception
+    {
+        return _ydigitalio.pulse(bitno, ms_duration);
+    }
+
+    public int delayedPulse(int bitno, int ms_delay, int ms_duration) throws YAPI_Exception
+    {
+        return _ydigitalio.delayedPulse(bitno, ms_delay, ms_duration);
     }
 
 //--- (end of YDigitalIO class start)

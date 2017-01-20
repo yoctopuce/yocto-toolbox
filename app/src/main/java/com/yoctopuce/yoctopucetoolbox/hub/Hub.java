@@ -6,23 +6,45 @@ import java.util.UUID;
 public class Hub
 {
     private final UUID _uuid;
+    private final boolean _isUSB;
+    private String _name;
     private String _host;
     private int _port;
     private String _user;
     private String _pass;
-    private final String _serial;
+    private String _serial;
+    private boolean _beacon = false;
+    private boolean _online = false;
 
 
-    public Hub()
+    public Hub(boolean isUSB)
     {
-        _serial = "USB";
-        _host = "usb";
+        _isUSB = isUSB;
+        _name = "";
+        if (_isUSB) {
+            _serial = "USB";
+            _host = "usb";
+        } else {
+            _port = 4444;
+            _host = "";
+            _user = "";
+            _pass = "";
+            _serial = "";
+        }
         _uuid = UUID.randomUUID();
     }
 
-    public Hub(String serial, String url)
+    public boolean isUSB()
     {
+        return _isUSB;
+    }
+
+    public Hub(String serial, String name, boolean beacon, String url)
+    {
+        _isUSB = false;
         _uuid = UUID.randomUUID();
+        _name = name;
+        _beacon = beacon;
         _serial = serial;
         if (url.startsWith("http://")) {
             url = url.substring(7);
@@ -61,14 +83,16 @@ public class Hub
         }
     }
 
-    public Hub(UUID uuid, String serial, String host, int port, String user, String pass)
+    public Hub(UUID uuid, String serial, String name, String host, int port, String user, String pass)
     {
         _uuid = uuid;
         _serial = serial;
+        _name = name;
         _host = host;
         _port = port;
         _user = user;
         _pass = pass;
+        _isUSB = false;
     }
 
     public UUID getUuid()
@@ -121,14 +145,19 @@ public class Hub
         return _serial;
     }
 
-    public void setUrl(String url)
+    public String getDescription()
     {
-
+        if (_name.length() == 0) {
+            return _serial;
+        } else {
+            return String.format(Locale.US, "%s (%s)", _name, _serial);
+        }
     }
+
 
     public String getUrl()
     {
-        if (_serial.equals("USB")){
+        if (_isUSB) {
             return "usb";
         }
         if (_user.length() > 0) {
@@ -137,5 +166,40 @@ public class Hub
             return String.format(Locale.US, "%s:%d", _host, _port);
 
         }
+    }
+
+    public void setSerial(String serial)
+    {
+        _serial = serial;
+    }
+
+    public boolean isBeacon()
+    {
+        return _beacon;
+    }
+
+    public void setBeacon(boolean beacon)
+    {
+        _beacon = beacon;
+    }
+
+    public boolean isOnline()
+    {
+        return _online;
+    }
+
+    public void setOnline(boolean online)
+    {
+        _online = online;
+    }
+
+    public String getName()
+    {
+        return _name;
+    }
+
+    public void setName(String name)
+    {
+        _name = name;
     }
 }

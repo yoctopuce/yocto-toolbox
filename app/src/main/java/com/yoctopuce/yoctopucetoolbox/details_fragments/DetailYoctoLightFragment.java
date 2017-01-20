@@ -45,7 +45,7 @@ public class DetailYoctoLightFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _lightSensor = new LightSensor(_serial + ".lightSensor");
+        _lightSensor = new LightSensor(_argSerial + ".lightSensor");
         _currentTextView = (TextView) rootView.findViewById(R.id.current_value);
         _maxTextView = (TextView) rootView.findViewById(R.id.max_value);
         _minTextView = (TextView) rootView.findViewById(R.id.min_value);
@@ -53,9 +53,9 @@ public class DetailYoctoLightFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         Locale locale = Locale.US;
         String unit = _lightSensor.getUnit();
         _currentTextView.setText(String.format(locale, "%s %s", Double.toString(_lightSensor.getCurrentValue()), unit));

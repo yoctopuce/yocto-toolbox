@@ -49,7 +49,7 @@ public class DetailYoctoThermocoupleFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        String base_serial = _serial.substring(0, FragmentChooser.YOCTO_BASE_SERIAL_LEN);
+        String base_serial = _argSerial.substring(0, FragmentChooser.YOCTO_BASE_SERIAL_LEN);
         int nbTemp;
         String label;
         switch (base_serial) {
@@ -73,9 +73,9 @@ public class DetailYoctoThermocoupleFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         for (TemperatureUIRef uiRef : _uiRefs) {
             uiRef.updateUI();
         }
@@ -90,7 +90,7 @@ public class DetailYoctoThermocoupleFragment extends DetailGenericModuleFragment
 
         TemperatureUIRef(String label, GridLayout gv, int i)
         {
-            final String hwid = _serial + ".temperature" + i;
+            final String hwid = _argSerial + ".temperature" + i;
             _temperature1 = new Temperature(hwid);
             TextView tv = new TextView(getContext());
             tv.setText(String.format(Locale.US, "%s %d", label, i));
@@ -105,7 +105,7 @@ public class DetailYoctoThermocoupleFragment extends DetailGenericModuleFragment
 
         void updateUI()
         {
-            updateUI_temperature(_temperature1, _currentTextView, _maxTextView, _minTextView);
+            com.yoctopuce.yoctopucetoolbox.misc.MiscHelper.updateUI_temperature(_temperature1, _currentTextView, _maxTextView, _minTextView);
         }
 
         void reloadDataInBG() throws YAPI_Exception

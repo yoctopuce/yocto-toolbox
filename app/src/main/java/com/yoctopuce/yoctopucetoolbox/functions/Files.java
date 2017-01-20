@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Files.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Files.java 26143 2016-12-02 16:58:26Z seb $
  *
  * Implements Files wrapper for Android toolbox
  *
@@ -40,7 +40,10 @@
 package com.yoctopuce.yoctopucetoolbox.functions;
 import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
+import com.yoctopuce.YoctoAPI.YFileRecord;
 import com.yoctopuce.YoctoAPI.YFiles;
+
+import java.util.ArrayList;
 
 //--- (generated code: YFiles class start)
 /**
@@ -98,6 +101,46 @@ public class Files extends Function
     public int getFreeSpace()
     {
         return _freeSpace;
+    }
+
+    public static YFiles FindFiles(String func)
+    {
+        return YFiles.FindFiles(func);
+    }
+
+    public byte[] sendCommand(String command) throws YAPI_Exception
+    {
+        return _yfiles.sendCommand(command);
+    }
+
+    public int format_fs() throws YAPI_Exception
+    {
+        return _yfiles.format_fs();
+    }
+
+    public ArrayList<YFileRecord> get_list(String pattern) throws YAPI_Exception
+    {
+        return _yfiles.get_list(pattern);
+    }
+
+    public boolean fileExist(String filename) throws YAPI_Exception
+    {
+        return _yfiles.fileExist(filename);
+    }
+
+    public byte[] download(String pathname) throws YAPI_Exception
+    {
+        return _yfiles.download(pathname);
+    }
+
+    public int upload(String pathname, byte[] content) throws YAPI_Exception
+    {
+        return _yfiles.upload(pathname, content);
+    }
+
+    public int remove(String pathname) throws YAPI_Exception
+    {
+        return _yfiles.remove(pathname);
     }
 
 //--- (end of generated code: YFiles class start)

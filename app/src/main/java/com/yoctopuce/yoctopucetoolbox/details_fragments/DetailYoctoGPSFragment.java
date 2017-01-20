@@ -49,7 +49,7 @@ public class DetailYoctoGPSFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _gps = new Gps(_serial + ".gps");
+        _gps = new Gps(_argSerial + ".gps");
 
         _statusTextView = (TextView) rootView.findViewById(R.id.status);
         _timeTextView = (TextView) rootView.findViewById(R.id.time);
@@ -76,9 +76,9 @@ public class DetailYoctoGPSFragment extends DetailGenericModuleFragment
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         if (_gps.getIsFixed() == YGps.ISFIXED_TRUE) {
             _statusTextView.setText(String.format(Locale.US, getString(R.string.x_satellites), _gps.getSatCount()));
             _timeTextView.setText(_gps.getDateTime());

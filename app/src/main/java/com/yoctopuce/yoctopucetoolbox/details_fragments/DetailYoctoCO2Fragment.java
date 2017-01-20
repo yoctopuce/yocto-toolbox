@@ -42,7 +42,7 @@ public class DetailYoctoCO2Fragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _carbonDioxide = new CarbonDioxide(_serial + ".carbonDioxide");
+        _carbonDioxide = new CarbonDioxide(_argSerial + ".carbonDioxide");
         _currentTextView = (TextView) rootView.findViewById(R.id.current_value);
         _maxTextView = (TextView) rootView.findViewById(R.id.max_value);
         _minTextView = (TextView) rootView.findViewById(R.id.min_value);
@@ -50,9 +50,9 @@ public class DetailYoctoCO2Fragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
+        super.updateUI(firstUpdate);
         Locale locale = Locale.US;
         String unit = _carbonDioxide.getUnit();
         _currentTextView.setText(String.format(locale, "%s %s", Double.toString(_carbonDioxide.getCurrentValue()), unit));

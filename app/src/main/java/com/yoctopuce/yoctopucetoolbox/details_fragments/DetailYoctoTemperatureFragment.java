@@ -40,11 +40,11 @@ public class DetailYoctoTemperatureFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        _temperature1 = new Temperature(_serial + ".temperature");
+        _temperature1 = new Temperature(_argSerial + ".temperature");
         _currentTextView = (TextView) rootView.findViewById(R.id.current_value);
         _maxTextView = (TextView) rootView.findViewById(R.id.max_value);
         _minTextView = (TextView) rootView.findViewById(R.id.min_value);
-        String substring = _serial.substring(0, FragmentChooser.YOCTO_BASE_SERIAL_LEN);
+        String substring = _argSerial.substring(0, FragmentChooser.YOCTO_BASE_SERIAL_LEN);
         if (substring.equals("PT100MK1") || substring.equals("PT100MK2")) {
             TextView messageTextView = (TextView) rootView.findViewById(R.id.message);
             messageTextView.setText(R.string.make_sure_your_device_is_configured_according_to_your_pt100_type);
@@ -53,10 +53,10 @@ public class DetailYoctoTemperatureFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void updateUI()
+    protected void updateUI(boolean firstUpdate)
     {
-        super.updateUI();
-        updateUI_temperature(_temperature1, _currentTextView, _maxTextView, _minTextView);
+        super.updateUI(firstUpdate);
+        com.yoctopuce.yoctopucetoolbox.misc.MiscHelper.updateUI_temperature(_temperature1, _currentTextView, _maxTextView, _minTextView);
     }
 
 }

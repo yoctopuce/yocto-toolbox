@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: CurrentLoopOutput.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements CurrentLoopOutput wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YCurrentLoopOutput;
 
@@ -159,6 +159,16 @@ public class CurrentLoopOutput extends Function
     public int getLoopPower()
     {
         return _loopPower;
+    }
+
+    public static YCurrentLoopOutput FindCurrentLoopOutput(String func)
+    {
+        return YCurrentLoopOutput.FindCurrentLoopOutput(func);
+    }
+
+    public int currentMove(double mA_target, int ms_duration) throws YAPI_Exception
+    {
+        return _ycurrentloopoutput.currentMove(mA_target, ms_duration);
     }
 
 //--- (end of YCurrentLoopOutput class start)

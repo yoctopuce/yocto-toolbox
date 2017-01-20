@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: SerialPort.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements SerialPort wrapper for Android toolbox
  *
@@ -38,9 +38,10 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YSerialPort;
+import java.util.ArrayList;
 
 //--- (YSerialPort class start)
 /**
@@ -354,6 +355,181 @@ public class SerialPort extends Function
     {
         _serialMode = newval;
         _yserialport.set_serialMode(newval);
+    }
+
+    public static YSerialPort FindSerialPort(String func)
+    {
+        return YSerialPort.FindSerialPort(func);
+    }
+
+    public int sendCommand(String text) throws YAPI_Exception
+    {
+        return _yserialport.sendCommand(text);
+    }
+
+    public int reset() throws YAPI_Exception
+    {
+        return _yserialport.reset();
+    }
+
+    public int writeByte(int code) throws YAPI_Exception
+    {
+        return _yserialport.writeByte(code);
+    }
+
+    public int writeStr(String text) throws YAPI_Exception
+    {
+        return _yserialport.writeStr(text);
+    }
+
+    public int writeBin(byte[] buff) throws YAPI_Exception
+    {
+        return _yserialport.writeBin(buff);
+    }
+
+    public int writeArray(ArrayList<Integer> byteList) throws YAPI_Exception
+    {
+        return _yserialport.writeArray(byteList);
+    }
+
+    public int writeHex(String hexString) throws YAPI_Exception
+    {
+        return _yserialport.writeHex(hexString);
+    }
+
+    public int writeLine(String text) throws YAPI_Exception
+    {
+        return _yserialport.writeLine(text);
+    }
+
+    public int readByte() throws YAPI_Exception
+    {
+        return _yserialport.readByte();
+    }
+
+    public String readStr(int nChars) throws YAPI_Exception
+    {
+        return _yserialport.readStr(nChars);
+    }
+
+    public byte[] readBin(int nChars) throws YAPI_Exception
+    {
+        return _yserialport.readBin(nChars);
+    }
+
+    public ArrayList<Integer> readArray(int nChars) throws YAPI_Exception
+    {
+        return _yserialport.readArray(nChars);
+    }
+
+    public String readHex(int nBytes) throws YAPI_Exception
+    {
+        return _yserialport.readHex(nBytes);
+    }
+
+    public String readLine() throws YAPI_Exception
+    {
+        return _yserialport.readLine();
+    }
+
+    public ArrayList<String> readMessages(String pattern, int maxWait) throws YAPI_Exception
+    {
+        return _yserialport.readMessages(pattern, maxWait);
+    }
+
+    public int read_seek(int absPos)
+    {
+        return _yserialport.read_seek(absPos);
+    }
+
+    public int read_tell()
+    {
+        return _yserialport.read_tell();
+    }
+
+    public int read_avail() throws YAPI_Exception
+    {
+        return _yserialport.read_avail();
+    }
+
+    public String queryLine(String query, int maxWait) throws YAPI_Exception
+    {
+        return _yserialport.queryLine(query, maxWait);
+    }
+
+    public int uploadJob(String jobfile, String jsonDef) throws YAPI_Exception
+    {
+        return _yserialport.uploadJob(jobfile, jsonDef);
+    }
+
+    public int selectJob(String jobfile) throws YAPI_Exception
+    {
+        return _yserialport.selectJob(jobfile);
+    }
+
+    public int set_RTS(int val) throws YAPI_Exception
+    {
+        return _yserialport.set_RTS(val);
+    }
+
+    public int get_CTS() throws YAPI_Exception
+    {
+        return _yserialport.get_CTS();
+    }
+
+    public int writeMODBUS(String hexString) throws YAPI_Exception
+    {
+        return _yserialport.writeMODBUS(hexString);
+    }
+
+    public ArrayList<Integer> queryMODBUS(int slaveNo, ArrayList<Integer> pduBytes) throws YAPI_Exception
+    {
+        return _yserialport.queryMODBUS(slaveNo, pduBytes);
+    }
+
+    public ArrayList<Integer> modbusReadBits(int slaveNo, int pduAddr, int nBits) throws YAPI_Exception
+    {
+        return _yserialport.modbusReadBits(slaveNo, pduAddr, nBits);
+    }
+
+    public ArrayList<Integer> modbusReadInputBits(int slaveNo, int pduAddr, int nBits) throws YAPI_Exception
+    {
+        return _yserialport.modbusReadInputBits(slaveNo, pduAddr, nBits);
+    }
+
+    public ArrayList<Integer> modbusReadRegisters(int slaveNo, int pduAddr, int nWords) throws YAPI_Exception
+    {
+        return _yserialport.modbusReadRegisters(slaveNo, pduAddr, nWords);
+    }
+
+    public ArrayList<Integer> modbusReadInputRegisters(int slaveNo, int pduAddr, int nWords) throws YAPI_Exception
+    {
+        return _yserialport.modbusReadInputRegisters(slaveNo, pduAddr, nWords);
+    }
+
+    public int modbusWriteBit(int slaveNo, int pduAddr, int value) throws YAPI_Exception
+    {
+        return _yserialport.modbusWriteBit(slaveNo, pduAddr, value);
+    }
+
+    public int modbusWriteBits(int slaveNo, int pduAddr, ArrayList<Integer> bits) throws YAPI_Exception
+    {
+        return _yserialport.modbusWriteBits(slaveNo, pduAddr, bits);
+    }
+
+    public int modbusWriteRegister(int slaveNo, int pduAddr, int value) throws YAPI_Exception
+    {
+        return _yserialport.modbusWriteRegister(slaveNo, pduAddr, value);
+    }
+
+    public int modbusWriteRegisters(int slaveNo, int pduAddr, ArrayList<Integer> values) throws YAPI_Exception
+    {
+        return _yserialport.modbusWriteRegisters(slaveNo, pduAddr, values);
+    }
+
+    public ArrayList<Integer> modbusWriteAndReadRegisters(int slaveNo, int pduWriteAddr, ArrayList<Integer> values, int pduReadAddr, int nReadWords) throws YAPI_Exception
+    {
+        return _yserialport.modbusWriteAndReadRegisters(slaveNo, pduWriteAddr, values, pduReadAddr, nReadWords);
     }
 
 //--- (end of YSerialPort class start)

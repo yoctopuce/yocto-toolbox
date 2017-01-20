@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Power.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements Power wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YPower;
 
@@ -123,6 +123,16 @@ public class Power extends Sensor
     public int getMeterTimer()
     {
         return _meterTimer;
+    }
+
+    public static YPower FindPower(String func)
+    {
+        return YPower.FindPower(func);
+    }
+
+    public int reset() throws YAPI_Exception
+    {
+        return _ypower.reset();
     }
 
 //--- (end of YPower class start)

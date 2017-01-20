@@ -4,14 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.yoctopuce.yoctopucetoolbox.details_fragments.FragmentChooser;
 import com.yoctopuce.yoctopucetoolbox.details_fragments.DetailGenericModuleFragment;
+import com.yoctopuce.yoctopucetoolbox.details_fragments.FragmentChooser;
 import com.yoctopuce.yoctopucetoolbox.service.UseHubActivity;
+
+import java.util.UUID;
 
 /**
  * An activity representing a single Module detail screen. This
@@ -19,17 +21,20 @@ import com.yoctopuce.yoctopucetoolbox.service.UseHubActivity;
  * item details are presented side-by-side with a list of items
  * in a {@link ModuleListActivity}.
  */
-public class ModuleDetailActivity extends UseHubActivity {
+public class ModuleDetailActivity extends UseHubActivity implements DetailGenericModuleFragment.OnYoctoErrorListener
+{
 
-    public static Intent intentWithParams(Context context, String hubURL, String serialNumber) {
+    public static Intent intentWithParams(Context context, UUID hubid, String serialNumber)
+    {
         Intent intent = new Intent(context, ModuleDetailActivity.class);
         intent.putExtra(DetailGenericModuleFragment.ARG_SERIAL, serialNumber);
-        intent.putExtra(HUB_URL, hubURL);
+        intent.putExtra(HUB_UUID, hubid.toString());
         return intent;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_module_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
@@ -55,8 +60,9 @@ public class ModuleDetailActivity extends UseHubActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
 
-            String stringExtra = getIntent().getStringExtra(DetailGenericModuleFragment.ARG_SERIAL);
-            Fragment fragment = FragmentChooser.GetFragment(stringExtra);
+            final Intent intent = getIntent();
+            String serial = intent.getStringExtra(DetailGenericModuleFragment.ARG_SERIAL);
+            Fragment fragment = FragmentChooser.GetFragment(serial);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.module_detail_container, fragment)
                     .commit();
@@ -64,7 +70,8 @@ public class ModuleDetailActivity extends UseHubActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             // This ID represents the Home or Up button. In the case of this
@@ -74,10 +81,15 @@ public class ModuleDetailActivity extends UseHubActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpTo(this, ModuleListActivity.intentWithParams(this, _hubURL));
+            NavUtils.navigateUpTo(this, ModuleListActivity.intentWithParams(this, _hub.getUuid()));
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onYoctoError(String sender, String errmsg)
+    {
+        finishActivityWithError(sender, errmsg);
+    }
 }

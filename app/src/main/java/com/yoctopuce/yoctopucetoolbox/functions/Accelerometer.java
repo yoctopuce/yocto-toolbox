@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Accelerometer.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
  *
  * Implements Accelerometer wrapper for Android toolbox
  *
@@ -38,7 +38,7 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YAccelerometer;
 
@@ -161,6 +161,11 @@ public class Accelerometer extends Sensor
     {
         _gravityCancellation = newval;
         _yaccelerometer.set_gravityCancellation(newval);
+    }
+
+    public static YAccelerometer FindAccelerometer(String func)
+    {
+        return YAccelerometer.FindAccelerometer(func);
     }
 
 //--- (end of YAccelerometer class start)

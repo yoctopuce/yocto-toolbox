@@ -49,13 +49,6 @@ import com.yoctopuce.YoctoAPI.YCellRecord;
  @SuppressWarnings("UnusedDeclaration")
 public class CellRecord
 {
-// oper
-// mcc
-// mnc
-// lac
-// cid
-// dbm
-// tad
 //--- (end of generated code: YCellRecord class start)
 }
 

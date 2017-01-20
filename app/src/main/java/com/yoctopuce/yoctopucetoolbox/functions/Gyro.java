@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Gyro.java 26014 2016-11-24 13:52:08Z seb $
+ * $Id: Gyro.java 26331 2017-01-11 16:50:06Z seb $
  *
  * Implements Gyro wrapper for Android toolbox
  *
@@ -168,6 +168,46 @@ public class Gyro extends Sensor
     public double getZValue()
     {
         return _zValue;
+    }
+
+    public static YGyro FindGyro(String func)
+    {
+        return YGyro.FindGyro(func);
+    }
+
+    public double get_roll() throws YAPI_Exception
+    {
+        return _ygyro.get_roll();
+    }
+
+    public double get_pitch() throws YAPI_Exception
+    {
+        return _ygyro.get_pitch();
+    }
+
+    public double get_heading() throws YAPI_Exception
+    {
+        return _ygyro.get_heading();
+    }
+
+    public double get_quaternionW() throws YAPI_Exception
+    {
+        return _ygyro.get_quaternionW();
+    }
+
+    public double get_quaternionX() throws YAPI_Exception
+    {
+        return _ygyro.get_quaternionX();
+    }
+
+    public double get_quaternionY() throws YAPI_Exception
+    {
+        return _ygyro.get_quaternionY();
+    }
+
+    public double get_quaternionZ() throws YAPI_Exception
+    {
+        return _ygyro.get_quaternionZ();
     }
 
 //--- (end of generated code: YGyro class start)
