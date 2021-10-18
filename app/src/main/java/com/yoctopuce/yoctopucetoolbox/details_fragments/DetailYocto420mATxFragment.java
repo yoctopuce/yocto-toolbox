@@ -11,7 +11,7 @@ import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YCurrentLoopOutput;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.CurrentLoopOutput;
-import com.yoctopuce.yoctopucetoolbox.misc.MiscHelper;
+import com.yoctopuce.yoctopucetoolbox.service.BgRunnable;
 
 import java.util.Locale;
 
@@ -36,9 +36,9 @@ public class DetailYocto420mATxFragment extends DetailGenericModuleFragment impl
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _currentLoopOutput.reloadBg();
     }
 
@@ -47,9 +47,9 @@ public class DetailYocto420mATxFragment extends DetailGenericModuleFragment impl
     {
         super.setupUI(rootView);
         _currentLoopOutput = new CurrentLoopOutput(_argSerial + ".currentLoopOutput");
-        _loopPower = (TextView) rootView.findViewById(R.id.power_mode);
-        _loopValue = (TextView) rootView.findViewById(R.id.loop_value);
-        _loopSeekBar = (SeekBar) rootView.findViewById(R.id.loop);
+        _loopPower = rootView.findViewById(R.id.power_mode);
+        _loopValue = rootView.findViewById(R.id.loop_value);
+        _loopSeekBar = rootView.findViewById(R.id.loop);
         _loopSeekBar.setOnSeekBarChangeListener(this);
     }
 
@@ -102,7 +102,7 @@ public class DetailYocto420mATxFragment extends DetailGenericModuleFragment impl
             if (now - _lastchangeupdate > 250) {
                 // prevents too many updates while the user is moving the cursor
                 _lastchangeupdate = now;
-                _bgHandler.post(new BGHandler.BgRunnable()
+                postBg(new BgRunnable()
                 {
                     @Override
                     public void runBg() throws YAPI_Exception
@@ -125,7 +125,7 @@ public class DetailYocto420mATxFragment extends DetailGenericModuleFragment impl
     {
 
         final double newval = progress2value(seekBar.getProgress());
-        _bgHandler.post(new BGHandler.BgRunnable()
+        postBg(new BgRunnable()
         {
 
             @Override

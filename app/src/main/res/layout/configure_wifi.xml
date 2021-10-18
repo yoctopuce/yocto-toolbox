@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/detail_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WLAN configuration" />
+
+    <TextView
+        android:id="@+id/intro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Specify the desired WLAN configuration then click on the save button. " />
+
+    <RadioGroup
+        android:id="@+id/wifimode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/infrastructure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Infrastructure (choose an existing WLAN)" />
+
+        <RadioButton
+            android:id="@+id/infra_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Infrastructure (enter SSID manually)" />
+
+        <RadioButton
+            android:id="@+id/sofap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ad-Hoc/SoftAP (create a new WLAN)" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/wlan_detect"
+        style="@style/detail_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WLAN configuration" />
+
+
+    <Button
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Refresh" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wlan_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_height="100dp"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/list_item_wlan" />
+
+
+    <TableLayout
+        android:id="@+id/manual_parameter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:stretchColumns="1">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SSID"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/ssid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autofillHints="IP address"
+                android:inputType="text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Security type"
+                android:textStyle="bold" />
+
+
+            <RadioGroup
+                android:id="@+id/wlan_security"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/wpa_security"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WPA / WPA2" />
+
+                <RadioButton
+                    android:id="@+id/wep_security"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WEP" />
+
+                <RadioButton
+                    android:id="@+id/open_security"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OPEN" />
+
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Security key"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/key"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold" />
+
+
+            <CheckBox
+                android:id="@+id/show_key"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="show security key" />
+        </TableRow>
+
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/apply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Apply" />
+
+</LinearLayout>

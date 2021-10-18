@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:padding="0dp">
 
-        <include layout="@layout/detail_layout_generic_module"/>
+        <include layout="@layout/detail_function_ymodule"/>
 
         <TextView
             style="@style/detail_section"

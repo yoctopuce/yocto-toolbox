@@ -1,10 +1,10 @@
 /*********************************************************************
  *
- * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
+ * $Id: CarbonDioxide.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements CarbonDioxide wrapper for Android toolbox
  *
- * - - - - - - - - - License information: - - - - - - - - - 
+ * - - - - - - - - - License information: - - - - - - - - -
  *
  *  Copyright (C) 2011 and beyond by Yoctopuce Sarl, Switzerland.
  *
@@ -23,7 +23,7 @@
  *  obligations.
  *
  *  THE SOFTWARE AND DOCUMENTATION ARE PROVIDED 'AS IS' WITHOUT
- *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING 
+ *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING
  *  WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, FITNESS
  *  FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO
  *  EVENT SHALL LICENSOR BE LIABLE FOR ANY INCIDENTAL, SPECIAL,
@@ -38,7 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YCarbonDioxide;
 
@@ -48,7 +47,7 @@ import com.yoctopuce.YoctoAPI.YCarbonDioxide;
  *
  * The Yoctopuce class YCarbonDioxide allows you to read and configure Yoctopuce CO2
  * sensors. It inherits from YSensor class the core functions to read measurements,
- * register callback functions, access to the autonomous datalogger.
+ * to register callback functions,  to access the autonomous datalogger.
  * This class adds the ability to perform manual calibration if reuired.
  */
  @SuppressWarnings("UnusedDeclaration")
@@ -91,13 +90,13 @@ public class CarbonDioxide extends Sensor
     }
 
     /**
-     * Modifies Automatic Baseline Calibration period, in hours. If you need
+     * Changes Automatic Baseline Calibration period, in hours. If you need
      * to disable automatic baseline calibration (for instance when using the
      * sensor in an environment that is constantly above 400ppm CO2), set the
      * period to -1. Remember to call the saveToFlash() method of the
      * module if the modification must be kept.
      *
-     * @param newval : an integer
+     * @param newval : an integer corresponding to Automatic Baseline Calibration period, in hours
      *
      * @return YAPI_SUCCESS if the call succeeds.
      *

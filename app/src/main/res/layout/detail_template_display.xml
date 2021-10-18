@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:columnCount="2"
-    android:paddingBottom="8dp"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     android:paddingTop="8dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="8dp"
     android:useDefaultMargins="true"
     tools:showIn="@layout/fragment_detail_yocto_minidisplay">
 
-    <TextView android:text="@string/text_to_display"/>
+    <TextView android:text="@string/text_to_display" />
 
     <EditText
         android:id="@+id/edit_text"
         android:layout_gravity="fill_horizontal"
-        />
+        android:hint="@string/hello_world"
+        android:inputType="text"
+        android:importantForAutofill="no" />
 
     <ImageView
         android:id="@+id/capture"
+        android:layout_height="128dp"
         android:layout_columnSpan="2"
         android:layout_gravity="fill_horizontal"
+        android:contentDescription="@string/display_output"
         android:minHeight="64dp"
-        android:scaleType="fitStart"
-        android:layout_height="128dp"/>
+        android:scaleType="fitStart" />
 </GridLayout>

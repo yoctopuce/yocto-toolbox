@@ -73,7 +73,7 @@
                 android:layout_gravity="fill_horizontal"
                 android:entries="@array/led_state_arrays"/>
 
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/green_switch"
                 android:checked="true"/>
 
@@ -96,7 +96,7 @@
                 android:layout_gravity="fill_horizontal"
                 android:entries="@array/led_state_arrays"/>
 
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/red_switch"
                 android:checked="true"/>
 

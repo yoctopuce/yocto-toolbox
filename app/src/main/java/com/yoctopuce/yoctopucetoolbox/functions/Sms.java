@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: pic24config.php 25964 2016-11-21 15:30:59Z mvuilleu $
+ * $Id: Sms.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements Sms wrapper for Android toolbox
  *
@@ -38,11 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
-import com.yoctopuce.YoctoAPI.YAPI_Exception;
-import com.yoctopuce.YoctoAPI.YSms;
-
-import java.util.ArrayList;
 
 //--- (generated code: YSms class start)
 /**

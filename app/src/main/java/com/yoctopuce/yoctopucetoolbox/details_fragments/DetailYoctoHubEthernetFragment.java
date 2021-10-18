@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YHubPort;
@@ -53,11 +54,11 @@ public class DetailYoctoHubEthernetFragment extends DetailGenericModuleFragment
         _hubport3 = new HubPort(_argSerial + ".hubPort3");
         _network = new Network(_argSerial + ".network");
 
-        _port1TextView = (TextView) rootView.findViewById(R.id.port1_state);
-        _port2TextView = (TextView) rootView.findViewById(R.id.port2_state);
-        _port3TextView = (TextView) rootView.findViewById(R.id.port3_state);
-        Switch port1Switch = (Switch) rootView.findViewById(R.id.port1_switch);
-        _port1Switch = new CustomCompoundButton(port1Switch, _bgHandler, new BgSwitchListener()
+        _port1TextView = rootView.findViewById(R.id.port1_state);
+        _port2TextView = rootView.findViewById(R.id.port2_state);
+        _port3TextView = rootView.findViewById(R.id.port3_state);
+        SwitchCompat port1Switch = rootView.findViewById(R.id.port1_switch);
+        _port1Switch = new CustomCompoundButton(port1Switch, this, new BgSwitchListener()
         {
 
             @Override
@@ -68,8 +69,8 @@ public class DetailYoctoHubEthernetFragment extends DetailGenericModuleFragment
 
         });
 
-        Switch port2Switch = (Switch) rootView.findViewById(R.id.port2_switch);
-        _port2Switch = new CustomCompoundButton(port2Switch, _bgHandler, new CustomCompoundButton.CustomSwitchListener()
+        SwitchCompat port2Switch = rootView.findViewById(R.id.port2_switch);
+        _port2Switch = new CustomCompoundButton(port2Switch, this, new CustomCompoundButton.CustomSwitchListener()
         {
             @Override
             public void onPreChangedFg(boolean isChecked)
@@ -89,15 +90,11 @@ public class DetailYoctoHubEthernetFragment extends DetailGenericModuleFragment
 
             }
 
-            @Override
-            public void onErrorFg(YAPI_Exception error)
-            {
-                onIOError(error.getLocalizedMessage());
-            }
+
         });
 
-        Switch port3Switch = (Switch) rootView.findViewById(R.id.port3_switch);
-        _port3Switch = new CustomCompoundButton(port3Switch, _bgHandler, new CustomCompoundButton.CustomSwitchListener()
+        SwitchCompat port3Switch = rootView.findViewById(R.id.port3_switch);
+        _port3Switch = new CustomCompoundButton(port3Switch, this, new CustomCompoundButton.CustomSwitchListener()
         {
             @Override
             public void onPreChangedFg(boolean isChecked)
@@ -109,7 +106,6 @@ public class DetailYoctoHubEthernetFragment extends DetailGenericModuleFragment
             public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
             {
                 _hubport3.setEnabledBg(isChecked ? YHubPort.ENABLED_TRUE : YHubPort.ENABLED_FALSE);
-                ;
 
             }
 
@@ -119,22 +115,18 @@ public class DetailYoctoHubEthernetFragment extends DetailGenericModuleFragment
 
             }
 
-            @Override
-            public void onErrorFg(YAPI_Exception error)
-            {
-                onIOError(error.getLocalizedMessage());
-            }
+
         });
-        _networkTextView = (TextView) rootView.findViewById(R.id.network_state);
-        _macTextView = (TextView) rootView.findViewById(R.id.mac_addr);
-        _ipTextView = (TextView) rootView.findViewById(R.id.ip_addr);
-        _netNameTextView = (TextView) rootView.findViewById(R.id.device_name);
+        _networkTextView = rootView.findViewById(R.id.network_state);
+        _macTextView = rootView.findViewById(R.id.mac_addr);
+        _ipTextView = rootView.findViewById(R.id.ip_addr);
+        _netNameTextView = rootView.findViewById(R.id.device_name);
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _hubport1.reloadBg();
         _hubport2.reloadBg();
         _hubport3.reloadBg();

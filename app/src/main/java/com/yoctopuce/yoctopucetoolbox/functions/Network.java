@@ -1,10 +1,10 @@
 /*********************************************************************
  *
- * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
+ * $Id: Network.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements Network wrapper for Android toolbox
  *
- * - - - - - - - - - License information: - - - - - - - - - 
+ * - - - - - - - - - License information: - - - - - - - - -
  *
  *  Copyright (C) 2011 and beyond by Yoctopuce Sarl, Switzerland.
  *
@@ -23,7 +23,7 @@
  *  obligations.
  *
  *  THE SOFTWARE AND DOCUMENTATION ARE PROVIDED 'AS IS' WITHOUT
- *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING 
+ *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING
  *  WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, FITNESS
  *  FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO
  *  EVENT SHALL LICENSOR BE LIABLE FOR ANY INCIDENTAL, SPECIAL,
@@ -38,7 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YNetwork;
 
@@ -73,6 +72,7 @@ public class Network extends Function
     protected int _callbackEncoding =  YNetwork.CALLBACKENCODING_INVALID;
     protected String _callbackCredentials =  YNetwork.CALLBACKCREDENTIALS_INVALID;
     protected int _callbackInitialDelay =  YNetwork.CALLBACKINITIALDELAY_INVALID;
+    protected String _callbackSchedule =  YNetwork.CALLBACKSCHEDULE_INVALID;
     protected int _callbackMinDelay =  YNetwork.CALLBACKMINDELAY_INVALID;
     protected int _callbackMaxDelay =  YNetwork.CALLBACKMAXDELAY_INVALID;
     protected int _poeCurrent =  YNetwork.POECURRENT_INVALID;
@@ -112,6 +112,7 @@ public class Network extends Function
         _callbackEncoding = _ynetwork.get_callbackEncoding();
         _callbackCredentials = _ynetwork.get_callbackCredentials();
         _callbackInitialDelay = _ynetwork.get_callbackInitialDelay();
+        _callbackSchedule = _ynetwork.get_callbackSchedule();
         _callbackMinDelay = _ynetwork.get_callbackMinDelay();
         _callbackMaxDelay = _ynetwork.get_callbackMaxDelay();
         _poeCurrent = _ynetwork.get_poeCurrent();
@@ -192,6 +193,25 @@ public class Network extends Function
         return _router;
     }
 
+    /**
+     * Returns the IP configuration of the network interface.
+     *
+     * If the network interface is setup to use a static IP address, the string starts with "STATIC:" and
+     * is followed by three
+     * parameters, separated by "/". The first is the device IP address, followed by the subnet mask
+     * length, and finally the
+     * router IP address (default gateway). For instance: "STATIC:192.168.1.14/16/192.168.1.1"
+     *
+     * If the network interface is configured to receive its IP from a DHCP server, the string start with
+     * "DHCP:" and is followed by
+     * three parameters separated by "/". The first is the fallback IP address, then the fallback subnet
+     * mask length and finally the
+     * fallback router IP address. These three parameters are used when no DHCP reply is received.
+     *
+     * @return a string corresponding to the IP configuration of the network interface
+     *
+     * On failure, throws an exception or returns Y_IPCONFIG_INVALID.
+     */
     public String getIpConfig()
     {
         return _ipConfig;
@@ -545,8 +565,8 @@ public class Network extends Function
      * @return a value among Y_CALLBACKENCODING_FORM, Y_CALLBACKENCODING_JSON,
      * Y_CALLBACKENCODING_JSON_ARRAY, Y_CALLBACKENCODING_CSV, Y_CALLBACKENCODING_YOCTO_API,
      * Y_CALLBACKENCODING_JSON_NUM, Y_CALLBACKENCODING_EMONCMS, Y_CALLBACKENCODING_AZURE,
-     * Y_CALLBACKENCODING_INFLUXDB and Y_CALLBACKENCODING_MQTT corresponding to the encoding standard to
-     * use for representing notification values
+     * Y_CALLBACKENCODING_INFLUXDB, Y_CALLBACKENCODING_MQTT, Y_CALLBACKENCODING_YOCTO_API_JZON and
+     * Y_CALLBACKENCODING_PRTG corresponding to the encoding standard to use for representing notification values
      *
      * On failure, throws an exception or returns Y_CALLBACKENCODING_INVALID.
      */
@@ -561,8 +581,8 @@ public class Network extends Function
      * @param newval : a value among Y_CALLBACKENCODING_FORM, Y_CALLBACKENCODING_JSON,
      * Y_CALLBACKENCODING_JSON_ARRAY, Y_CALLBACKENCODING_CSV, Y_CALLBACKENCODING_YOCTO_API,
      * Y_CALLBACKENCODING_JSON_NUM, Y_CALLBACKENCODING_EMONCMS, Y_CALLBACKENCODING_AZURE,
-     * Y_CALLBACKENCODING_INFLUXDB and Y_CALLBACKENCODING_MQTT corresponding to the encoding standard to
-     * use for representing notification values
+     * Y_CALLBACKENCODING_INFLUXDB, Y_CALLBACKENCODING_MQTT, Y_CALLBACKENCODING_YOCTO_API_JZON and
+     * Y_CALLBACKENCODING_PRTG corresponding to the encoding standard to use for representing notification values
      *
      * @return YAPI_SUCCESS if the call succeeds.
      *
@@ -640,9 +660,36 @@ public class Network extends Function
     }
 
     /**
-     * Returns the minimum waiting time between two callback notifications, in seconds.
+     * Returns the HTTP callback schedule strategy, as a text string.
      *
-     * @return an integer corresponding to the minimum waiting time between two callback notifications, in seconds
+     * @return a string corresponding to the HTTP callback schedule strategy, as a text string
+     *
+     * On failure, throws an exception or returns Y_CALLBACKSCHEDULE_INVALID.
+     */
+    public String getCallbackSchedule()
+    {
+        return _callbackSchedule;
+    }
+
+    /**
+     * Changes the HTTP callback schedule strategy, as a text string.
+     *
+     * @param newval : a string corresponding to the HTTP callback schedule strategy, as a text string
+     *
+     * @return YAPI_SUCCESS if the call succeeds.
+     *
+     * On failure, throws an exception or returns a negative error code.
+     */
+    public void setCallbackScheduleBg(String newval) throws YAPI_Exception
+    {
+        _callbackSchedule = newval;
+        _ynetwork.set_callbackSchedule(newval);
+    }
+
+    /**
+     * Returns the minimum waiting time between two HTTP callbacks, in seconds.
+     *
+     * @return an integer corresponding to the minimum waiting time between two HTTP callbacks, in seconds
      *
      * On failure, throws an exception or returns Y_CALLBACKMINDELAY_INVALID.
      */
@@ -652,10 +699,9 @@ public class Network extends Function
     }
 
     /**
-     * Changes the minimum waiting time between two callback notifications, in seconds.
+     * Changes the minimum waiting time between two HTTP callbacks, in seconds.
      *
-     * @param newval : an integer corresponding to the minimum waiting time between two callback
-     * notifications, in seconds
+     * @param newval : an integer corresponding to the minimum waiting time between two HTTP callbacks, in seconds
      *
      * @return YAPI_SUCCESS if the call succeeds.
      *
@@ -668,9 +714,9 @@ public class Network extends Function
     }
 
     /**
-     * Returns the maximum waiting time between two callback notifications, in seconds.
+     * Returns the waiting time between two HTTP callbacks when there is nothing new.
      *
-     * @return an integer corresponding to the maximum waiting time between two callback notifications, in seconds
+     * @return an integer corresponding to the waiting time between two HTTP callbacks when there is nothing new
      *
      * On failure, throws an exception or returns Y_CALLBACKMAXDELAY_INVALID.
      */
@@ -680,10 +726,10 @@ public class Network extends Function
     }
 
     /**
-     * Changes the maximum waiting time between two callback notifications, in seconds.
+     * Changes the waiting time between two HTTP callbacks when there is nothing new.
      *
-     * @param newval : an integer corresponding to the maximum waiting time between two callback
-     * notifications, in seconds
+     * @param newval : an integer corresponding to the waiting time between two HTTP callbacks when there
+     * is nothing new
      *
      * @return YAPI_SUCCESS if the call succeeds.
      *
@@ -720,6 +766,11 @@ public class Network extends Function
         return _ynetwork.useDHCP(fallbackIpAddr, fallbackSubnetMaskLen, fallbackRouter);
     }
 
+    public int useDHCPauto() throws YAPI_Exception
+    {
+        return _ynetwork.useDHCPauto();
+    }
+
     public int useStaticIP(String ipAddress, int subnetMaskLen, String router) throws YAPI_Exception
     {
         return _ynetwork.useStaticIP(ipAddress, subnetMaskLen, router);
@@ -733,6 +784,11 @@ public class Network extends Function
     public int triggerCallback() throws YAPI_Exception
     {
         return _ynetwork.triggerCallback();
+    }
+
+    public int set_periodicCallbackSchedule(String interval, int offset) throws YAPI_Exception
+    {
+        return _ynetwork.set_periodicCallbackSchedule(interval, offset);
     }
 
 //--- (end of YNetwork class start)

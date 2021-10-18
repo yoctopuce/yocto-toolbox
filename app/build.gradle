@@ -1,19 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId "com.yoctopuce.yoctopucetoolbox"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 7
-        versionName "1.0.7"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 16
+        versionName "1.0.16"
     }
     buildTypes {
         debug {
             debuggable true
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
         }
         release {
             minifyEnabled false
@@ -23,11 +24,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.yoctopuce.android:YoctoLib:1.10.26380'
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.android.support:support-v4:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.yoctopuce.android:YoctoLib:1.10.45344'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "com.github.skydoves:colorpickerpreference:2.0.5"
+    implementation 'androidx.preference:preference:1.1.1'
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
 }

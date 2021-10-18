@@ -44,9 +44,9 @@ public class DetailYoctoKnobFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _anButton1.reloadBg();
         _anButton2.reloadBg();
         _anButton3.reloadBg();
@@ -64,16 +64,16 @@ public class DetailYoctoKnobFragment extends DetailGenericModuleFragment
         _anButton4 = new AnButton(_argSerial + ".anButton4");
         _anButton5 = new AnButton(_argSerial + ".anButton5");
 
-        _isPressed1TextView = (TextView) rootView.findViewById(R.id.ispressed1);
-        _progress1 = (ProgressBar) rootView.findViewById(R.id.progressBar1);
-        _isPressed2TextView = (TextView) rootView.findViewById(R.id.ispressed2);
-        _progress2 = (ProgressBar) rootView.findViewById(R.id.progressBar2);
-        _isPressed3TextView = (TextView) rootView.findViewById(R.id.ispressed3);
-        _progress3 = (ProgressBar) rootView.findViewById(R.id.progressBar3);
-        _isPressed4TextView = (TextView) rootView.findViewById(R.id.ispressed4);
-        _progress4 = (ProgressBar) rootView.findViewById(R.id.progressBar4);
-        _isPressed5TextView = (TextView) rootView.findViewById(R.id.ispressed5);
-        _progress5 = (ProgressBar) rootView.findViewById(R.id.progressBar5);
+        _isPressed1TextView = rootView.findViewById(R.id.ispressed1);
+        _progress1 = rootView.findViewById(R.id.progressBar1);
+        _isPressed2TextView = rootView.findViewById(R.id.ispressed2);
+        _progress2 = rootView.findViewById(R.id.progressBar2);
+        _isPressed3TextView = rootView.findViewById(R.id.ispressed3);
+        _progress3 = rootView.findViewById(R.id.progressBar3);
+        _isPressed4TextView = rootView.findViewById(R.id.ispressed4);
+        _progress4 = rootView.findViewById(R.id.progressBar4);
+        _isPressed5TextView = rootView.findViewById(R.id.ispressed5);
+        _progress5 = rootView.findViewById(R.id.progressBar5);
 
     }
 

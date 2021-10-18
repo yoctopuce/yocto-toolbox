@@ -1,7 +1,7 @@
 package com.yoctopuce.yoctopucetoolbox;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -27,7 +27,6 @@ public class ActivityWithMenu extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
             AboutDialog.showAbout(this);
             return true;

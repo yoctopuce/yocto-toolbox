@@ -1,10 +1,10 @@
 /*********************************************************************
  *
- * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
+ * $Id: SpiPort.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements SpiPort wrapper for Android toolbox
  *
- * - - - - - - - - - License information: - - - - - - - - - 
+ * - - - - - - - - - License information: - - - - - - - - -
  *
  *  Copyright (C) 2011 and beyond by Yoctopuce Sarl, Switzerland.
  *
@@ -23,7 +23,7 @@
  *  obligations.
  *
  *  THE SOFTWARE AND DOCUMENTATION ARE PROVIDED 'AS IS' WITHOUT
- *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING 
+ *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING
  *  WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, FITNESS
  *  FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO
  *  EVENT SHALL LICENSOR BE LIABLE FOR ANY INCIDENTAL, SPECIAL,
@@ -38,7 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YSpiPort;
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class SpiPort extends Function
     protected String _protocol =  YSpiPort.PROTOCOL_INVALID;
     protected String _spiMode =  YSpiPort.SPIMODE_INVALID;
     protected int _ssPolarity =  YSpiPort.SSPOLARITY_INVALID;
-    protected int _shitftSampling =  YSpiPort.SHITFTSAMPLING_INVALID;
+    protected int _shiftSampling =  YSpiPort.SHIFTSAMPLING_INVALID;
     protected int _rxptr = 0;
     protected byte[] _rxbuff;
     protected int _rxbuffptr = 0;
@@ -103,7 +102,7 @@ public class SpiPort extends Function
         _protocol = _yspiport.get_protocol();
         _spiMode = _yspiport.get_spiMode();
         _ssPolarity = _yspiport.get_ssPolarity();
-        _shitftSampling = _yspiport.get_shitftSampling();
+        _shiftSampling = _yspiport.get_shiftSampling();
     }
     /**
      * Returns the total number of bytes received since last reset.
@@ -388,7 +387,7 @@ public class SpiPort extends Function
      */
     public int getShitftSampling()
     {
-        return _shitftSampling;
+        return _shiftSampling;
     }
 
     /**
@@ -404,8 +403,8 @@ public class SpiPort extends Function
      */
     public void setShitftSamplingBg(int newval) throws YAPI_Exception
     {
-        _shitftSampling = newval;
-        _yspiport.set_shitftSampling(newval);
+        _shiftSampling = newval;
+        _yspiport.set_shiftSampling(newval);
     }
 
     public static YSpiPort FindSpiPort(String func)

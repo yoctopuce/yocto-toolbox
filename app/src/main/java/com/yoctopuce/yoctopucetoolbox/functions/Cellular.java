@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Cellular.java 26331 2017-01-11 16:50:06Z seb $
+ * $Id: Cellular.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements Cellular wrapper for Android toolbox
  *
@@ -38,7 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YCellRecord;
 import com.yoctopuce.YoctoAPI.YCellular;

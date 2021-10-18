@@ -35,9 +35,9 @@ public class DetailYocto010VRxFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _sensor1.reloadBg();
         _sensor2.reloadBg();
     }
@@ -48,14 +48,14 @@ public class DetailYocto010VRxFragment extends DetailGenericModuleFragment
         super.setupUI(rootView);
         _sensor1 = new GenericSensor(_argSerial + ".genericSensor1");
         _sensor2 = new GenericSensor(_argSerial + ".genericSensor2");
-        _sens1_min = (TextView) rootView.findViewById(R.id.sens1_min);
-        _sens1_cur = (TextView) rootView.findViewById(R.id.sens1_cur);
-        _sens1_sig = (TextView) rootView.findViewById(R.id.sens1_signal);
-        _sens1_max = (TextView) rootView.findViewById(R.id.sens1_max);
-        _sens2_min = (TextView) rootView.findViewById(R.id.sens2_min);
-        _sens2_cur = (TextView) rootView.findViewById(R.id.sens2_cur);
-        _sens2_sig = (TextView) rootView.findViewById(R.id.sens2_signal);
-        _sens2_max = (TextView) rootView.findViewById(R.id.sens2_max);
+        _sens1_min = rootView.findViewById(R.id.sens1_min);
+        _sens1_cur = rootView.findViewById(R.id.sens1_cur);
+        _sens1_sig = rootView.findViewById(R.id.sens1_signal);
+        _sens1_max = rootView.findViewById(R.id.sens1_max);
+        _sens2_min = rootView.findViewById(R.id.sens2_min);
+        _sens2_cur = rootView.findViewById(R.id.sens2_cur);
+        _sens2_sig = rootView.findViewById(R.id.sens2_signal);
+        _sens2_max = rootView.findViewById(R.id.sens2_max);
     }
 
     @Override

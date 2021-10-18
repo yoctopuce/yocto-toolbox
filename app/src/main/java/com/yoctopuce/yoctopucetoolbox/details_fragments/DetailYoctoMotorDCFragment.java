@@ -21,9 +21,9 @@ public class DetailYoctoMotorDCFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         // todo: implement stub
     }
 

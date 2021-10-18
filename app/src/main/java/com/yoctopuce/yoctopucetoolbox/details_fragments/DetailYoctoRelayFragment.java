@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.SwitchCompat;
+
+import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YRelay;
 import com.yoctopuce.yoctopucetoolbox.R;
@@ -33,9 +35,9 @@ public class DetailYoctoRelayFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         for (RelayUIRef ref : _relayUIRefs) {
             ref.reloadBg();
         }
@@ -45,9 +47,9 @@ public class DetailYoctoRelayFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        GridLayout gridLayout = (GridLayout) rootView.findViewById(R.id.relays_grid_layout);
+        GridLayout gridLayout = rootView.findViewById(R.id.relays_grid_layout);
         _relayUIRefs = new ArrayList<>();
-        String base_serial = _argSerial.substring(0, FragmentChooser.YOCTO_BASE_SERIAL_LEN);
+        String base_serial = _argSerial.substring(0, YAPI.YOCTO_BASE_SERIAL_LEN);
         int relay_count = 1;
         boolean useAB = true;
         switch (base_serial) {
@@ -93,14 +95,14 @@ public class DetailYoctoRelayFragment extends DetailGenericModuleFragment
             TextView tv = new TextView(getContext());
             tv.setText(String.format(Locale.US, "State of relay %d", i));
             gv.addView(tv);
-            Switch relaySwitch = new Switch(getContext());
+            SwitchCompat relaySwitch = new SwitchCompat(requireContext());
             _useAB = useAB;
             if (_useAB) {
                 relaySwitch.setTextOn("B");
                 relaySwitch.setTextOff("A");
             }
             gv.addView(relaySwitch);
-            _customCompoundButton = new CustomCompoundButton(relaySwitch, _bgHandler, new BgSwitchListener()
+            _customCompoundButton = new CustomCompoundButton(relaySwitch, DetailYoctoRelayFragment.this, new BgSwitchListener()
             {
                 @Override
                 public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception

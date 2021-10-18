@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_label_margin">64dp</dimen>
     <dimen name="hub_list_item_margin">16dp</dimen>
     <dimen name="hub_list_item_height">72dp</dimen>
     <dimen name="hub_list_item_icon_size">40dp</dimen>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.Temperature;
@@ -30,9 +31,9 @@ public class DetailYoctoTemperatureFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _temperature1.reloadBg();
     }
 
@@ -41,12 +42,12 @@ public class DetailYoctoTemperatureFragment extends DetailGenericModuleFragment
     {
         super.setupUI(rootView);
         _temperature1 = new Temperature(_argSerial + ".temperature");
-        _currentTextView = (TextView) rootView.findViewById(R.id.current_value);
-        _maxTextView = (TextView) rootView.findViewById(R.id.max_value);
-        _minTextView = (TextView) rootView.findViewById(R.id.min_value);
-        String substring = _argSerial.substring(0, FragmentChooser.YOCTO_BASE_SERIAL_LEN);
+        _currentTextView = rootView.findViewById(R.id.current_value);
+        _maxTextView = rootView.findViewById(R.id.max_value);
+        _minTextView = rootView.findViewById(R.id.min_value);
+        String substring = _argSerial.substring(0, YAPI.YOCTO_BASE_SERIAL_LEN);
         if (substring.equals("PT100MK1") || substring.equals("PT100MK2")) {
-            TextView messageTextView = (TextView) rootView.findViewById(R.id.message);
+            TextView messageTextView = rootView.findViewById(R.id.message);
             messageTextView.setText(R.string.make_sure_your_device_is_configured_according_to_your_pt100_type);
         }
     }

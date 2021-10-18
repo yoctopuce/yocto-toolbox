@@ -37,9 +37,9 @@ public class DetailYoctoMiniDisplayFragment extends DetailGenericModuleFragment 
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _display.reloadBg();
         _gifByte = _module.download("display.gif");
 
@@ -51,12 +51,12 @@ public class DetailYoctoMiniDisplayFragment extends DetailGenericModuleFragment 
         super.setupUI(rootView);
         _firsttime = true;
         _display = new Display(_argSerial + ".display");
-        EditText textInput = (EditText) rootView.findViewById(R.id.edit_text);
+        EditText textInput = rootView.findViewById(R.id.edit_text);
         String original_msg = getString(R.string.hello);
         new UpdateYoctoDisplayTask().execute(original_msg);
         textInput.setText(original_msg);
         textInput.addTextChangedListener(this);
-        _image = (ImageView) rootView.findViewById(R.id.capture);
+        _image = rootView.findViewById(R.id.capture);
 
     }
 

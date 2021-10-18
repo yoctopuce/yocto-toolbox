@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Wireless.java 26143 2016-12-02 16:58:26Z seb $
+ * $Id: Wireless.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements Wireless wrapper for Android toolbox
  *
@@ -38,7 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YWireless;
 import com.yoctopuce.YoctoAPI.YWlanRecord;
@@ -62,6 +61,7 @@ public class Wireless extends Function
     protected int _security =  YWireless.SECURITY_INVALID;
     protected String _message =  YWireless.MESSAGE_INVALID;
     protected String _wlanConfig =  YWireless.WLANCONFIG_INVALID;
+    protected int _wlanState =  YWireless.WLANSTATE_INVALID;
     protected YWireless _ywireless;
 
     public Wireless(YWireless yfunc)
@@ -84,6 +84,7 @@ public class Wireless extends Function
         _security = _ywireless.get_security();
         _message = _ywireless.get_message();
         _wlanConfig = _ywireless.get_wlanConfig();
+        _wlanState = _ywireless.get_wlanState();
     }
     /**
      * Returns the link quality, expressed in percent.
@@ -158,9 +159,40 @@ public class Wireless extends Function
         _ywireless.set_wlanConfig(newval);
     }
 
+    /**
+     * Returns the current state of the wireless interface. The state Y_WLANSTATE_DOWN means that the
+     * network interface is
+     * not connected to a network. The state Y_WLANSTATE_SCANNING means that the network interface is
+     * scanning available
+     * frequencies. During this stage, the device is not reachable, and the network settings are not yet
+     * applied. The state
+     * Y_WLANSTATE_CONNECTED means that the network settings have been successfully applied ant that the
+     * device is reachable
+     * from the wireless network. If the device is configured to use ad-hoc or Soft AP mode, it means that
+     * the wireless network
+     * is up and that other devices can join the network. The state Y_WLANSTATE_REJECTED means that the
+     * network interface has
+     * not been able to join the requested network. The description of the error can be obtain with the
+     * get_message() method.
+     *
+     * @return a value among Y_WLANSTATE_DOWN, Y_WLANSTATE_SCANNING, Y_WLANSTATE_CONNECTED and
+     * Y_WLANSTATE_REJECTED corresponding to the current state of the wireless interface
+     *
+     * On failure, throws an exception or returns Y_WLANSTATE_INVALID.
+     */
+    public int getWlanState()
+    {
+        return _wlanState;
+    }
+
     public static YWireless FindWireless(String func)
     {
         return YWireless.FindWireless(func);
+    }
+
+    public int startWlanScan() throws YAPI_Exception
+    {
+        return _ywireless.startWlanScan();
     }
 
     public int joinNetwork(String ssid, String securityKey) throws YAPI_Exception

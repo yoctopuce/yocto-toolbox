@@ -32,9 +32,9 @@ public class DetailYoctoVoltFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _voltageDC.reloadBg();
         _voltageAC.reloadBg();
     }
@@ -45,12 +45,12 @@ public class DetailYoctoVoltFragment extends DetailGenericModuleFragment
         super.setupUI(rootView);
         _voltageDC = new Voltage(_argSerial + ".voltage1");
         _voltageAC = new Voltage(_argSerial + ".voltage2");
-        _curDCTextView = (TextView) rootView.findViewById(R.id.current_value_dc);
-        _curACTextView = (TextView) rootView.findViewById(R.id.current_value_ac);
-        _minDCTextView = (TextView) rootView.findViewById(R.id.min_value_dc);
-        _minACTextView = (TextView) rootView.findViewById(R.id.min_value_ac);
-        _maxDCTextView = (TextView) rootView.findViewById(R.id.max_value_dc);
-        _maxACTextView = (TextView) rootView.findViewById(R.id.max_value_ac);
+        _curDCTextView = rootView.findViewById(R.id.current_value_dc);
+        _curACTextView = rootView.findViewById(R.id.current_value_ac);
+        _minDCTextView = rootView.findViewById(R.id.min_value_dc);
+        _minACTextView = rootView.findViewById(R.id.min_value_ac);
+        _maxDCTextView = rootView.findViewById(R.id.max_value_dc);
+        _maxACTextView = rootView.findViewById(R.id.max_value_ac);
     }
 
     @SuppressLint("SetTextI18n")

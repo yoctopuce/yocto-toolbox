@@ -1,5 +1,10 @@
 package com.yoctopuce.yoctopucetoolbox.hub;
 
+import android.content.Context;
+
+import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.yoctopucetoolbox.R;
+
 import java.util.Locale;
 import java.util.UUID;
 
@@ -15,6 +20,7 @@ public class Hub
     private String _serial;
     private boolean _beacon = false;
     private boolean _online = false;
+    private boolean _isRefreshing = true;
 
 
     public Hub(boolean isUSB)
@@ -24,6 +30,7 @@ public class Hub
         if (_isUSB) {
             _serial = "USB";
             _host = "usb";
+            _isRefreshing = false;
         } else {
             _port = 4444;
             _host = "";
@@ -46,6 +53,11 @@ public class Hub
         _name = name;
         _beacon = beacon;
         _serial = serial;
+        parseUrl(url);
+    }
+
+    private void parseUrl(String url)
+    {
         if (url.startsWith("http://")) {
             url = url.substring(7);
         } else if (url.startsWith("ws://")) {
@@ -145,22 +157,31 @@ public class Hub
         return _serial;
     }
 
-    public String getDescription()
+    public String getDescription(Context ctx)
     {
+        if (_isUSB) {
+            return ctx.getString(R.string.usb_port);
+        }
+        String id;
         if (_name.length() == 0) {
-            return _serial;
+            id = _serial;
         } else {
-            return String.format(Locale.US, "%s (%s)", _name, _serial);
+            id = _name;
+        }
+        if (_serial.startsWith("VIRTHUB0")) {
+            return ctx.getString(R.string.VirtualHub_s, id);
+        } else {
+            return ctx.getString(R.string.YoctoHub_s, id);
         }
     }
 
 
-    public String getUrl()
+    public String getUrl(boolean withAuth)
     {
         if (_isUSB) {
             return "usb";
         }
-        if (_user.length() > 0) {
+        if (withAuth && _user.length() > 0) {
             return String.format(Locale.US, "%s:%s@%s:%d", _user, _pass, _host, _port);
         } else {
             return String.format(Locale.US, "%s:%d", _host, _port);
@@ -201,5 +222,25 @@ public class Hub
     public void setName(String name)
     {
         _name = name;
+    }
+
+    public void setUrl(String url)
+    {
+        parseUrl(url);
+    }
+
+    public boolean isRefreshing()
+    {
+        return _isRefreshing;
+    }
+
+    public void setRefreshing(boolean refreshing)
+    {
+        _isRefreshing = refreshing;
+    }
+
+    public String getBaseSerial()
+    {
+        return _serial.substring(0, YAPI.YOCTO_BASE_SERIAL_LEN);
     }
 }

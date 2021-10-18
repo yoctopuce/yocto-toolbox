@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: pic24config.php 20732 2015-06-24 07:26:23Z mvuilleu $
+ * $Id: DataSet.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements DataSet wrapper for Android toolbox
  *
@@ -39,12 +39,6 @@
 
 package com.yoctopuce.yoctopucetoolbox.functions;
 
-import com.yoctopuce.YoctoAPI.YAPI_Exception;
-import com.yoctopuce.YoctoAPI.YDataSet;
-import com.yoctopuce.YoctoAPI.YDataStream;
-import com.yoctopuce.YoctoAPI.YMeasure;
-
-import java.util.ArrayList;
 //--- (generated code: YDataSet class start)
 /**
  * YDataSet Class: Recorded data sequence

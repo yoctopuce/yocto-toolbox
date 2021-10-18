@@ -5,18 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.DigitalIO;
+import com.yoctopuce.yoctopucetoolbox.service.BgRunnable;
 import com.yoctopuce.yoctopucetoolbox.widget.CustomCompoundButton;
 
 /**
  * Created by seb on 22.11.2016.
  */
-public class DetailYoctoMaxiIOFragment extends DetailGenericModuleFragment implements  CustomCompoundButton.CustomSwitchListener
+public class DetailYoctoMaxiIOFragment extends DetailGenericModuleFragment implements CustomCompoundButton.CustomSwitchListener
 {
     private DigitalIO _digitalIO;
     private CustomCompoundButton _channel0;
@@ -46,9 +46,9 @@ public class DetailYoctoMaxiIOFragment extends DetailGenericModuleFragment imple
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _digitalIO.reloadBg();
     }
 
@@ -58,37 +58,37 @@ public class DetailYoctoMaxiIOFragment extends DetailGenericModuleFragment imple
         super.setupUI(rootView);
         _digitalIO = new DigitalIO(_argSerial + ".digitalIO");
 
-        CheckBox checkBox = (CheckBox) rootView.findViewById(R.id.channel0);
-        _channel0 = new CustomCompoundButton(checkBox,_bgHandler,this);
-        _channel0Dir = (ImageView) rootView.findViewById(R.id.channel0_dir);
+        CheckBox checkBox = rootView.findViewById(R.id.channel0);
+        _channel0 = new CustomCompoundButton(checkBox, this, this);
+        _channel0Dir = rootView.findViewById(R.id.channel0_dir);
 
-        checkBox = (CheckBox) rootView.findViewById(R.id.channel1);
-        _channel1 = new CustomCompoundButton(checkBox,_bgHandler,this);
-        _channel1Dir = (ImageView) rootView.findViewById(R.id.channel1_dir);
+        checkBox = rootView.findViewById(R.id.channel1);
+        _channel1 = new CustomCompoundButton(checkBox, this, this);
+        _channel1Dir = rootView.findViewById(R.id.channel1_dir);
 
-        checkBox = (CheckBox) rootView.findViewById(R.id.channel2);
-        _channel2 = new CustomCompoundButton(checkBox,_bgHandler,this);
-        _channel2Dir = (ImageView) rootView.findViewById(R.id.channel2_dir);
+        checkBox = rootView.findViewById(R.id.channel2);
+        _channel2 = new CustomCompoundButton(checkBox, this, this);
+        _channel2Dir = rootView.findViewById(R.id.channel2_dir);
 
-        checkBox = (CheckBox) rootView.findViewById(R.id.channel3);
-        _channel3 = new CustomCompoundButton(checkBox,_bgHandler,this);
-        _channel3Dir = (ImageView) rootView.findViewById(R.id.channel3_dir);
+        checkBox = rootView.findViewById(R.id.channel3);
+        _channel3 = new CustomCompoundButton(checkBox, this, this);
+        _channel3Dir = rootView.findViewById(R.id.channel3_dir);
 
-        checkBox = (CheckBox) rootView.findViewById(R.id.channel4);
-        _channel4 = new CustomCompoundButton(checkBox,_bgHandler,this);
-        _channel4Dir = (ImageView) rootView.findViewById(R.id.channel4_dir);
+        checkBox = rootView.findViewById(R.id.channel4);
+        _channel4 = new CustomCompoundButton(checkBox, this, this);
+        _channel4Dir = rootView.findViewById(R.id.channel4_dir);
 
-        checkBox = (CheckBox) rootView.findViewById(R.id.channel5);
-        _channel5 = new CustomCompoundButton(checkBox,_bgHandler,this);
-        _channel5Dir = (ImageView) rootView.findViewById(R.id.channel5_dir);
+        checkBox = rootView.findViewById(R.id.channel5);
+        _channel5 = new CustomCompoundButton(checkBox, this, this);
+        _channel5Dir = rootView.findViewById(R.id.channel5_dir);
 
-        checkBox = (CheckBox) rootView.findViewById(R.id.channel6);
-        _channel6 = new CustomCompoundButton(checkBox,_bgHandler,this);
-        _channel6Dir = (ImageView) rootView.findViewById(R.id.channel6_dir);
+        checkBox = rootView.findViewById(R.id.channel6);
+        _channel6 = new CustomCompoundButton(checkBox, this, this);
+        _channel6Dir = rootView.findViewById(R.id.channel6_dir);
 
-        checkBox = (CheckBox) rootView.findViewById(R.id.channel7);
-        _channel7 = new CustomCompoundButton(checkBox,_bgHandler,this);
-        _channel7Dir = (ImageView) rootView.findViewById(R.id.channel7_dir);
+        checkBox = rootView.findViewById(R.id.channel7);
+        _channel7 = new CustomCompoundButton(checkBox, this, this);
+        _channel7Dir = rootView.findViewById(R.id.channel7_dir);
     }
 
     @Override
@@ -138,39 +138,30 @@ public class DetailYoctoMaxiIOFragment extends DetailGenericModuleFragment imple
     }
 
     @Override
-    public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
+    public void onCheckedChangedBg(int id, boolean isChecked)
     {
         final int bitno;
         final int value = isChecked ? 1 : 0;
-        switch (id) {
-            case R.id.channel0:
-                bitno = 0;
-                break;
-            case R.id.channel1:
-                bitno = 1;
-                break;
-            case R.id.channel2:
-                bitno = 2;
-                break;
-            case R.id.channel3:
-                bitno = 3;
-                break;
-            case R.id.channel4:
-                bitno = 4;
-                break;
-            case R.id.channel5:
-                bitno = 5;
-                break;
-            case R.id.channel6:
-                bitno = 6;
-                break;
-            case R.id.channel7:
-                bitno = 7;
-                break;
-            default:
-                return;
+        if (id == R.id.channel0) {
+            bitno = 0;
+        } else if (id == R.id.channel1) {
+            bitno = 1;
+        } else if (id == R.id.channel2) {
+            bitno = 2;
+        } else if (id == R.id.channel3) {
+            bitno = 3;
+        } else if (id == R.id.channel4) {
+            bitno = 4;
+        } else if (id == R.id.channel5) {
+            bitno = 5;
+        } else if (id == R.id.channel6) {
+            bitno = 6;
+        } else if (id == R.id.channel7) {
+            bitno = 7;
+        } else {
+            return;
         }
-        _bgHandler.post(new BGHandler.BgRunnable()
+        postBg(new BgRunnable()
         {
             @Override
             public void runBg() throws YAPI_Exception
@@ -187,9 +178,5 @@ public class DetailYoctoMaxiIOFragment extends DetailGenericModuleFragment imple
 
     }
 
-    @Override
-    public void onErrorFg(YAPI_Exception error)
-    {
 
-    }
 }

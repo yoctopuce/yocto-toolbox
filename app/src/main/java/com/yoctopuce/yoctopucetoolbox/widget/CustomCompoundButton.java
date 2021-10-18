@@ -1,28 +1,27 @@
 package com.yoctopuce.yoctopucetoolbox.widget;
 
-import android.os.Handler;
 import android.widget.CompoundButton;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
+import com.yoctopuce.yoctopucetoolbox.service.BgRunnable;
+import com.yoctopuce.yoctopucetoolbox.service.UseHubAPI;
 
 
 public class CustomCompoundButton implements CompoundButton.OnCheckedChangeListener
 {
     private boolean _callListener = true;
-    private Handler _bgHandler;
-    private CompoundButton _compoundButton;
-    private CustomSwitchListener _listener;
+    private final UseHubAPI _useHubAPI;
+    private final CompoundButton _compoundButton;
+    private final CustomSwitchListener _listener;
     private long _lastInputStartMS;
     private long _lastInputEndMS;
-    private Handler _uiHandler;
 
-    public CustomCompoundButton(CompoundButton buttonSwitch, Handler bgHandler, CustomSwitchListener listener)
+    public CustomCompoundButton(CompoundButton buttonSwitch, UseHubAPI useHubAPI, CustomSwitchListener listener)
     {
         _compoundButton = buttonSwitch;
         _compoundButton.setOnCheckedChangeListener(this);
-        _bgHandler = bgHandler;
+        _useHubAPI = useHubAPI;
         _listener = listener;
-        _uiHandler = new Handler();
     }
 
 
@@ -44,36 +43,23 @@ public class CustomCompoundButton implements CompoundButton.OnCheckedChangeListe
             _lastInputStartMS = System.currentTimeMillis();
             _listener.onPreChangedFg(isChecked);
             final int id = compoundButton.getId();
-            _bgHandler.post(new Runnable()
+            _useHubAPI.postBg(new BgRunnable()
             {
                 @Override
-                public void run()
+                public void runBg() throws YAPI_Exception
                 {
-                    try {
-                        _listener.onCheckedChangedBg(id, isChecked);
-                        _lastInputEndMS = System.currentTimeMillis();
-                        _uiHandler.post(new Runnable()
+                    _listener.onCheckedChangedBg(id, isChecked);
+                    _lastInputEndMS = System.currentTimeMillis();
+                    _useHubAPI.postUI(new Runnable()
+                    {
+                        @Override
+                        public void run()
                         {
-                            @Override
-                            public void run()
-                            {
-                                _listener.onPostChangedDoneFg(isChecked);
-                            }
-                        });
-                    } catch (final YAPI_Exception e) {
-                        e.printStackTrace();
-                        _uiHandler.post(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                _listener.onErrorFg(e);
-                            }
-                        });
-                    }
+                            _listener.onPostChangedDoneFg(isChecked);
+                        }
+                    });
                 }
             });
-
         }
     }
 
@@ -90,7 +76,5 @@ public class CustomCompoundButton implements CompoundButton.OnCheckedChangeListe
         void onCheckedChangedBg(int compoundButtonId, boolean isChecked) throws YAPI_Exception;
 
         void onPostChangedDoneFg(boolean isChecked);
-
-        void onErrorFg(YAPI_Exception error);
     }
 }

@@ -12,6 +12,7 @@ import com.yoctopuce.YoctoAPI.YDualPower;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.DualPower;
 import com.yoctopuce.yoctopucetoolbox.functions.Servo;
+import com.yoctopuce.yoctopucetoolbox.service.BgRunnable;
 
 import java.util.Locale;
 
@@ -44,9 +45,9 @@ public class DetailYoctoServoFragment extends DetailGenericModuleFragment implem
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _servo1.reloadBg();
         _servo2.reloadBg();
         _servo3.reloadBg();
@@ -66,19 +67,19 @@ public class DetailYoctoServoFragment extends DetailGenericModuleFragment implem
         _servo5 = new Servo(_argSerial + ".servo5");
         _dualPower = new DualPower(_argSerial + ".dualPower");
 
-        _power_mode = (TextView) rootView.findViewById(R.id.power_mode);
-        _status = (TextView) rootView.findViewById(R.id.power_status);
-        _extVoltage = (TextView) rootView.findViewById(R.id.ext_voltage);
+        _power_mode = rootView.findViewById(R.id.power_mode);
+        _status = rootView.findViewById(R.id.power_status);
+        _extVoltage = rootView.findViewById(R.id.ext_voltage);
 
-        _servo1SeekBar = (SeekBar) rootView.findViewById(R.id.servo1);
+        _servo1SeekBar = rootView.findViewById(R.id.servo1);
         _servo1SeekBar.setOnSeekBarChangeListener(this);
-        _servo2SeekBar = (SeekBar) rootView.findViewById(R.id.servo2);
+        _servo2SeekBar = rootView.findViewById(R.id.servo2);
         _servo2SeekBar.setOnSeekBarChangeListener(this);
-        _servo3SeekBar = (SeekBar) rootView.findViewById(R.id.servo3);
+        _servo3SeekBar = rootView.findViewById(R.id.servo3);
         _servo3SeekBar.setOnSeekBarChangeListener(this);
-        _servo4SeekBar = (SeekBar) rootView.findViewById(R.id.servo4);
+        _servo4SeekBar = rootView.findViewById(R.id.servo4);
         _servo4SeekBar.setOnSeekBarChangeListener(this);
-        _servo5SeekBar = (SeekBar) rootView.findViewById(R.id.servo5);
+        _servo5SeekBar = rootView.findViewById(R.id.servo5);
         _servo5SeekBar.setOnSeekBarChangeListener(this);
 
     }
@@ -134,7 +135,7 @@ public class DetailYoctoServoFragment extends DetailGenericModuleFragment implem
                 // prevents too many updates while the user is moving the cursor
                 _lastchangeupdate = now;
                 final Servo servo = _getServoFromID(seekBar);
-                _bgHandler.post(new BGHandler.BgRunnable()
+                postBg(new BgRunnable()
                 {
                     @Override
                     public void runBg() throws YAPI_Exception
@@ -151,24 +152,19 @@ public class DetailYoctoServoFragment extends DetailGenericModuleFragment implem
     protected Servo _getServoFromID(SeekBar seekBar)
     {
         Servo servo;
-        switch (seekBar.getId()) {
-            case R.id.servo1:
-                servo = _servo1;
-                break;
-            case R.id.servo2:
-                servo = _servo2;
-                break;
-            case R.id.servo3:
-                servo = _servo3;
-                break;
-            case R.id.servo4:
-                servo = _servo4;
-                break;
-            case R.id.servo5:
-                servo = _servo5;
-                break;
-            default:
-                servo = null;
+        int id = seekBar.getId();
+        if (id == R.id.servo1) {
+            servo = _servo1;
+        } else if (id == R.id.servo2) {
+            servo = _servo2;
+        } else if (id == R.id.servo3) {
+            servo = _servo3;
+        } else if (id == R.id.servo4) {
+            servo = _servo4;
+        } else if (id == R.id.servo5) {
+            servo = _servo5;
+        } else {
+            servo = null;
         }
         return servo;
     }
@@ -184,7 +180,7 @@ public class DetailYoctoServoFragment extends DetailGenericModuleFragment implem
     {
         final Servo servo = _getServoFromID(seekBar);
         final int progress = seekBar.getProgress();
-        _bgHandler.post(new BGHandler.BgRunnable()
+        postBg(new BgRunnable()
         {
 
             @Override

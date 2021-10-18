@@ -1,20 +1,15 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="0dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:padding="0dp">
+    <include layout="@layout/detail_layout_generic_module" />
 
-        <include layout="@layout/detail_layout_generic_module"/>
+    <include layout="@layout/detail_layout_yoctohub_3ports" />
 
-        <include layout="@layout/detail_layout_yoctohub_3ports"/>
+    <include layout="@layout/detail_template_network_wireless" />
 
-        <include layout="@layout/detail_template_network_wireless"/>
+    <include layout="@layout/detail_template_power_saving" />
 
-        <include layout="@layout/detail_template_power_saving"/>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

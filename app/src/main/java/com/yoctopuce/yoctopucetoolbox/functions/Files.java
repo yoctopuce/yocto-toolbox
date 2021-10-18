@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Files.java 26143 2016-12-02 16:58:26Z seb $
+ * $Id: Files.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements Files wrapper for Android toolbox
  *
@@ -38,7 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YFileRecord;
 import com.yoctopuce.YoctoAPI.YFiles;

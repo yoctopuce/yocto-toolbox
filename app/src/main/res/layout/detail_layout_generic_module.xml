@@ -67,7 +67,7 @@
             android:text="@string/beacon"
             />
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/beacon_switch"
             android:checked="true"
             android:layout_width="wrap_content"

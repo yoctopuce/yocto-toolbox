@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/fatal_pannel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:background="#80ff0000"
+                tools:showIn="@layout/activity_module_detail"
+                tools:visibility="visible">
+
+    <TextView
+        android:id="@+id/fatal_error_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:textColor="@color/primary_text"
+        android:textSize="45sp"
+        tools:text="sadfasdf"
+        />
+
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fatal_error_msg"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        android:text="@string/close"
+        />
+</RelativeLayout>

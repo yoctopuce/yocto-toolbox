@@ -117,7 +117,7 @@ public class HubStorage
 
     public Hub getHub(UUID uuid)
     {
-        if (uuid.equals(_usbPseudoHub.getUuid())){
+        if (_usbPseudoHub != null && uuid.equals(_usbPseudoHub.getUuid())) {
             return _usbPseudoHub;
         }
 
@@ -130,6 +130,23 @@ public class HubStorage
         cursor.close();
         return cursorHub;
     }
+
+
+    public Hub getHub(String serial)
+    {
+        HubCursorWrapper cursor = queryHubs(
+                DbSchemas.HubsTable.Cols.SERIAL + " = ?",
+                new String[]{serial}
+        );
+        final boolean moveToFirst = cursor.moveToFirst();
+        if (!moveToFirst) {
+            return null;
+        }
+        final Hub cursorHub = cursor.getHub();
+        cursor.close();
+        return cursorHub;
+    }
+
 
     public int updateHub(Hub hub)
     {

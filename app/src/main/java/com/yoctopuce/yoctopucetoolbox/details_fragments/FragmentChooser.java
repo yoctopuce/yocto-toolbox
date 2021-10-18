@@ -1,19 +1,22 @@
 package com.yoctopuce.yoctopucetoolbox.details_fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
+import androidx.fragment.app.Fragment;
+
+import com.yoctopuce.YoctoAPI.YAPI;
+import com.yoctopuce.yoctopucetoolbox.configure_fragments.ConfigureGenericModuleFragment;
+import com.yoctopuce.yoctopucetoolbox.configure_fragments.ConfigureSensorFragement;
+import com.yoctopuce.yoctopucetoolbox.configure_fragments.ConfigureYoctoWirelessFragment;
 
 
 public class FragmentChooser
 {
 
-    //FIXME: use YAPI.YOCTO_BASE_SERIAL_LEN with fix has been released
-    static final int YOCTO_BASE_SERIAL_LEN = 8;
-
     public static Fragment GetFragment(String serial)
     {
-        String base_serial = serial.substring(0, YOCTO_BASE_SERIAL_LEN);
-        DetailGenericModuleFragment fragment;
+        String base_serial = serial.substring(0, YAPI.YOCTO_BASE_SERIAL_LEN);
+        Fragment fragment;
         Bundle args = new Bundle();
         args.putString(DetailGenericModuleFragment.ARG_SERIAL, serial);
         switch (base_serial) {
@@ -165,6 +168,65 @@ public class FragmentChooser
                 break;
             default:
                 fragment = new DetailGenericModuleFragment();
+        }
+        fragment.setArguments(args);
+        return fragment;
+
+    }
+
+
+    public static Fragment GetConfigureFragment(String serial)
+    {
+        String base_serial = serial.substring(0, YAPI.YOCTO_BASE_SERIAL_LEN);
+        Fragment fragment;
+        Bundle args = new Bundle();
+        args.putString(DetailGenericModuleFragment.ARG_SERIAL, serial);
+        switch (base_serial) {
+            case "YGNSSMK1": //Yocto-GPS
+            case "RS232MK1": //Yocto-RS232
+            case "RS485MK1": //Yocto-RS485
+            case "YAMPMK01": //Yocto-Amp
+            case "YAMPMK02": //Yocto-Amp-V2
+            case "RXMVOLT1": //Yocto-milliVolt-Rx
+            case "RXMVOLT2": //Yocto-milliVolt-Rx-BNC
+            case "YSERIAL1": //Yocto-Serial
+            case "YSPIMK01": //Yocto-SPI
+            case "VOLTAGE2": //Yocto-Volt-V2
+            case "VOLTAGE1": //Yocto-Volt
+            case "YWATTMK1": //Yocto-Watt
+            case "YWATTMK2": //Yocto-Watt-V2
+            case "RX010V01": //Yocto-0-10V-Rx
+            case "RX420MA1": //Yocto-4-20mA-Rx
+            case "Y3DMK001": //Yocto-3D
+            case "Y3DMK002": //Yocto-3D-V2
+            case "TX420MA1": //Yocto-4-20mA-Tx
+            case "YCO2MK01": //Yocto-CO2
+            case "YPWMRX01": //Yocto-PWM-Rx
+            case "YALTIMK1": //Yocto-Altimeter
+            case "LIGHTMK1": //Yocto-Light
+            case "LIGHTMK2": //Yocto-Light-V2
+            case "LIGHTMK3": //Yocto-Light-V3
+            case "METEOMK1": //Yocto-Meteo
+            case "TMPSENS1": //Yocto-Temperature
+            case "PT100MK1": //Yocto-PT100
+            case "PT100MK2": //Yocto-PT100-V2
+            case "THRMCPL1": //Yocto-Thermocouple
+            case "THRMSTR2": //Yocto-MaxiThermistor
+            case "THRMSTR1": //Yocto-Thermistor-C
+            case "YVOCMK01": //Yocto-VOC
+            case "YPROXIM1": //Yocto-Proxmitiy
+                fragment = new ConfigureSensorFragement();
+                break;
+            case "YHUBWLN1": //YoctoHub-Wireless
+            case "YHUBWLN3": //YoctoHub-Wireless-g
+            case "YHUBWLN2": //YoctoHub-Wireless-SR
+                fragment = new ConfigureYoctoWirelessFragment();
+                break;
+            case "YHUBETH1": //YoctoHub-Ethernet
+                fragment = new ConfigureYoctoWirelessFragment();
+                break;
+            default:
+                fragment = new ConfigureGenericModuleFragment();
         }
         fragment.setArguments(args);
         return fragment;

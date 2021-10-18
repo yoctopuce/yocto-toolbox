@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Gyro.java 26331 2017-01-11 16:50:06Z seb $
+ * $Id: Gyro.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements Gyro wrapper for Android toolbox
  *
@@ -40,7 +40,6 @@
 package com.yoctopuce.yoctopucetoolbox.functions;
 
 
-import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YGyro;
 import com.yoctopuce.YoctoAPI.YQt;

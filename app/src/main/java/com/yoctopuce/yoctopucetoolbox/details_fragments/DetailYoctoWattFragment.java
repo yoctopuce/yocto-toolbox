@@ -48,9 +48,9 @@ public class DetailYoctoWattFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _power.reloadBg();
         _voltageDC.reloadBg();
         _voltageAC.reloadBg();
@@ -67,15 +67,15 @@ public class DetailYoctoWattFragment extends DetailGenericModuleFragment
         _voltageAC = new Voltage(_argSerial + ".voltage2");
         _currentDC = new Current(_argSerial + ".current1");
         _currentAC = new Current(_argSerial + ".current2");
-        _voltDCTextView = (TextView) rootView.findViewById(R.id.volt_dc);
-        _voltACTextView = (TextView) rootView.findViewById(R.id.volt_ac);
-        _ampDCTextView = (TextView) rootView.findViewById(R.id.amp_dc);
-        _ampACTextView = (TextView) rootView.findViewById(R.id.amp_ac);
-        _powerTextView = (TextView) rootView.findViewById(R.id.power);
-        _cosphiTextView = (TextView) rootView.findViewById(R.id.cosfi);
-        _durationTextView = (TextView) rootView.findViewById(R.id.duration);
-        _energy = (TextView) rootView.findViewById(R.id.energy);
-        Button resetButton = (Button) rootView.findViewById(R.id.reset_button);
+        _voltDCTextView = rootView.findViewById(R.id.volt_dc);
+        _voltACTextView = rootView.findViewById(R.id.volt_ac);
+        _ampDCTextView = rootView.findViewById(R.id.amp_dc);
+        _ampACTextView = rootView.findViewById(R.id.amp_ac);
+        _powerTextView = rootView.findViewById(R.id.power);
+        _cosphiTextView = rootView.findViewById(R.id.cosfi);
+        _durationTextView = rootView.findViewById(R.id.duration);
+        _energy = rootView.findViewById(R.id.energy);
+        Button resetButton = rootView.findViewById(R.id.reset_button);
         resetButton.setOnClickListener(new View.OnClickListener()
         {
             @Override

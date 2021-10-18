@@ -1,13 +1,21 @@
 package com.yoctopuce.yoctopucetoolbox;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +34,7 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -51,14 +60,14 @@ public class HubDiscoveryFragment extends Fragment implements SwipeRefreshLayout
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_hub_discovery, container, false);
-        _hubRecyclerView = (RecyclerView) view.findViewById(R.id.hub_list_recycler_view);
+        _hubRecyclerView = view.findViewById(R.id.hub_list_recycler_view);
         _hubRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
+                DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL_LIST);
         _hubRecyclerView.addItemDecoration(itemDecoration);
         _hubStorage = HubStorage.get(getContext());
-        _swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        _swipeLayout = view.findViewById(R.id.swipeRefreshLayout);
         _swipeLayout.setOnRefreshListener(this);
         updateUI();
         return view;
@@ -85,6 +94,14 @@ public class HubDiscoveryFragment extends Fragment implements SwipeRefreshLayout
             {
                 try {
                     _yapi = new YAPIContext();
+                    _yapi.RegisterLogFunction(new YAPI.LogCallback()
+                    {
+                        @Override
+                        public void yLog(String line)
+                        {
+                            Log.d("HUB_Disc", "YAPI:" + line.trim());
+                        }
+                    });
                     _yapi.InitAPI(YAPI.DETECT_NONE);
                     _yapi.RegisterHubDiscoveryCallback(mNewHub);
                 } catch (YAPI_Exception e) {
@@ -97,7 +114,7 @@ public class HubDiscoveryFragment extends Fragment implements SwipeRefreshLayout
     }
 
 
-    private final Handler mMainHandler = new MyHandler(this);
+    private final Handler mMainHandler = new MyHandler(Looper.getMainLooper(), this);
 
     @Override
     public void onResume()
@@ -138,8 +155,9 @@ public class HubDiscoveryFragment extends Fragment implements SwipeRefreshLayout
     {
         private final WeakReference<HubDiscoveryFragment> _fragmentWeakReference;
 
-        MyHandler(HubDiscoveryFragment fragment)
+        MyHandler(@NonNull Looper looper, HubDiscoveryFragment fragment)
         {
+            super(looper);
             _fragmentWeakReference = new WeakReference<>(fragment);
         }
 
@@ -149,11 +167,12 @@ public class HubDiscoveryFragment extends Fragment implements SwipeRefreshLayout
             if (discoveryFragment != null) {
                 String serial = msg.getData().getString(NEW_HUB_SERIAL);
                 String name = msg.getData().getString(NEW_HUB_NAME, "");
+                String url = msg.getData().getString(NEW_HUB_URL);
                 boolean beacon = msg.getData().getBoolean(NEW_HUB_BEACON, false);
-                if (discoveryFragment._hubStorage.contain(serial)) {
+                Hub hub = discoveryFragment._hubStorage.getHub(serial);
+                if (hub != null && hub.getUrl(false).equals(url)) {
                     return;
                 }
-                String url = msg.getData().getString(NEW_HUB_URL);
                 for (Hub h : discoveryFragment._dicoverdHubs) {
                     if (h.getSerial().equals(serial)) {
                         int pos = discoveryFragment._dicoverdHubs.indexOf(h);
@@ -163,7 +182,13 @@ public class HubDiscoveryFragment extends Fragment implements SwipeRefreshLayout
 
                 }
                 int pos = discoveryFragment._dicoverdHubs.size();
-                final Hub hub = new Hub(serial, name, beacon, url);
+                if (hub == null) {
+                    hub = new Hub(serial, name, beacon, url);
+                } else {
+                    hub.setName(name);
+                    hub.setBeacon(beacon);
+                    hub.setUrl(url);
+                }
                 hub.setOnline(true);
                 discoveryFragment._dicoverdHubs.add(hub);
                 discoveryFragment._adapter.notifyItemInserted(pos);
@@ -173,29 +198,25 @@ public class HubDiscoveryFragment extends Fragment implements SwipeRefreshLayout
     }
 
 
-    private YAPI.HubDiscoveryCallback mNewHub = new YAPI.HubDiscoveryCallback()
-    {
-        @Override
-        public void yHubDiscoveryCallback(String serial, String url)
-        {
-            final JSONObject jsonObject = MiscHelper.requestJson("http://" + url + "/api/module.json");
-            String name = null;
-            boolean beacon = false;
-            if (jsonObject != null) {
-                name = jsonObject.optString("logicalName");
-                final int beaconInt = jsonObject.optInt("beacon", 0);
-                beacon = beaconInt == 1;
-            }
-
-            Message myMessage = mMainHandler.obtainMessage();
-            Bundle messageBundle = new Bundle();
-            messageBundle.putString(NEW_HUB_SERIAL, serial);
-            messageBundle.putString(NEW_HUB_NAME, name);
-            messageBundle.putBoolean(NEW_HUB_BEACON, beacon);
-            messageBundle.putString(NEW_HUB_URL, url);
-            myMessage.setData(messageBundle);
-            mMainHandler.sendMessage(myMessage);
+    private final YAPI.HubDiscoveryCallback mNewHub = (serial, url) -> {
+        Log.d("HUB_Disc", "Find new hub " + serial + " " + url);
+        final JSONObject jsonObject = MiscHelper.requestJson("http://" + url + "/api/module.json");
+        String name = null;
+        boolean beacon = false;
+        if (jsonObject != null) {
+            name = jsonObject.optString("logicalName");
+            final int beaconInt = jsonObject.optInt("beacon", 0);
+            beacon = beaconInt == 1;
         }
+
+        Message myMessage = mMainHandler.obtainMessage();
+        Bundle messageBundle = new Bundle();
+        messageBundle.putString(NEW_HUB_SERIAL, serial);
+        messageBundle.putString(NEW_HUB_NAME, name);
+        messageBundle.putBoolean(NEW_HUB_BEACON, beacon);
+        messageBundle.putString(NEW_HUB_URL, url);
+        myMessage.setData(messageBundle);
+        mMainHandler.sendMessage(myMessage);
     };
 
 
@@ -212,15 +233,16 @@ public class HubDiscoveryFragment extends Fragment implements SwipeRefreshLayout
     private class HubAdapter extends RecyclerView.Adapter<HubViewHolder>
     {
 
-        private List<Hub> _hubs;
+            private final List<Hub> _hubs;
 
         HubAdapter(List<Hub> _hubs)
         {
             this._hubs = _hubs;
         }
 
+        @NonNull
         @Override
-        public HubViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+        public HubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
         {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             View view = inflater.inflate(R.layout.list_item_hub, parent, false);
@@ -231,15 +253,40 @@ public class HubDiscoveryFragment extends Fragment implements SwipeRefreshLayout
         public void onBindViewHolder(HubViewHolder holder, int position)
         {
             Hub hub = _hubs.get(position);
-            holder.bindHub(hub, new HubViewHolder.OnSelectListener()
-            {
-                @Override
-                public boolean onSelect(Hub hub)
-                {
-                    _hubStorage.addNewHub(hub);
-                    getActivity().finish();
-                    return true;
+            hub.setRefreshing(false);
+            holder.bindHub(hub, hub1 -> {
+                final String serial = hub1.getSerial();
+                final Hub perviousHub = _hubStorage.getHub(serial);
+                if (perviousHub != null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+                    builder.setMessage(String.format(Locale.US, getString(R.string.update_yoctohub_descr),
+                            serial, hub1.getUrl(false)))
+                            .setTitle(R.string.update_yoctohub_url);
+                    builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i)
+                        {
+                            _hubStorage.updateHub(hub1);
+                            requireActivity().finish();
+                        }
+                    });
+                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i)
+                        {
+
+                        }
+                    });
+                    // 3. Get the AlertDialog from create()
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    _hubStorage.addNewHub(hub1);
+                    requireActivity().finish();
                 }
+                return true;
             }, null, null);
         }
 

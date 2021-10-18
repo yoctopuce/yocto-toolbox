@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YHubPort;
@@ -49,12 +50,12 @@ public class DetailYoctoHubShieldFragment extends DetailGenericModuleFragment
         _hubport3 = new HubPort(_argSerial + ".hubPort3");
         _hubport4 = new HubPort(_argSerial + ".hubPort4");
 
-        _port1TextView = (TextView) rootView.findViewById(R.id.port1_state);
-        _port2TextView = (TextView) rootView.findViewById(R.id.port2_state);
-        _port3TextView = (TextView) rootView.findViewById(R.id.port3_state);
-        _port4TextView = (TextView) rootView.findViewById(R.id.port4_state);
-        Switch port1Switch = (Switch) rootView.findViewById(R.id.port1_switch);
-        _port1Switch = new CustomCompoundButton(port1Switch, _bgHandler, new BgSwitchListener()
+        _port1TextView = rootView.findViewById(R.id.port1_state);
+        _port2TextView = rootView.findViewById(R.id.port2_state);
+        _port3TextView = rootView.findViewById(R.id.port3_state);
+        _port4TextView = rootView.findViewById(R.id.port4_state);
+        SwitchCompat port1Switch = rootView.findViewById(R.id.port1_switch);
+        _port1Switch = new CustomCompoundButton(port1Switch, this, new BgSwitchListener()
         {
             @Override
             public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
@@ -62,8 +63,8 @@ public class DetailYoctoHubShieldFragment extends DetailGenericModuleFragment
                 _hubport1.setEnabledBg(isChecked ? YHubPort.ENABLED_TRUE : YHubPort.ENABLED_FALSE);
             }
         });
-        Switch port2Switch = (Switch) rootView.findViewById(R.id.port2_switch);
-        _port2Switch = new CustomCompoundButton(port2Switch, _bgHandler, new BgSwitchListener()
+        SwitchCompat port2Switch = rootView.findViewById(R.id.port2_switch);
+        _port2Switch = new CustomCompoundButton(port2Switch, this, new BgSwitchListener()
         {
             @Override
             public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
@@ -71,8 +72,8 @@ public class DetailYoctoHubShieldFragment extends DetailGenericModuleFragment
                 _hubport2.setEnabledBg(isChecked ? YHubPort.ENABLED_TRUE : YHubPort.ENABLED_FALSE);
             }
         });
-        Switch port3Switch = (Switch) rootView.findViewById(R.id.port3_switch);
-        _port3Switch = new CustomCompoundButton(port3Switch, _bgHandler, new BgSwitchListener()
+        SwitchCompat port3Switch = rootView.findViewById(R.id.port3_switch);
+        _port3Switch = new CustomCompoundButton(port3Switch, this, new BgSwitchListener()
         {
             @Override
             public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
@@ -80,8 +81,8 @@ public class DetailYoctoHubShieldFragment extends DetailGenericModuleFragment
                 _hubport3.setEnabledBg(isChecked ? YHubPort.ENABLED_TRUE : YHubPort.ENABLED_FALSE);
             }
         });
-        Switch port4Switch = (Switch) rootView.findViewById(R.id.port4_switch);
-        _port4Switch = new CustomCompoundButton(port4Switch, _bgHandler, new BgSwitchListener()
+        SwitchCompat port4Switch = rootView.findViewById(R.id.port4_switch);
+        _port4Switch = new CustomCompoundButton(port4Switch, this, new BgSwitchListener()
         {
             @Override
             public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
@@ -92,9 +93,9 @@ public class DetailYoctoHubShieldFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _hubport1.reloadBg();
         _hubport2.reloadBg();
         _hubport3.reloadBg();

@@ -31,7 +31,7 @@
             android:paddingTop="8dp"
             android:useDefaultMargins="true">
 
-            <TextView android:text="anButton1"/>
+            <TextView android:text="@string/anbutton1"/>
 
             <ProgressBar
                 android:id="@+id/progressBar1"
@@ -43,7 +43,7 @@
                 android:id="@+id/ispressed1"
                 tools:text="released"/>
 
-            <TextView android:text="anButton2"/>
+            <TextView android:text="@string/anbutton2"/>
 
             <ProgressBar
                 android:id="@+id/progressBar2"
@@ -55,7 +55,7 @@
                 android:id="@+id/ispressed2"
                 tools:text="released"/>
 
-            <TextView android:text="anButton3"/>
+            <TextView android:text="@string/anbutton3"/>
 
             <ProgressBar
                 android:id="@+id/progressBar3"
@@ -67,7 +67,7 @@
                 android:id="@+id/ispressed3"
                 tools:text="released"/>
 
-            <TextView android:text="anButton4"/>
+            <TextView android:text="@string/anbutton4"/>
 
             <ProgressBar
                 android:id="@+id/progressBar4"
@@ -79,7 +79,7 @@
                 android:id="@+id/ispressed4"
                 tools:text="released"/>
 
-            <TextView android:text="anButton5"/>
+            <TextView android:text="@string/anbutton5"/>
 
             <ProgressBar
                 android:id="@+id/progressBar5"

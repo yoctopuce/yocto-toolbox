@@ -78,7 +78,7 @@
                 android:enabled="false"
                 android:layout_columnSpan="2"
                 android:layout_gravity="fill_horizontal"
-                android:text="Open in Maps"
+                android:text="@string/open_in_maps"
 
                 />
 

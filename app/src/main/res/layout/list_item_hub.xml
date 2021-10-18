@@ -1,59 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:padding="@dimen/hub_list_item_margin"
-                tools:context=".HubListActivity">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:padding="@dimen/hub_list_item_margin"
+    tools:context=".HubListActivity">
     <!-- android:background="?android:attr/selectableItemBackground"-->
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="@dimen/hub_list_item_icon_size"
         android:layout_height="@dimen/hub_list_item_icon_size"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/hub_list_item_margin"
-        android:layout_marginRight="@dimen/hub_list_item_margin"
         android:contentDescription="@string/icon_of_the_yoctohub"
-        android:src="@drawable/yocto_circle_40_dp"/>
+        android:src="@drawable/yocto_circle_40_dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="@dimen/hub_list_item_icon_size"
+        android:layout_height="@dimen/hub_list_item_icon_size"
+        android:padding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/edit"
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/hub_list_item_margin"
         android:layout_marginStart="@dimen/hub_list_item_margin"
+        android:layout_marginLeft="@dimen/hub_list_item_margin"
         android:contentDescription="@string/edit_hub"
         android:src="@drawable/ic_more_vert_black_24dp"
-        android:tint="@color/icons_dark_active"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/icons_dark_active" />
 
     <TextView
         android:id="@+id/hub_line1"
         style="@style/first_line_list"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/icon"
-        android:layout_toRightOf="@id/icon"
-        tools:text="YoctoHub-Ethernet"/>
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/hub_line2"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:text="YoctoHub-Ethernet" />
 
     <TextView
         android:id="@+id/hub_line2"
         style="@style/second_line_list"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/hub_line1"
-        android:layout_toEndOf="@id/icon"
-        android:layout_toRightOf="@id/icon"
-        tools:text="172.17.17.72:4444"/>
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/hub_line1"
+        tools:text="172.17.17.72:4444" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="55dp" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

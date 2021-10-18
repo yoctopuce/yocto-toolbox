@@ -38,9 +38,9 @@ public class DetailYoctoVOCFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _voc.reloadBg();
     }
 
@@ -49,12 +49,12 @@ public class DetailYoctoVOCFragment extends DetailGenericModuleFragment
     {
         super.setupUI(rootView);
         _voc = new Voc(_argSerial + ".voc");
-        _currentTextView = (TextView) rootView.findViewById(R.id.current_value);
-        _maxTextView = (TextView) rootView.findViewById(R.id.max_value);
-        _minTextView = (TextView) rootView.findViewById(R.id.min_value);
+        _currentTextView = rootView.findViewById(R.id.current_value);
+        _maxTextView = rootView.findViewById(R.id.max_value);
+        _minTextView = rootView.findViewById(R.id.min_value);
         _vocInfo = rootView.findViewById(R.id.voc_info);
         _preheatInfo = rootView.findViewById(R.id.preheat_info);
-        _preheatTime = (TextView) rootView.findViewById(R.id.preheat_time);
+        _preheatTime = rootView.findViewById(R.id.preheat_time);
     }
 
 

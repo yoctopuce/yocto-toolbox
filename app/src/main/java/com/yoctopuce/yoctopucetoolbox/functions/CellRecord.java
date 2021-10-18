@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: pic24config.php 20732 2015-06-24 07:26:23Z mvuilleu $
+ * $Id: CellRecord.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements CellRecord wrapper for Android toolbox
  *
@@ -38,7 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YCellRecord;
 
 //--- (generated code: YCellRecord class start)
 /**

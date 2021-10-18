@@ -1,25 +1,16 @@
 package com.yoctopuce.yoctopucetoolbox.details_fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YAnButton;
-import com.yoctopuce.YoctoAPI.YDisplayLayer;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.AnButton;
-import com.yoctopuce.yoctopucetoolbox.functions.Display;
 
 public class DetailYoctoMaxiDisplayFragment extends DetailYoctoMiniDisplayFragment
 {
@@ -53,9 +44,9 @@ public class DetailYoctoMaxiDisplayFragment extends DetailYoctoMiniDisplayFragme
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _anButton1.reloadBg();
         _anButton2.reloadBg();
         _anButton3.reloadBg();
@@ -73,16 +64,16 @@ public class DetailYoctoMaxiDisplayFragment extends DetailYoctoMiniDisplayFragme
         _anButton4 = new AnButton(_argSerial + ".anButton4");
         _anButton5 = new AnButton(_argSerial + ".anButton5");
 
-        _isPressed1TextView = (TextView) rootView.findViewById(R.id.ispressed1);
-        _progress1 = (ProgressBar) rootView.findViewById(R.id.progressBar1);
-        _isPressed2TextView = (TextView) rootView.findViewById(R.id.ispressed2);
-        _progress2 = (ProgressBar) rootView.findViewById(R.id.progressBar2);
-        _isPressed3TextView = (TextView) rootView.findViewById(R.id.ispressed3);
-        _progress3 = (ProgressBar) rootView.findViewById(R.id.progressBar3);
-        _isPressed4TextView = (TextView) rootView.findViewById(R.id.ispressed4);
-        _progress4 = (ProgressBar) rootView.findViewById(R.id.progressBar4);
-        _isPressed5TextView = (TextView) rootView.findViewById(R.id.ispressed5);
-        _progress5 = (ProgressBar) rootView.findViewById(R.id.progressBar5);
+        _isPressed1TextView = rootView.findViewById(R.id.ispressed1);
+        _progress1 = rootView.findViewById(R.id.progressBar1);
+        _isPressed2TextView = rootView.findViewById(R.id.ispressed2);
+        _progress2 = rootView.findViewById(R.id.progressBar2);
+        _isPressed3TextView = rootView.findViewById(R.id.ispressed3);
+        _progress3 = rootView.findViewById(R.id.progressBar3);
+        _isPressed4TextView = rootView.findViewById(R.id.ispressed4);
+        _progress4 = rootView.findViewById(R.id.progressBar4);
+        _isPressed5TextView = rootView.findViewById(R.id.ispressed5);
+        _progress5 = rootView.findViewById(R.id.progressBar5);
     }
 
     @Override

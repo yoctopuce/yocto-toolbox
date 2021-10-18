@@ -165,7 +165,7 @@ public class MiscHelper
             }
 
         } catch (JSONException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             if (!hub.isOnline()) {
                 needRefresh = true;
                 hub.setOnline(false);

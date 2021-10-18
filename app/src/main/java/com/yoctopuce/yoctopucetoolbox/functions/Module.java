@@ -1,87 +1,61 @@
-/*********************************************************************
- * $Id: Module.java 26331 2017-01-11 16:50:06Z seb $
- * <p>
- * Implements Relay wrapper for Android toolbox
- * <p>
- * - - - - - - - - - License information: - - - - - - - - -
- * <p>
- * Copyright (C) 2011 and beyond by Yoctopuce Sarl, Switzerland.
- * <p>
- * Yoctopuce Sarl (hereafter Licensor) grants to you a perpetual
- * non-exclusive license to use, modify, copy and integrate this
- * file into your software for the sole purpose of interfacing
- * with Yoctopuce products.
- * <p>
- * You may reproduce and distribute copies of this file in
- * source or object form, as long as the sole purpose of this
- * code is to interface with Yoctopuce products. You must retain
- * this notice in the distributed source file.
- * <p>
- * You should refer to Yoctopuce General Terms and Conditions
- * for additional information regarding your rights and
- * obligations.
- * <p>
- * THE SOFTWARE AND DOCUMENTATION ARE PROVIDED 'AS IS' WITHOUT
- * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING
- * WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO
- * EVENT SHALL LICENSOR BE LIABLE FOR ANY INCIDENTAL, SPECIAL,
- * INDIRECT OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA,
- * COST OF PROCUREMENT OF SUBSTITUTE GOODS, TECHNOLOGY OR
- * SERVICES, ANY CLAIMS BY THIRD PARTIES (INCLUDING BUT NOT
- * LIMITED TO ANY DEFENSE THEREOF), ANY CLAIMS FOR INDEMNITY OR
- * CONTRIBUTION, OR OTHER SIMILAR COSTS, WHETHER ASSERTED ON THE
- * BASIS OF CONTRACT, TORT (INCLUDING NEGLIGENCE), BREACH OF
- * WARRANTY, OR OTHERWISE.
- *********************************************************************/
-
 package com.yoctopuce.yoctopucetoolbox.functions;
+
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YFirmwareUpdate;
 import com.yoctopuce.YoctoAPI.YModule;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 //--- (generated code: YModule class start)
+
 /**
  * YModule Class: Module control interface
- *
+ * <p>
  * This interface is identical for all Yoctopuce USB modules.
  * It can be used to control the module global parameters, and
  * to enumerate the functions provided by each module.
  */
- @SuppressWarnings("UnusedDeclaration")
+@SuppressWarnings("UnusedDeclaration")
 public class Module extends Function
 {
-// valueCallbackModule
+    // valueCallbackModule
 // logCallback
-    protected String _productName =  YModule.PRODUCTNAME_INVALID;
-    protected String _serialNumber =  YModule.SERIALNUMBER_INVALID;
-    protected int _productId =  YModule.PRODUCTID_INVALID;
-    protected int _productRelease =  YModule.PRODUCTRELEASE_INVALID;
-    protected String _firmwareRelease =  YModule.FIRMWARERELEASE_INVALID;
-    protected int _persistentSettings =  YModule.PERSISTENTSETTINGS_INVALID;
-    protected int _luminosity =  YModule.LUMINOSITY_INVALID;
-    protected int _beacon =  YModule.BEACON_INVALID;
-    protected long _upTime =  YModule.UPTIME_INVALID;
-    protected int _usbCurrent =  YModule.USBCURRENT_INVALID;
-    protected int _rebootCountdown =  YModule.REBOOTCOUNTDOWN_INVALID;
-    protected int _userVar =  YModule.USERVAR_INVALID;
+// confChangeCallback
+// beaconCallback
+    protected String _productName = YModule.PRODUCTNAME_INVALID;
+    protected String _serialNumber = YModule.SERIALNUMBER_INVALID;
+    protected int _productId = YModule.PRODUCTID_INVALID;
+    protected int _productRelease = YModule.PRODUCTRELEASE_INVALID;
+    protected String _firmwareRelease = YModule.FIRMWARERELEASE_INVALID;
+    protected int _persistentSettings = YModule.PERSISTENTSETTINGS_INVALID;
+    protected int _luminosity = YModule.LUMINOSITY_INVALID;
+    protected int _beacon = YModule.BEACON_INVALID;
+    protected long _upTime = YModule.UPTIME_INVALID;
+    protected int _usbCurrent = YModule.USBCURRENT_INVALID;
+    protected int _rebootCountdown = YModule.REBOOTCOUNTDOWN_INVALID;
+    protected int _userVar = YModule.USERVAR_INVALID;
     protected YModule _ymodule;
+    private ArrayList<Function> _functions = new ArrayList<>(3);
 
     public Module(YModule yfunc)
     {
-       super(yfunc);
-       _ymodule = yfunc;
+        super(yfunc);
+        _ymodule = yfunc;
     }
 
     public Module(String hwid)
     {
-       super(hwid);
-       _ymodule = YModule.FindModule(hwid);
+        super(hwid);
+        _ymodule = YModule.FindModule(hwid);
     }
-    public void reloadBg () throws YAPI_Exception
+
+    public void reloadBg() throws YAPI_Exception
     {
         super.reloadBg();
         _productName = _ymodule.get_productName();
@@ -97,11 +71,12 @@ public class Module extends Function
         _rebootCountdown = _ymodule.get_rebootCountdown();
         _userVar = _ymodule.get_userVar();
     }
+
     /**
      * Returns the commercial name of the module, as set by the factory.
      *
      * @return a string corresponding to the commercial name of the module, as set by the factory
-     *
+     * <p>
      * On failure, throws an exception or returns Y_PRODUCTNAME_INVALID.
      */
     public String getProductName()
@@ -113,7 +88,7 @@ public class Module extends Function
      * Returns the serial number of the module, as set by the factory.
      *
      * @return a string corresponding to the serial number of the module, as set by the factory
-     *
+     * <p>
      * On failure, throws an exception or returns Y_SERIALNUMBER_INVALID.
      */
     public String getSerialNumber()
@@ -125,7 +100,7 @@ public class Module extends Function
      * Returns the USB device identifier of the module.
      *
      * @return an integer corresponding to the USB device identifier of the module
-     *
+     * <p>
      * On failure, throws an exception or returns Y_PRODUCTID_INVALID.
      */
     public int getProductId()
@@ -137,7 +112,7 @@ public class Module extends Function
      * Returns the hardware release version of the module.
      *
      * @return an integer corresponding to the hardware release version of the module
-     *
+     * <p>
      * On failure, throws an exception or returns Y_PRODUCTRELEASE_INVALID.
      */
     public int getProductRelease()
@@ -149,7 +124,7 @@ public class Module extends Function
      * Returns the version of the firmware embedded in the module.
      *
      * @return a string corresponding to the version of the firmware embedded in the module
-     *
+     * <p>
      * On failure, throws an exception or returns Y_FIRMWARERELEASE_INVALID.
      */
     public String getFirmwareRelease()
@@ -162,7 +137,7 @@ public class Module extends Function
      *
      * @return a value among Y_PERSISTENTSETTINGS_LOADED, Y_PERSISTENTSETTINGS_SAVED and
      * Y_PERSISTENTSETTINGS_MODIFIED corresponding to the current state of persistent module settings
-     *
+     * <p>
      * On failure, throws an exception or returns Y_PERSISTENTSETTINGS_INVALID.
      */
     public int getPersistentSettings()
@@ -180,7 +155,7 @@ public class Module extends Function
      * Returns the luminosity of the  module informative leds (from 0 to 100).
      *
      * @return an integer corresponding to the luminosity of the  module informative leds (from 0 to 100)
-     *
+     * <p>
      * On failure, throws an exception or returns Y_LUMINOSITY_INVALID.
      */
     public int getLuminosity()
@@ -195,9 +170,8 @@ public class Module extends Function
      * modification must be kept.
      *
      * @param newval : an integer corresponding to the luminosity of the module informative leds
-     *
      * @return YAPI_SUCCESS if the call succeeds.
-     *
+     * <p>
      * On failure, throws an exception or returns a negative error code.
      */
     public void setLuminosityBg(int newval) throws YAPI_Exception
@@ -210,7 +184,7 @@ public class Module extends Function
      * Returns the state of the localization beacon.
      *
      * @return either Y_BEACON_OFF or Y_BEACON_ON, according to the state of the localization beacon
-     *
+     * <p>
      * On failure, throws an exception or returns Y_BEACON_INVALID.
      */
     public int getBeacon()
@@ -222,9 +196,8 @@ public class Module extends Function
      * Turns on or off the module localization beacon.
      *
      * @param newval : either Y_BEACON_OFF or Y_BEACON_ON
-     *
      * @return YAPI_SUCCESS if the call succeeds.
-     *
+     * <p>
      * On failure, throws an exception or returns a negative error code.
      */
     public void setBeaconBg(int newval) throws YAPI_Exception
@@ -237,7 +210,7 @@ public class Module extends Function
      * Returns the number of milliseconds spent since the module was powered on.
      *
      * @return an integer corresponding to the number of milliseconds spent since the module was powered on
-     *
+     * <p>
      * On failure, throws an exception or returns Y_UPTIME_INVALID.
      */
     public long getUpTime()
@@ -249,7 +222,7 @@ public class Module extends Function
      * Returns the current consumed by the module on the USB bus, in milli-amps.
      *
      * @return an integer corresponding to the current consumed by the module on the USB bus, in milli-amps
-     *
+     * <p>
      * On failure, throws an exception or returns Y_USBCURRENT_INVALID.
      */
     public int getUsbCurrent()
@@ -262,8 +235,8 @@ public class Module extends Function
      * reboot has been scheduled.
      *
      * @return an integer corresponding to the remaining number of seconds before the module restarts, or zero when no
-     *         reboot has been scheduled
-     *
+     * reboot has been scheduled
+     * <p>
      * On failure, throws an exception or returns Y_REBOOTCOUNTDOWN_INVALID.
      */
     public int getRebootCountdown()
@@ -282,7 +255,7 @@ public class Module extends Function
      * On startup and after a device reboot, the value is always reset to zero.
      *
      * @return an integer corresponding to the value previously stored in this attribute
-     *
+     * <p>
      * On failure, throws an exception or returns Y_USERVAR_INVALID.
      */
     public int getUserVar()
@@ -291,13 +264,13 @@ public class Module extends Function
     }
 
     /**
-     * Returns the value previously stored in this attribute.
+     * Stores a 32 bit value in the device RAM. This attribute is at programmer disposal,
+     * should he need to store a state variable.
      * On startup and after a device reboot, the value is always reset to zero.
      *
      * @param newval : an integer
-     *
      * @return YAPI_SUCCESS if the call succeeds.
-     *
+     * <p>
      * On failure, throws an exception or returns a negative error code.
      */
     public void setUserVarBg(int newval) throws YAPI_Exception
@@ -330,6 +303,7 @@ public class Module extends Function
     {
         return _ymodule.triggerFirmwareUpdate(secBeforeReboot);
     }
+
 
     public String checkFirmware(String path, boolean onlynew) throws YAPI_Exception
     {
@@ -439,5 +413,35 @@ public class Module extends Function
 //--- (end of generated code: YModule class start)
 
 
+    public int functionCountBg() throws YAPI_Exception
+    {
+        return _ymodule.functionCount();
+    }
+
+    public String functionIdBg(int index) throws YAPI_Exception
+    {
+        return _ymodule.functionId(index);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void loadAllFunctionsBG() throws YAPI_Exception
+    {
+        int count = _ymodule.functionCount();
+        for (int i = 0; i < count; i++) {
+            String hwid = _serialNumber + "." + _ymodule.functionId(i);
+            String type = "com.yoctopuce.yoctopucetoolbox.functions."+_ymodule.functionType(i);
+            Function func;
+            try {
+                Class<?> aClass = Class.forName(type);
+                Constructor<?> constr = aClass.getConstructor(String.class);
+                func = (Function) constr.newInstance(hwid);
+            } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                e.printStackTrace();
+                func = new Function(hwid);
+            }
+            _functions.add(func);
+        }
+
+    }
 }
 

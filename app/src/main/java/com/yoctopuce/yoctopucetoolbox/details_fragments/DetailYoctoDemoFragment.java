@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
+
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YLed;
-import com.yoctopuce.YoctoAPI.YModule;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.Led;
 import com.yoctopuce.yoctopucetoolbox.widget.CustomCompoundButton;
@@ -32,9 +32,9 @@ public class DetailYoctoDemoFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _led.reloadBg();
     }
 
@@ -43,8 +43,8 @@ public class DetailYoctoDemoFragment extends DetailGenericModuleFragment
     {
         super.setupUI(rootView);
         _led = new Led(_argSerial + ".led");
-        Switch ledSwitch = (Switch) rootView.findViewById(R.id.led_switch);
-        _customLedSwitch = new CustomCompoundButton(ledSwitch, _bgHandler, new BgSwitchListener()
+        SwitchCompat ledSwitch = rootView.findViewById(R.id.led_switch);
+        _customLedSwitch = new CustomCompoundButton(ledSwitch, this, new BgSwitchListener()
         {
             public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
             {

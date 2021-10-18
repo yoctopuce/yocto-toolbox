@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YHubPort;
@@ -21,8 +22,6 @@ import com.yoctopuce.yoctopucetoolbox.functions.WakeUpSchedule;
 import com.yoctopuce.yoctopucetoolbox.functions.Wireless;
 import com.yoctopuce.yoctopucetoolbox.misc.MiscHelper;
 import com.yoctopuce.yoctopucetoolbox.widget.CustomCompoundButton;
-
-import java.util.Locale;
 
 public class DetailYoctoHubWirelessFragment extends DetailGenericModuleFragment
 {
@@ -76,9 +75,9 @@ public class DetailYoctoHubWirelessFragment extends DetailGenericModuleFragment
         _wakeUpSchedule1 = new WakeUpSchedule(_argSerial + ".wakeUpSchedule1");
         _wakeUpSchedule2 = new WakeUpSchedule(_argSerial + ".wakeUpSchedule2");
 
-        _port1TextView = (TextView) rootView.findViewById(R.id.port1_state);
-        Switch port1Switch = (Switch) rootView.findViewById(R.id.port1_switch);
-        _port1Switch = new CustomCompoundButton(port1Switch, _bgHandler, new BgSwitchListener()
+        _port1TextView = rootView.findViewById(R.id.port1_state);
+        SwitchCompat port1Switch = rootView.findViewById(R.id.port1_switch);
+        _port1Switch = new CustomCompoundButton(port1Switch, this, new BgSwitchListener()
         {
             @Override
             public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
@@ -86,9 +85,9 @@ public class DetailYoctoHubWirelessFragment extends DetailGenericModuleFragment
                 _hubport1.setEnabledBg(isChecked ? YHubPort.ENABLED_TRUE : YHubPort.ENABLED_FALSE);
             }
         });
-        _port2TextView = (TextView) rootView.findViewById(R.id.port2_state);
-        Switch port2Switch = (Switch) rootView.findViewById(R.id.port2_switch);
-        _port2Switch = new CustomCompoundButton(port2Switch, _bgHandler, new BgSwitchListener()
+        _port2TextView = rootView.findViewById(R.id.port2_state);
+        SwitchCompat port2Switch = rootView.findViewById(R.id.port2_switch);
+        _port2Switch = new CustomCompoundButton(port2Switch, this, new BgSwitchListener()
         {
             @Override
             public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
@@ -96,9 +95,9 @@ public class DetailYoctoHubWirelessFragment extends DetailGenericModuleFragment
                 _hubport2.setEnabledBg(isChecked ? YHubPort.ENABLED_TRUE : YHubPort.ENABLED_FALSE);
             }
         });
-        _port3TextView = (TextView) rootView.findViewById(R.id.port3_state);
-        Switch port3Switch = (Switch) rootView.findViewById(R.id.port3_switch);
-        _port3Switch = new CustomCompoundButton(port3Switch, _bgHandler, new BgSwitchListener()
+        _port3TextView = rootView.findViewById(R.id.port3_state);
+        SwitchCompat port3Switch = rootView.findViewById(R.id.port3_switch);
+        _port3Switch = new CustomCompoundButton(port3Switch, this, new BgSwitchListener()
         {
             @Override
             public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
@@ -106,22 +105,22 @@ public class DetailYoctoHubWirelessFragment extends DetailGenericModuleFragment
                 _hubport3.setEnabledBg(isChecked ? YHubPort.ENABLED_TRUE : YHubPort.ENABLED_FALSE);
             }
         });
-        _networkSSIDTextView = (TextView) rootView.findViewById(R.id.network_ssid);
-        _networkTextView = (TextView) rootView.findViewById(R.id.network_state);
-        _macTextView = (TextView) rootView.findViewById(R.id.mac_addr);
-        _ipTextView = (TextView) rootView.findViewById(R.id.ip_addr);
-        _netNameTextView = (TextView) rootView.findViewById(R.id.device_name);
-        _rtcTimeTextView = (TextView) rootView.findViewById(R.id.rtc_time);
-        _nextWakupTextView = (TextView) rootView.findViewById(R.id.next_wake_up);
-        _powerSavingTextView = (TextView) rootView.findViewById(R.id.power_saving);
-        _nextWakupOc1TextView = (TextView) rootView.findViewById(R.id.next_wakeup_occurrence1);
-        _nextWakupOc2TextView = (TextView) rootView.findViewById(R.id.next_wakeup_occurrence2);
+        _networkSSIDTextView = rootView.findViewById(R.id.network_ssid);
+        _networkTextView = rootView.findViewById(R.id.network_state);
+        _macTextView = rootView.findViewById(R.id.mac_addr);
+        _ipTextView = rootView.findViewById(R.id.ip_addr);
+        _netNameTextView = rootView.findViewById(R.id.device_name);
+        _rtcTimeTextView = rootView.findViewById(R.id.rtc_time);
+        _nextWakupTextView = rootView.findViewById(R.id.next_wake_up);
+        _powerSavingTextView = rootView.findViewById(R.id.power_saving);
+        _nextWakupOc1TextView = rootView.findViewById(R.id.next_wakeup_occurrence1);
+        _nextWakupOc2TextView = rootView.findViewById(R.id.next_wakeup_occurrence2);
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _hubport1.reloadBg();
         _hubport2.reloadBg();
         _hubport3.reloadBg();
@@ -160,7 +159,7 @@ public class DetailYoctoHubWirelessFragment extends DetailGenericModuleFragment
         //  todo: add sleep button
         boolean slbon = true;
         if (count > 0) {
-            slst = String.format(Locale.US, getString(R.string.sleep_in_X_sec), count);
+            slst = getResources().getQuantityString(R.plurals.sleep_in_X_sec, count, count);
         } else if (_wakeUpMonitor.getWakeUpState() == YWakeUpMonitor.WAKEUPSTATE_AWAKE) {
             slst = getString(R.string.sleep_not_configured);
         } else {

@@ -3,24 +3,17 @@ package com.yoctopuce.yoctopucetoolbox;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import com.yoctopuce.yoctopucetoolbox.hub.HubStorage;
-import com.yoctopuce.yoctopucetoolbox.misc.AboutDialog;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.UUID;
 
 public class HubDetailActivity extends AppCompatActivity
 {
 
-    //nice: merge fragment into the activity
     private static final String ARG_HUB_UUID = "HUB_UUID";
-    private UUID _hubUUID;
 
     public static Intent intentWithParams(Context context, UUID hubUUID)
     {
@@ -40,7 +33,7 @@ public class HubDetailActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
         // Show the Up button in the action bar.
@@ -69,7 +62,7 @@ public class HubDetailActivity extends AppCompatActivity
             String uuid_str = intent.getStringExtra(ARG_HUB_UUID);
 
             if (uuid_str != null) {
-                _hubUUID = UUID.fromString(uuid_str);
+                UUID _hubUUID = UUID.fromString(uuid_str);
                  fragment = HubDetailActivityFragment.getFragment(_hubUUID);
             } else {
                 fragment = HubDetailActivityFragment.getFragment();

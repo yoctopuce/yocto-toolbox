@@ -2,7 +2,7 @@ package com.yoctopuce.yoctopucetoolbox.details_fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,9 +40,9 @@ public class DetailYoctoProximityFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _proximity.reloadBg();
         _light.reloadBg();
         _ir.reloadBg();
@@ -55,9 +55,9 @@ public class DetailYoctoProximityFragment extends DetailGenericModuleFragment
         _proximity = new Proximity(_argSerial + ".proximity1");
         _light = new LightSensor(_argSerial + ".lightSensor1");
         _ir = new LightSensor(_argSerial + ".lightSensor2");
-        _proximityTextView = (TextView) rootView.findViewById(R.id.proximity_value);
-        _lightTextView = (TextView) rootView.findViewById(R.id.light_value);
-        _irTextView = (TextView) rootView.findViewById(R.id.ir_value);
+        _proximityTextView = rootView.findViewById(R.id.proximity_value);
+        _lightTextView = rootView.findViewById(R.id.light_value);
+        _irTextView = rootView.findViewById(R.id.ir_value);
     }
 
 

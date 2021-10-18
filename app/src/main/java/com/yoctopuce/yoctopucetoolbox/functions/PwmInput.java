@@ -1,10 +1,10 @@
 /*********************************************************************
  *
- * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
+ * $Id: PwmInput.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements PwmInput wrapper for Android toolbox
  *
- * - - - - - - - - - License information: - - - - - - - - - 
+ * - - - - - - - - - License information: - - - - - - - - -
  *
  *  Copyright (C) 2011 and beyond by Yoctopuce Sarl, Switzerland.
  *
@@ -23,7 +23,7 @@
  *  obligations.
  *
  *  THE SOFTWARE AND DOCUMENTATION ARE PROVIDED 'AS IS' WITHOUT
- *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING 
+ *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING
  *  WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, FITNESS
  *  FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO
  *  EVENT SHALL LICENSOR BE LIABLE FOR ANY INCIDENTAL, SPECIAL,
@@ -38,7 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YPwmInput;
 
@@ -48,7 +47,7 @@ import com.yoctopuce.YoctoAPI.YPwmInput;
  *
  * The Yoctopuce class YPwmInput allows you to read and configure Yoctopuce PWM
  * sensors. It inherits from YSensor class the core functions to read measurements,
- * register callback functions, access to the autonomous datalogger.
+ * to register callback functions, to access the autonomous datalogger.
  * This class adds the ability to configure the signal parameter used to transmit
  * information: the duty cycle, the frequency or the pulse width.
  */
@@ -64,6 +63,7 @@ public class PwmInput extends Sensor
     protected long _pulseCounter =  YPwmInput.PULSECOUNTER_INVALID;
     protected long _pulseTimer =  YPwmInput.PULSETIMER_INVALID;
     protected int _pwmReportMode =  YPwmInput.PWMREPORTMODE_INVALID;
+    protected int _debouncePeriod =  YPwmInput.DEBOUNCEPERIOD_INVALID;
     protected YPwmInput _ypwminput;
 
     public PwmInput(YPwmInput yfunc)
@@ -87,6 +87,7 @@ public class PwmInput extends Sensor
         _pulseCounter = _ypwminput.get_pulseCounter();
         _pulseTimer = _ypwminput.get_pulseTimer();
         _pwmReportMode = _ypwminput.get_pwmReportMode();
+        _debouncePeriod = _ypwminput.get_debouncePeriod();
     }
     /**
      * Returns the PWM duty cycle, in per cents.
@@ -140,7 +141,7 @@ public class PwmInput extends Sensor
     /**
      * Returns the pulse counter value. Actually that
      * counter is incremented twice per period. That counter is
-     * limited  to 1 billion
+     * limited  to 1 billion.
      *
      * @return an integer corresponding to the pulse counter value
      *
@@ -174,7 +175,9 @@ public class PwmInput extends Sensor
      * get_currentValue function and callbacks. Attention
      *
      * @return a value among Y_PWMREPORTMODE_PWM_DUTYCYCLE, Y_PWMREPORTMODE_PWM_FREQUENCY,
-     * Y_PWMREPORTMODE_PWM_PULSEDURATION and Y_PWMREPORTMODE_PWM_EDGECOUNT corresponding to the parameter
+     * Y_PWMREPORTMODE_PWM_PULSEDURATION, Y_PWMREPORTMODE_PWM_EDGECOUNT, Y_PWMREPORTMODE_PWM_PULSECOUNT,
+     * Y_PWMREPORTMODE_PWM_CPS, Y_PWMREPORTMODE_PWM_CPM, Y_PWMREPORTMODE_PWM_STATE,
+     * Y_PWMREPORTMODE_PWM_FREQ_CPS and Y_PWMREPORTMODE_PWM_FREQ_CPM corresponding to the parameter
      * (frequency/duty cycle, pulse width, edges count) returned by the get_currentValue function and callbacks
      *
      * On failure, throws an exception or returns Y_PWMREPORTMODE_INVALID.
@@ -185,13 +188,16 @@ public class PwmInput extends Sensor
     }
 
     /**
-     * Modifies the  parameter  type (frequency/duty cycle, pulse width, or edge count) returned by the
+     * Changes the  parameter  type (frequency/duty cycle, pulse width, or edge count) returned by the
      * get_currentValue function and callbacks.
      * The edge count value is limited to the 6 lowest digits. For values greater than one million, use
      * get_pulseCounter().
      *
      * @param newval : a value among Y_PWMREPORTMODE_PWM_DUTYCYCLE, Y_PWMREPORTMODE_PWM_FREQUENCY,
-     * Y_PWMREPORTMODE_PWM_PULSEDURATION and Y_PWMREPORTMODE_PWM_EDGECOUNT
+     * Y_PWMREPORTMODE_PWM_PULSEDURATION, Y_PWMREPORTMODE_PWM_EDGECOUNT, Y_PWMREPORTMODE_PWM_PULSECOUNT,
+     * Y_PWMREPORTMODE_PWM_CPS, Y_PWMREPORTMODE_PWM_CPM, Y_PWMREPORTMODE_PWM_STATE,
+     * Y_PWMREPORTMODE_PWM_FREQ_CPS and Y_PWMREPORTMODE_PWM_FREQ_CPM corresponding to the  parameter  type
+     * (frequency/duty cycle, pulse width, or edge count) returned by the get_currentValue function and callbacks
      *
      * @return YAPI_SUCCESS if the call succeeds.
      *
@@ -201,6 +207,33 @@ public class PwmInput extends Sensor
     {
         _pwmReportMode = newval;
         _ypwminput.set_pwmReportMode(newval);
+    }
+
+    /**
+     * Returns the shortest expected pulse duration, in ms. Any shorter pulse will be automatically ignored (debounce).
+     *
+     * @return an integer corresponding to the shortest expected pulse duration, in ms
+     *
+     * On failure, throws an exception or returns Y_DEBOUNCEPERIOD_INVALID.
+     */
+    public int getDebouncePeriod()
+    {
+        return _debouncePeriod;
+    }
+
+    /**
+     * Changes the shortest expected pulse duration, in ms. Any shorter pulse will be automatically ignored (debounce).
+     *
+     * @param newval : an integer corresponding to the shortest expected pulse duration, in ms
+     *
+     * @return YAPI_SUCCESS if the call succeeds.
+     *
+     * On failure, throws an exception or returns a negative error code.
+     */
+    public void setDebouncePeriodBg(int newval) throws YAPI_Exception
+    {
+        _debouncePeriod = newval;
+        _ypwminput.set_debouncePeriod(newval);
     }
 
     public static YPwmInput FindPwmInput(String func)

@@ -50,9 +50,9 @@ public class DetailYocto3DFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _tilt1.reloadBg();
         _tilt2.reloadBg();
         _compass.reloadBg();
@@ -73,21 +73,21 @@ public class DetailYocto3DFragment extends DetailGenericModuleFragment
         _gyro = new Gyro(_argSerial + ".gyro");
 
 
-        _tilt_rollTextView = (TextView) rootView.findViewById(R.id.tilt_roll);
-        _tilt_pitchTextView = (TextView) rootView.findViewById(R.id.tilt_pitch);
-        _compassTextView = (TextView) rootView.findViewById(R.id.compass);
-        _accelerometerTextView = (TextView) rootView.findViewById(R.id.accelerometer);
-        _accelerometer_xTextView = (TextView) rootView.findViewById(R.id.accelerometer_x);
-        _accelerometer_yTextView = (TextView) rootView.findViewById(R.id.accelerometer_y);
-        _accelerometer_zTextView = (TextView) rootView.findViewById(R.id.accelerometer_z);
-        _magnetometerTextView = (TextView) rootView.findViewById(R.id.magnetometer);
-        _magnetometer_xTextView = (TextView) rootView.findViewById(R.id.magnetometer_x);
-        _magnetometer_yTextView = (TextView) rootView.findViewById(R.id.magnetometer_y);
-        _magnetometer_zTextView = (TextView) rootView.findViewById(R.id.magnetometer_z);
-        _gyroTextView = (TextView) rootView.findViewById(R.id.gyro);
-        _gyro_xTextView = (TextView) rootView.findViewById(R.id.gyro_x);
-        _gyro_yTextView = (TextView) rootView.findViewById(R.id.gyro_y);
-        _gyro_zTextView = (TextView) rootView.findViewById(R.id.gyro_z);
+        _tilt_rollTextView = rootView.findViewById(R.id.tilt_roll);
+        _tilt_pitchTextView = rootView.findViewById(R.id.tilt_pitch);
+        _compassTextView = rootView.findViewById(R.id.compass);
+        _accelerometerTextView = rootView.findViewById(R.id.accelerometer);
+        _accelerometer_xTextView = rootView.findViewById(R.id.accelerometer_x);
+        _accelerometer_yTextView = rootView.findViewById(R.id.accelerometer_y);
+        _accelerometer_zTextView = rootView.findViewById(R.id.accelerometer_z);
+        _magnetometerTextView = rootView.findViewById(R.id.magnetometer);
+        _magnetometer_xTextView = rootView.findViewById(R.id.magnetometer_x);
+        _magnetometer_yTextView = rootView.findViewById(R.id.magnetometer_y);
+        _magnetometer_zTextView = rootView.findViewById(R.id.magnetometer_z);
+        _gyroTextView = rootView.findViewById(R.id.gyro);
+        _gyro_xTextView = rootView.findViewById(R.id.gyro_x);
+        _gyro_yTextView = rootView.findViewById(R.id.gyro_y);
+        _gyro_zTextView = rootView.findViewById(R.id.gyro_z);
     }
 
     @Override

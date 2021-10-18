@@ -31,9 +31,9 @@ public class DetailYoctoAmpFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _currentDC.reloadBg();
         _currentAC.reloadBg();
     }
@@ -44,24 +44,24 @@ public class DetailYoctoAmpFragment extends DetailGenericModuleFragment
         super.setupUI(rootView);
         _currentDC = new Current(_argSerial + ".current1");
         _currentAC = new Current(_argSerial + ".current2");
-        _curDCTextView = (TextView) rootView.findViewById(R.id.current_value_dc);
-        _curACTextView = (TextView) rootView.findViewById(R.id.current_value_ac);
-        _minDCTextView = (TextView) rootView.findViewById(R.id.min_value_dc);
-        _minACTextView = (TextView) rootView.findViewById(R.id.min_value_ac);
-        _maxDCTextView = (TextView) rootView.findViewById(R.id.max_value_dc);
-        _maxACTextView = (TextView) rootView.findViewById(R.id.max_value_ac);
+        _curDCTextView = rootView.findViewById(R.id.current_value_dc);
+        _curACTextView = rootView.findViewById(R.id.current_value_ac);
+        _minDCTextView = rootView.findViewById(R.id.min_value_dc);
+        _minACTextView = rootView.findViewById(R.id.min_value_ac);
+        _maxDCTextView = rootView.findViewById(R.id.max_value_dc);
+        _maxACTextView = rootView.findViewById(R.id.max_value_ac);
     }
 
     @Override
     protected void updateUI(boolean firstUpdate)
     {
         super.updateUI(firstUpdate);
-        _curDCTextView.setText(Double.toString(_currentDC.getCurrentValue())+" "+_currentDC.getUnit());
-        _curACTextView.setText(Double.toString(_currentAC.getHighestValue())+" "+_currentAC.getUnit());
-        _minDCTextView.setText(Double.toString(_currentDC.getLowestValue())+" "+_currentDC.getUnit());
-        _minACTextView.setText(Double.toString(_currentAC.getCurrentValue())+" "+_currentAC.getUnit());
-        _maxDCTextView.setText(Double.toString(_currentDC.getHighestValue())+" "+_currentDC.getUnit());
-        _maxACTextView.setText(Double.toString(_currentAC.getLowestValue())+" "+_currentAC.getUnit());
+        _curDCTextView.setText(getString(R.string.float_value_and_unit, _currentDC.getCurrentValue(), _currentDC.getUnit()));
+        _curACTextView.setText(getString(R.string.float_value_and_unit, _currentAC.getHighestValue(), _currentAC.getUnit()));
+        _minDCTextView.setText(getString(R.string.float_value_and_unit, _currentDC.getLowestValue(), _currentDC.getUnit()));
+        _minACTextView.setText(getString(R.string.float_value_and_unit, _currentAC.getCurrentValue(), _currentAC.getUnit()));
+        _maxDCTextView.setText(getString(R.string.float_value_and_unit, _currentDC.getHighestValue(), _currentDC.getUnit()));
+        _maxACTextView.setText(getString(R.string.float_value_and_unit, _currentAC.getLowestValue(), _currentAC.getUnit()));
     }
 
 }

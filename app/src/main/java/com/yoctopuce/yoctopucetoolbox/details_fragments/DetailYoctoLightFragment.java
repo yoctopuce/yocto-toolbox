@@ -35,9 +35,9 @@ public class DetailYoctoLightFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _lightSensor.reloadBg();
     }
 
@@ -46,9 +46,9 @@ public class DetailYoctoLightFragment extends DetailGenericModuleFragment
     {
         super.setupUI(rootView);
         _lightSensor = new LightSensor(_argSerial + ".lightSensor");
-        _currentTextView = (TextView) rootView.findViewById(R.id.current_value);
-        _maxTextView = (TextView) rootView.findViewById(R.id.max_value);
-        _minTextView = (TextView) rootView.findViewById(R.id.min_value);
+        _currentTextView = rootView.findViewById(R.id.current_value);
+        _maxTextView = rootView.findViewById(R.id.max_value);
+        _minTextView = rootView.findViewById(R.id.min_value);
     }
 
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.Temperature;
@@ -19,7 +20,7 @@ import java.util.Locale;
  */
 public class DetailYoctoThermocoupleFragment extends DetailGenericModuleFragment
 {
-    private ArrayList<TemperatureUIRef> _uiRefs = new ArrayList<>(2);
+    private final ArrayList<TemperatureUIRef> _uiRefs = new ArrayList<>(2);
     private TextView _minTextView;
     private TextView _currentTextView;
     private TextView _maxTextView;
@@ -37,9 +38,9 @@ public class DetailYoctoThermocoupleFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         for (TemperatureUIRef uiRef : _uiRefs) {
             uiRef.reloadDataInBG();
         }
@@ -49,7 +50,7 @@ public class DetailYoctoThermocoupleFragment extends DetailGenericModuleFragment
     protected void setupUI(View rootView)
     {
         super.setupUI(rootView);
-        String base_serial = _argSerial.substring(0, FragmentChooser.YOCTO_BASE_SERIAL_LEN);
+        String base_serial = _argSerial.substring(0, YAPI.YOCTO_BASE_SERIAL_LEN);
         int nbTemp;
         String label;
         switch (base_serial) {
@@ -64,7 +65,7 @@ public class DetailYoctoThermocoupleFragment extends DetailGenericModuleFragment
                 label = getString(R.string.thermocouple);
                 break;
         }
-        GridLayout gridLayout = (GridLayout) rootView.findViewById(R.id.temp_grid_layout);
+        GridLayout gridLayout = rootView.findViewById(R.id.temp_grid_layout);
         for (int i = 1; i <= nbTemp; i++) {
             TemperatureUIRef uiRef = new TemperatureUIRef(label, gridLayout, i);
             _uiRefs.add(uiRef);

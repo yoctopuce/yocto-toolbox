@@ -1,8 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Yocto-Toolbox</string>
     <string name="action_settings">Settings</string>
     <string name="icon_of_the_yoctohub">Icon of the YoctoHub</string>
-    <string name="title_activity_hub_discovery">Hub nearby</string>
+    <string name="title_activity_hub_discovery">Hubs nearby</string>
     <string name="title_activity_hub_detail">YoctoHub details</string>
     <string name="open_hub">Open YoctoHub</string>
     <string name="module_details">Module details</string>
@@ -13,7 +13,6 @@
     <string name="title_module_detail">Module Detail</string>
     <string name="serial_number">Serial Number</string>
     <string name="product_name">Product name</string>
-    <string name="logical_name">Logical name</string>
     <string name="firmware">Firmware</string>
     <string name="consumption">Consumption</string>
     <string name="beacon">Beacon</string>
@@ -35,7 +34,6 @@
     <string name="readiness">Readiness</string>
     <string name="mac_address">MAC address</string>
     <string name="ip_address">IP address</string>
-    <string name="device_name">Device name</string>
     <string name="operator">Operator</string>
     <string name="next_wake_up">Next wake up</string>
     <string name="power_saving">Power saving</string>
@@ -46,7 +44,11 @@
     <string name="wakeup_schedule_2_next_occurrence">WakeUp schedule 2, next occurrence</string>
     <string name="port_4">Port 4</string>
     <string name="sleep_not_configured">sleep not configured</string>
-    <string name="sleep_in_X_sec">sleep in %d sec</string>
+    <plurals name="sleep_in_X_sec">
+        <item quantity="one">sleep in %d seccond</item>
+        <item quantity="other">sleep in %d seconds</item>
+    </plurals>
+
     <string name="power_saving_switch_is_off">power-saving switch is OFF</string>
     <string name="not_set">not set</string>
     <string name="n_a">N/A</string>
@@ -80,15 +82,15 @@
     <string name="cos_phi">Cos Φ</string>
     <string name="energy">Energy</string>
     <string name="reset">Reset</string>
-     <string name="about_text"><![CDATA[
+    <string name="about_text"><![CDATA[
         If you have trouble with %1$s application please contact  <a href="mailto:support@yoctopuce.com">support@yoctopuce.com</a><br><br>
         Application version: %2$s<br><br>
         Yoctopuce API : %3$s<br><br>
-        <a href="http://www.yoctopuce.com">www.yoctopuce.com</a>
+        <a href="https://www.yoctopuce.com">www.yoctopuce.com</a>
     ]]></string>
     <string name="action_about">About</string>
     <string name="get_user_manual">Get user manual</string>
-    <string name="www_yoctopuce_com_dev_doc_url">http://www.yoctopuce.com/EN/doc/devicedoc.php?prefix=</string>
+    <string name="www_yoctopuce_com_dev_doc_url">https://www.yoctopuce.com/EN/doc/devicedoc.php?prefix=</string>
     <string name="pressure">Pressure</string>
     <string name="temperature">Temperature</string>
     <string name="humidity">Humidity</string>
@@ -118,8 +120,11 @@
     <string name="longitude">Longitude</string>
     <string name="ground_speed">Ground speed</string>
     <string name="dilution_of_precision">Dilution of Precision</string>
-    <string name="fixing___">fixing...</string>
-    <string name="x_satellites">%d satellites</string>
+    <string name="fixing___">fixing…</string>
+    <plurals name="x_satellites">
+        <item quantity="one">%d satellite</item>
+        <item quantity="other">%d satellites</item>
+    </plurals>
     <string name="pressed">pressed</string>
     <string name="released">released</string>
     <string name="text_to_display">Text to display</string>
@@ -150,7 +155,7 @@
     <string name="infra_red">Infra-red</string>
     <string name="ambient_light">Ambient light</string>
     <string name="proximity">Proximity</string>
-    <string name="anbutton1">anButton1</string>
+    <string name="anbutton1" tools:ignore="Typos">anButton1</string>
     <string name="anbutton2">anButton2</string>
     <string name="channels">Channels</string>
     <string name="channel_7">Channel 7</string>
@@ -189,6 +194,68 @@
     <string name="low_power">Low power</string>
     <string name="not_powered">Not Powered</string>
     <string name="test_led">Test LED</string>
+    <string name="cancel">Cancel</string>
+    <string name="update">Update</string>
+    <string name="update_yoctohub_url">Update YoctoHub URL?</string>
+    <string name="update_yoctohub_descr">The YoctoHub %1$s is already known. Would you update the URL to \"%2$s\"</string>
+    <string name="rgb_leds">RGB leds</string>
+    <string name="app_libraries">We\'re using the following libraries:</string>
+    <string name="ok">OK</string>
+    <string name="close">Close</string>
+    <string name="device_disconnected_s">Device disconnected (%s)</string>
+    <string name="discovery">Discovery</string>
+    <string name="manual">Manual</string>
+    <string name="display_output">display output</string>
+    <string name="hello_world">hello world</string>
+    <string name="_192_168_1_12">192.168.1.12</string>
+    <string name="_4444">4444</string>
+    <string name="open_in_maps">Open in Maps</string>
+    <string name="module">Module</string>
+    <string name="state">State</string>
+    <string name="usb_port">usb port</string>
+    <string name="VirtualHub_s">VirtualHub %1$s</string>
+    <string name="YoctoHub_s">YoctoHub %1$s</string>
+    <string name="no_yoctohub_or_virtualhub_configured_n_nclick_on_the_button_to_add_your_first_yoctohub">No YoctoHub or VirtualHub configured. \n\n  Click on the + button to add your first YoctoHub.</string>
+    <string name="configure">Configure</string>
+    <string name="device_functions">Device functions</string>
+    <string name="each_function_of_the_device_has_a_physical_name_and_a_logical_name_you_can_change_the_logical_name_using_the_rename_button">Each function of the device has a physical name and a logical name. You can change the logical name using the rename button</string>
+    <string name="serial">Serial #</string>
+    <string name="logical_name">Logical name</string>
+    <string name="datalogger_and_timed_reports">Datalogger and Timed reports</string>
+    <string name="you_can_choose_which_functions_you_want_to_record_and_the_frequency_at_which_data_should_be_recorded_note_that_if_you_choose_a_recording_rate_higher_than_the_effective_sensor_refresh_rate_the_same_value_will_be_recorded_multiple_time">You can choose which functions you want to record, and the frequency at which data should be recorded. Note that if you choose a recording rate higher than the effective sensor refresh rate, the same value will be recorded multiple time.</string>
+    <string name="reporting">Reporting</string>
+    <string name="recording">Recording</string>
+    <string name="function">Function</string>
+    <string name="configurable_functions">Configurable functions</string>
+    <string name="link_recording_to_beacon_button">Link recording to beacon button</string>
+    <string name="auto_start_recording_at_power_on">Auto-start recording at power-on</string>
+    <string name="add_yoctohub">Add YoctoHub</string>
+    <string name="add_yoctohub_manually">Add YoctoHub Manually</string>
+    <string name="add_yoctohub_with_discovery">Add YoctoHub with discovery</string>
+    <string name="send_hex">Send (hex)</string>
+    <string name="send">send</string>
+    <string name="serial_interface">Serial Interface</string>
+    <string name="protocol">Protocol</string>
+    <string name="power_output">Power output</string>
+    <string name="current_job">Current job</string>
+    <string name="voltage_level">Voltage level</string>
+    <string name="relay">Relay</string>
+    <string name="a">A</string>
+    <string name="b">B</string>
+    <string name="function_id">Function Id</string>
+    <string name="anbutton3">anButton3</string>
+    <string name="anbutton4">anButton4</string>
+    <string name="anbutton5">anButton5</string>
+    <string name="select">Select</string>
+    <string name="int_value_and_unit">%1$d %2$s</string>
+    <string name="float_value_and_unit">%1$f %2$s</string>
+    <string name="ip_addressing">IP addressing</string>
+    <string name="device_name">Device name</string>
+    <string name="wlan_setting">WLAN setting</string>
+    <string name="network_configuration">Network configuration</string>
+    <string name="signal_strength">Signal strength</string>
+    <string name="configure_wlan">Configure WLAN</string>
+    <string name="configure_net">Configure net</string>
 
     <string-array name="led_state_arrays">
         <item>Still</item>

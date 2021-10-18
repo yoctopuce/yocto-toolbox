@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: pic24config.php 20732 2015-06-24 07:26:23Z mvuilleu $
+ * $Id: DataStream.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements DataStream wrapper for Android toolbox
  *
@@ -38,11 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI_Exception;
-import com.yoctopuce.YoctoAPI.YDataSet;
-import com.yoctopuce.YoctoAPI.YDataStream;
-
-import java.util.ArrayList;
 
 //--- (generated code: YDataStream class start)
 /**

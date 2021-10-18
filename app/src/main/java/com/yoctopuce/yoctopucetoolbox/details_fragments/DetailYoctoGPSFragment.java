@@ -39,9 +39,9 @@ public class DetailYoctoGPSFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _gps.reloadBg();
     }
 
@@ -51,21 +51,21 @@ public class DetailYoctoGPSFragment extends DetailGenericModuleFragment
         super.setupUI(rootView);
         _gps = new Gps(_argSerial + ".gps");
 
-        _statusTextView = (TextView) rootView.findViewById(R.id.status);
-        _timeTextView = (TextView) rootView.findViewById(R.id.time);
-        _latitudeTextView = (TextView) rootView.findViewById(R.id.latitude);
-        _longitudeTextView = (TextView) rootView.findViewById(R.id.longitude);
-        _altitudeTextView = (TextView) rootView.findViewById(R.id.altitude);
-        _groundSpeedTextView = (TextView) rootView.findViewById(R.id.ground_speed);
-        _precisionTextView = (TextView) rootView.findViewById(R.id.precision);
-        _mapButton = (Button) rootView.findViewById(R.id.open_map_button);
+        _statusTextView = rootView.findViewById(R.id.status);
+        _timeTextView = rootView.findViewById(R.id.time);
+        _latitudeTextView = rootView.findViewById(R.id.latitude);
+        _longitudeTextView = rootView.findViewById(R.id.longitude);
+        _altitudeTextView = rootView.findViewById(R.id.altitude);
+        _groundSpeedTextView = rootView.findViewById(R.id.ground_speed);
+        _precisionTextView = rootView.findViewById(R.id.precision);
+        _mapButton = rootView.findViewById(R.id.open_map_button);
         _mapButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 // Creates an Intent that will load a map of San Francisco
-                Uri gmmIntentUri = Uri.parse(String.format(Locale.US,"geo:%s,%s",_gps.getLatitude(),_gps.getLongitude()));
+                Uri gmmIntentUri = Uri.parse(String.format(Locale.US, "geo:%s,%s", _gps.getLatitude(), _gps.getLongitude()));
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);
@@ -80,7 +80,8 @@ public class DetailYoctoGPSFragment extends DetailGenericModuleFragment
     {
         super.updateUI(firstUpdate);
         if (_gps.getIsFixed() == YGps.ISFIXED_TRUE) {
-            _statusTextView.setText(String.format(Locale.US, getString(R.string.x_satellites), _gps.getSatCount()));
+            final int satCount = (int) _gps.getSatCount();
+            _statusTextView.setText(getResources().getQuantityString(R.plurals.x_satellites, satCount));
             _timeTextView.setText(_gps.getDateTime());
             _latitudeTextView.setText(_gps.getLatitude());
             _longitudeTextView.setText(_gps.getLongitude());

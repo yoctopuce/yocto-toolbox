@@ -24,7 +24,7 @@
             android:layout_gravity="fill_horizontal"
             tools:text="RUN : RELAYLO1-1A62C"/>
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/port1_switch"/>
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_gravity="fill_horizontal"
             tools:text="RUN : RELAYLO1-1A62C"/>
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/port2_switch"
             />
 
@@ -47,7 +47,7 @@
             android:layout_gravity="fill_horizontal"
             tools:text="RUN : RELAYLO1-1A62C"/>
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/port3_switch"/>
 
 

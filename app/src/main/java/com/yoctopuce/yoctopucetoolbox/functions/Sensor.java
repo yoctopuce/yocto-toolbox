@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: Sensor.java 26331 2017-01-11 16:50:06Z seb $
+ * $Id: Sensor.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements Sensor wrapper for Android toolbox
  *
@@ -40,8 +40,8 @@
 package com.yoctopuce.yoctopucetoolbox.functions;
 import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
+import com.yoctopuce.YoctoAPI.YDataLogger;
 import com.yoctopuce.YoctoAPI.YDataSet;
-import com.yoctopuce.YoctoAPI.YMeasure;
 import com.yoctopuce.YoctoAPI.YSensor;
 
 import java.util.ArrayList;
@@ -72,6 +72,7 @@ public class Sensor extends Function
     protected double _currentRawValue =  YSensor.CURRENTRAWVALUE_INVALID;
     protected String _logFrequency =  YSensor.LOGFREQUENCY_INVALID;
     protected String _reportFrequency =  YSensor.REPORTFREQUENCY_INVALID;
+    protected int _advMode =  YSensor.ADVMODE_INVALID;
     protected String _calibrationParam =  YSensor.CALIBRATIONPARAM_INVALID;
     protected double _resolution =  YSensor.RESOLUTION_INVALID;
     protected int _sensorState =  YSensor.SENSORSTATE_INVALID;
@@ -110,6 +111,7 @@ public class Sensor extends Function
         _currentRawValue = _ysensor.get_currentRawValue();
         _logFrequency = _ysensor.get_logFrequency();
         _reportFrequency = _ysensor.get_reportFrequency();
+        _advMode = _ysensor.get_advMode();
         _calibrationParam = _ysensor.get_calibrationParam();
         _resolution = _ysensor.get_resolution();
         _sensorState = _ysensor.get_sensorState();
@@ -140,7 +142,8 @@ public class Sensor extends Function
     }
 
     /**
-     * Changes the recorded minimal value observed.
+     * Changes the recorded minimal value observed. Can be used to reset the value returned
+     * by get_lowestValue().
      *
      * @param newval : a floating point number corresponding to the recorded minimal value observed
      *
@@ -156,6 +159,7 @@ public class Sensor extends Function
 
     /**
      * Returns the minimal value observed for the measure since the device was started.
+     * Can be reset to an arbitrary value thanks to set_lowestValue().
      *
      * @return a floating point number corresponding to the minimal value observed for the measure since
      * the device was started
@@ -168,7 +172,8 @@ public class Sensor extends Function
     }
 
     /**
-     * Changes the recorded maximal value observed.
+     * Changes the recorded maximal value observed. Can be used to reset the value returned
+     * by get_lowestValue().
      *
      * @param newval : a floating point number corresponding to the recorded maximal value observed
      *
@@ -184,6 +189,7 @@ public class Sensor extends Function
 
     /**
      * Returns the maximal value observed for the measure since the device was started.
+     * Can be reset to an arbitrary value thanks to set_highestValue().
      *
      * @return a floating point number corresponding to the maximal value observed for the measure since
      * the device was started
@@ -275,6 +281,35 @@ public class Sensor extends Function
         _ysensor.set_reportFrequency(newval);
     }
 
+    /**
+     * Returns the measuring mode used for the advertised value pushed to the parent hub.
+     *
+     * @return a value among Y_ADVMODE_IMMEDIATE, Y_ADVMODE_PERIOD_AVG, Y_ADVMODE_PERIOD_MIN and
+     * Y_ADVMODE_PERIOD_MAX corresponding to the measuring mode used for the advertised value pushed to the parent hub
+     *
+     * On failure, throws an exception or returns Y_ADVMODE_INVALID.
+     */
+    public int getAdvMode()
+    {
+        return _advMode;
+    }
+
+    /**
+     * Changes the measuring mode used for the advertised value pushed to the parent hub.
+     *
+     * @param newval : a value among Y_ADVMODE_IMMEDIATE, Y_ADVMODE_PERIOD_AVG, Y_ADVMODE_PERIOD_MIN and
+     * Y_ADVMODE_PERIOD_MAX corresponding to the measuring mode used for the advertised value pushed to the parent hub
+     *
+     * @return YAPI_SUCCESS if the call succeeds.
+     *
+     * On failure, throws an exception or returns a negative error code.
+     */
+    public void setAdvModeBg(int newval) throws YAPI_Exception
+    {
+        _advMode = newval;
+        _ysensor.set_advMode(newval);
+    }
+
     public String getCalibrationParam()
     {
         return _calibrationParam;
@@ -338,6 +373,11 @@ public class Sensor extends Function
     public boolean isSensorReady()
     {
         return _ysensor.isSensorReady();
+    }
+
+    public YDataLogger get_dataLogger() throws YAPI_Exception
+    {
+        return _ysensor.get_dataLogger();
     }
 
     public int startDataLogger() throws YAPI_Exception

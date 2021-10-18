@@ -2,23 +2,20 @@ package com.yoctopuce.yoctopucetoolbox.details_fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.Fragment;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YModule;
@@ -26,10 +23,11 @@ import com.yoctopuce.yoctopucetoolbox.ModuleDetailActivity;
 import com.yoctopuce.yoctopucetoolbox.ModuleListActivity;
 import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.Module;
+import com.yoctopuce.yoctopucetoolbox.service.BgRunnable;
 import com.yoctopuce.yoctopucetoolbox.service.ModulesCache;
+import com.yoctopuce.yoctopucetoolbox.service.UseHubFragment;
 import com.yoctopuce.yoctopucetoolbox.widget.CustomCompoundButton;
 
-import java.lang.ref.WeakReference;
 import java.util.Locale;
 
 
@@ -39,17 +37,12 @@ import java.util.Locale;
  * in two-pane mode (on tablets) or a {@link ModuleDetailActivity}
  * on handsets.
  */
-public class DetailGenericModuleFragment extends Fragment
+public class DetailGenericModuleFragment extends UseHubFragment
 {
     public static final String ARG_SERIAL = "serial";
     private static final int REFRESH_DELAY_MS = 500;
-    private static final int REFRESH_UI = 0;
-    private DetailGenericModuleFragment.OnYoctoErrorListener _onYoctoErrorListener;
     protected String _argSerial;
     Module _module;
-    protected BGHandler _bgHandler;
-    private Handler _uiHandler;
-    private HandlerThread _bgHandlerThread;
     private boolean _fistUpdateUI = true;
     private TextView _serialTextView;
     private TextView _productTextView;
@@ -58,66 +51,6 @@ public class DetailGenericModuleFragment extends Fragment
     private TextView _consumptionTextView;
     private CustomCompoundButton _customBeaconSwitch;
     private TextView _luminosityTextView;
-
-    //nice: make it more generic
-    static class BGHandler extends Handler
-    {
-        private final WeakReference<DetailGenericModuleFragment> _fragment;
-
-        BGHandler(DetailGenericModuleFragment service, Looper looper)
-        {
-            super(looper);
-            _fragment = new WeakReference<>(service);
-        }
-
-        @Override
-        public void handleMessage(Message msg)
-        {
-            DetailGenericModuleFragment service = _fragment.get();
-            if (service != null) {
-                service.HandleBgMessage(msg);
-            }
-        }
-
-        interface BgRunnable
-        {
-            void runBg() throws YAPI_Exception;
-        }
-
-        void post(final BgRunnable bgRunnable)
-        {
-            post(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    try {
-                        bgRunnable.runBg();
-                    } catch (YAPI_Exception e) {
-                        e.printStackTrace();
-                        DetailGenericModuleFragment service = _fragment.get();
-                        if (service != null) {
-                            service.HandleBgIOError(e);
-                        }
-                    }
-                }
-            });
-
-        }
-
-    }
-
-    private void HandleBgIOError(final YAPI_Exception e)
-    {
-        _uiHandler.post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                onIOError(e.getLocalizedMessage());
-            }
-        });
-    }
 
 
     @Override
@@ -130,44 +63,16 @@ public class DetailGenericModuleFragment extends Fragment
             ModulesCache modulesCache = ModulesCache.getInstance();
             _module = modulesCache.getFromSerial(_argSerial);
             Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+            CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
                 appBarLayout.setTitle(_module.getProductName());
-            }
-        }
-        _bgHandlerThread = new HandlerThread("DetailHandlerThread");
-        _bgHandlerThread.start();
-        _uiHandler = new UIHandler(this);
-        _bgHandler = new BGHandler(this, _bgHandlerThread.getLooper());
-
-    }
-
-    /**
-     * Instances of static inner classes do not hold an implicit
-     * reference to their outer class.
-     */
-    private static class UIHandler extends Handler
-    {
-        private final WeakReference<DetailGenericModuleFragment> _fragmentWeakReference;
-
-        public UIHandler(DetailGenericModuleFragment activity)
-        {
-            _fragmentWeakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg)
-        {
-            DetailGenericModuleFragment fragment = _fragmentWeakReference.get();
-            if (fragment != null) {
-                fragment.handleUIMessage(msg);
             }
         }
     }
 
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater)
     {
         inflater.inflate(R.menu.fragment_details_generic, menu);
     }
@@ -176,26 +81,16 @@ public class DetailGenericModuleFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.show_doc:
-                String base_serial = _argSerial.substring(0, FragmentChooser.YOCTO_BASE_SERIAL_LEN);
-                String url = getString(R.string.www_yoctopuce_com_dev_doc_url) + base_serial;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if (id == R.id.configure) {
+            _callbacks.goToConfiguration(_argSerial);
+            return true;
+        } else if (id == R.id.show_doc) {
+            _callbacks.goToDocumentation(_argSerial);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
-    }
-
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        _bgHandlerThread.quit();
-        _bgHandlerThread.interrupt();
     }
 
 
@@ -205,31 +100,6 @@ public class DetailGenericModuleFragment extends Fragment
         super.onResume();
         triggerUIRefresh(0);
         // Schedule the first execution
-    }
-
-    @Override
-    public void onPause()
-    {
-        _bgHandler.removeCallbacksAndMessages(null);
-        super.onPause();
-    }
-
-
-    // Container Activity must implement this interface
-    public interface OnYoctoErrorListener
-    {
-        void onYoctoError(String sender, String errmsg);
-    }
-
-    @Override
-    public void onAttach(Context context)
-    {
-        super.onAttach(context);
-        try {
-            _onYoctoErrorListener = (DetailGenericModuleFragment.OnYoctoErrorListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnYoctoErrorListener");
-        }
     }
 
 
@@ -242,29 +112,7 @@ public class DetailGenericModuleFragment extends Fragment
         return rootView;
     }
 
-
-    protected void handleUIMessage(Message msg)
-    {
-        switch (msg.what) {
-            case REFRESH_UI:
-                updateUI(_fistUpdateUI);
-                _fistUpdateUI = false;
-                triggerUIRefresh(REFRESH_DELAY_MS);
-                break;
-        }
-    }
-
-    protected void onIOError(String errmsg)
-    {
-        Context activity = getActivity();
-        // test if fragment is detached from activity
-        if (activity != null) {
-            _onYoctoErrorListener.onYoctoError(_argSerial, errmsg);
-        }
-    }
-
-
-    public abstract class BgSwitchListener implements CustomCompoundButton.CustomSwitchListener
+    public abstract static class BgSwitchListener implements CustomCompoundButton.CustomSwitchListener
     {
         @Override
         public void onPreChangedFg(boolean isChecked)
@@ -278,40 +126,37 @@ public class DetailGenericModuleFragment extends Fragment
 
         }
 
-        @Override
-        public void onErrorFg(YAPI_Exception error)
+    }
+
+
+    protected void triggerUIRefresh(long delayMs)
+    {
+        postDelayedBg(new BgRunnable()
         {
-            onIOError(error.getLocalizedMessage());
-        }
-    }
-
-
-    protected boolean triggerUIRefresh(int delayMs)
-    {
-        return _bgHandler.sendEmptyMessageDelayed(REFRESH_UI, delayMs);
-    }
-
-    protected void HandleBgMessage(Message msg)
-    {
-        if (msg.what == REFRESH_UI) {
-            try {
-                reloadDataInBG();
-                _uiHandler.sendEmptyMessage(REFRESH_UI);
-            } catch (final YAPI_Exception e) {
-                _uiHandler.post(new Runnable()
+            @Override
+            public void runBg() throws YAPI_Exception
+            {
+                reloadDataInBG(_fistUpdateUI);
+                postUI(new Runnable()
                 {
                     @Override
                     public void run()
                     {
-                        onIOError(e.getLocalizedMessage());
+                        if (getContext() == null) {
+                            // fragment is not attached to an activity skip the call
+                            return;
+                        }
+                        updateUI(_fistUpdateUI);
+                        _fistUpdateUI = false;
+                        triggerUIRefresh(REFRESH_DELAY_MS);
                     }
                 });
             }
-        }
+        }, delayMs);
     }
 
 
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
         _module.reloadBg();
     }
@@ -319,14 +164,26 @@ public class DetailGenericModuleFragment extends Fragment
 
     protected void setupUI(View rootView)
     {
-        _serialTextView = (TextView) rootView.findViewById(R.id.serial_number);
-        _productTextView = (TextView) rootView.findViewById(R.id.product_name);
-        _logicalNameTextView = (TextView) rootView.findViewById(R.id.logical_name);
-        _firmwareTextView = (TextView) rootView.findViewById(R.id.firmware);
-        _consumptionTextView = (TextView) rootView.findViewById(R.id.consumption);
-        Switch beaconSwitch = (Switch) rootView.findViewById(R.id.beacon_switch);
-        _customBeaconSwitch = new CustomCompoundButton(beaconSwitch, _bgHandler, new BgSwitchListener()
+        _serialTextView = rootView.findViewById(R.id.serial_number);
+        _productTextView = rootView.findViewById(R.id.product_name);
+        _logicalNameTextView = rootView.findViewById(R.id.logical_name);
+        _firmwareTextView = rootView.findViewById(R.id.firmware);
+        _consumptionTextView = rootView.findViewById(R.id.consumption);
+        SwitchCompat beaconSwitch = rootView.findViewById(R.id.beacon_switch);
+        _customBeaconSwitch = new CustomCompoundButton(beaconSwitch, this, new BgSwitchListener()
         {
+            @Override
+            public void onPreChangedFg(boolean isChecked)
+            {
+
+            }
+
+            @Override
+            public void onPostChangedDoneFg(boolean isChecked)
+            {
+
+            }
+
             public void onCheckedChangedBg(int id, boolean isChecked) throws YAPI_Exception
             {
                 if (_module != null) {
@@ -335,7 +192,7 @@ public class DetailGenericModuleFragment extends Fragment
             }
         });
 
-        _luminosityTextView = (TextView) rootView.findViewById(R.id.luminosity);
+        _luminosityTextView = rootView.findViewById(R.id.luminosity);
         _fistUpdateUI = true;
     }
 
@@ -350,7 +207,7 @@ public class DetailGenericModuleFragment extends Fragment
             }
             _logicalNameTextView.setText(_module.getLogicalName());
             _firmwareTextView.setText(_module.getFirmwareRelease());
-            _consumptionTextView.setText(String.format(Locale.US, "%d mA", _module.getUsbCurrent()));
+            _consumptionTextView.setText(getString(R.string.int_value_and_unit, _module.getUsbCurrent(), "mA"));
             boolean checked = _module.getBeacon() == YModule.BEACON_ON;
             _customBeaconSwitch.setCheckedNoNotify(checked);
             _luminosityTextView.setText(String.format(Locale.US, "%d%%", _module.getLuminosity()));

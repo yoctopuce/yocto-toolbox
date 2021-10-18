@@ -2,7 +2,7 @@ package com.yoctopuce.yoctopucetoolbox.details_fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +47,9 @@ public class DetailYoctoMeteoFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _temperature.reloadBg();
         _humidity.reloadBg();
         _pressure.reloadBg();
@@ -62,15 +62,15 @@ public class DetailYoctoMeteoFragment extends DetailGenericModuleFragment
         _temperature = new Temperature(_argSerial + ".temperature");
         _humidity = new Humidity(_argSerial + ".humidity");
         _pressure = new Pressure(_argSerial + ".pressure");
-        _tempCurTextView = (TextView) rootView.findViewById(R.id.temp_cur);
-        _tempMaxTextView = (TextView) rootView.findViewById(R.id.temp_max);
-        _tempMinTextView = (TextView) rootView.findViewById(R.id.temp_min);
-        _humCurTextView = (TextView) rootView.findViewById(R.id.hum_cur);
-        _humMaxTextView = (TextView) rootView.findViewById(R.id.hum_max);
-        _humMinTextView = (TextView) rootView.findViewById(R.id.hum_min);
-        _presCurTextView = (TextView) rootView.findViewById(R.id.pres_cur);
-        _presMaxTextView = (TextView) rootView.findViewById(R.id.pres_max);
-        _presMinTextView = (TextView) rootView.findViewById(R.id.pres_min);
+        _tempCurTextView = rootView.findViewById(R.id.temp_cur);
+        _tempMaxTextView = rootView.findViewById(R.id.temp_max);
+        _tempMinTextView = rootView.findViewById(R.id.temp_min);
+        _humCurTextView = rootView.findViewById(R.id.hum_cur);
+        _humMaxTextView = rootView.findViewById(R.id.hum_max);
+        _humMinTextView = rootView.findViewById(R.id.hum_min);
+        _presCurTextView = rootView.findViewById(R.id.pres_cur);
+        _presMaxTextView = rootView.findViewById(R.id.pres_max);
+        _presMinTextView = rootView.findViewById(R.id.pres_min);
     }
 
 

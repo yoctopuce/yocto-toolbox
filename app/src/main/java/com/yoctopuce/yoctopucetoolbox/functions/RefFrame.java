@@ -1,10 +1,10 @@
 /*********************************************************************
  *
- * $Id: pic24config.php 26169 2016-12-12 01:36:34Z mvuilleu $
+ * $Id: RefFrame.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements RefFrame wrapper for Android toolbox
  *
- * - - - - - - - - - License information: - - - - - - - - - 
+ * - - - - - - - - - License information: - - - - - - - - -
  *
  *  Copyright (C) 2011 and beyond by Yoctopuce Sarl, Switzerland.
  *
@@ -23,7 +23,7 @@
  *  obligations.
  *
  *  THE SOFTWARE AND DOCUMENTATION ARE PROVIDED 'AS IS' WITHOUT
- *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING 
+ *  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING
  *  WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, FITNESS
  *  FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO
  *  EVENT SHALL LICENSOR BE LIABLE FOR ANY INCIDENTAL, SPECIAL,
@@ -38,7 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPIContext;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YRefFrame;
 import java.util.ArrayList;
@@ -60,6 +59,7 @@ public class RefFrame extends Function
     protected int _mountPos =  YRefFrame.MOUNTPOS_INVALID;
     protected double _bearing =  YRefFrame.BEARING_INVALID;
     protected String _calibrationParam =  YRefFrame.CALIBRATIONPARAM_INVALID;
+    protected int _fusionMode =  YRefFrame.FUSIONMODE_INVALID;
     protected boolean _calibV2;
     protected int _calibStage = 0;
     protected String _calibStageHint;
@@ -100,6 +100,7 @@ public class RefFrame extends Function
         _mountPos = _yrefframe.get_mountPos();
         _bearing = _yrefframe.get_bearing();
         _calibrationParam = _yrefframe.get_calibrationParam();
+        _fusionMode = _yrefframe.get_fusionMode();
     }
     public int getMountPos()
     {
@@ -163,6 +164,17 @@ public class RefFrame extends Function
     {
         _calibrationParam = newval;
         _yrefframe.set_calibrationParam(newval);
+    }
+
+    public int getFusionMode()
+    {
+        return _fusionMode;
+    }
+
+    public void setFusionModeBg(int newval) throws YAPI_Exception
+    {
+        _fusionMode = newval;
+        _yrefframe.set_fusionMode(newval);
     }
 
     public static YRefFrame FindRefFrame(String func)

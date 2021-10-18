@@ -2,7 +2,9 @@ package com.yoctopuce.yoctopucetoolbox;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,8 +26,7 @@ import java.util.UUID;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class HubDetailActivityFragment extends Fragment
-{
+public class HubDetailActivityFragment extends Fragment {
 
     public static final String ARG_UUID = "uuid";
 
@@ -41,8 +42,7 @@ public class HubDetailActivityFragment extends Fragment
     private View _restultLayout;
     private HubStorage _hubStorage;
 
-    public static HubDetailActivityFragment getFragment(UUID hubUUID)
-    {
+    public static HubDetailActivityFragment getFragment(UUID hubUUID) {
         Bundle args = new Bundle();
         args.putString(ARG_UUID, hubUUID.toString());
         final HubDetailActivityFragment fragment = new HubDetailActivityFragment();
@@ -50,8 +50,7 @@ public class HubDetailActivityFragment extends Fragment
         return fragment;
     }
 
-    public static HubDetailActivityFragment getFragment()
-    {
+    public static HubDetailActivityFragment getFragment() {
         Bundle args = new Bundle();
         final HubDetailActivityFragment fragment = new HubDetailActivityFragment();
         fragment.setArguments(args);
@@ -59,8 +58,7 @@ public class HubDetailActivityFragment extends Fragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         if (getArguments() != null) {
@@ -79,29 +77,26 @@ public class HubDetailActivityFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hub_detail, container, false);
-        _hostnameEditText = (EditText) view.findViewById(R.id.hostname);
-        _portEditText = (EditText) view.findViewById(R.id.port);
-        _usernameEditText = (EditText) view.findViewById(R.id.username);
-        _passwordEditText = (EditText) view.findViewById(R.id.password);
-        _progress = (ProgressBar) view.findViewById(R.id.test_progress);
+        _hostnameEditText = view.findViewById(R.id.hostname);
+        _portEditText = view.findViewById(R.id.port);
+        _usernameEditText = view.findViewById(R.id.username);
+        _passwordEditText = view.findViewById(R.id.password);
+        _progress = view.findViewById(R.id.test_progress);
         _restultLayout = view.findViewById(R.id.result_layout);
-        _result = (TextView) view.findViewById(R.id.result);
-        _testButton = (Button) view.findViewById(R.id.test_button);
-        _testButton.setOnClickListener(new View.OnClickListener()
-        {
+        _result = view.findViewById(R.id.result);
+        _testButton = view.findViewById(R.id.test_button);
+        _testButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 validateHubData();
                 _restultLayout.setVisibility(View.VISIBLE);
                 _testButton.setEnabled(false);
                 _progress.setVisibility(View.VISIBLE);
                 _progress.setProgress(1);
                 _result.setText("");
-                new TestHub().execute(_hub.getUrl());
+                new TestHub().execute(_hub.getUrl(true));
             }
         });
 
@@ -112,12 +107,11 @@ public class HubDetailActivityFragment extends Fragment
         return view;
     }
 
-    private boolean validateHubData()
-    {
+    private boolean validateHubData() {
         _hub.setHost(_hostnameEditText.getText().toString());
         final String port_str = _portEditText.getText().toString();
         try {
-            final Integer port = Integer.valueOf(port_str);
+            final int port = Integer.parseInt(port_str);
             _hub.setPort(port);
         } catch (NumberFormatException ignored) {
             return false;
@@ -127,12 +121,10 @@ public class HubDetailActivityFragment extends Fragment
         return true;
     }
 
-    class TestHub extends AsyncTask<String, Void, String>
-    {
+    class TestHub extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(String... strings)
-        {
+        protected String doInBackground(String... strings) {
             String url = strings[0];
             final YAPIContext yctx = new YAPIContext();
             try {
@@ -144,8 +136,7 @@ public class HubDetailActivityFragment extends Fragment
         }
 
         @Override
-        protected void onPostExecute(String error)
-        {
+        protected void onPostExecute(String error) {
             _testButton.setEnabled(true);
             _progress.setProgress(100);
             _progress.setVisibility(View.GONE);
@@ -159,29 +150,26 @@ public class HubDetailActivityFragment extends Fragment
 
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
-    {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_save_only, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.save_menu:
-                final boolean isValid = validateHubData();
-                if (isValid) {
-                    if (_isNewHub) {
-                        _hubStorage.addNewHub(_hub);
-                    }else{
-                        _hubStorage.updateHub(_hub);
-                    }
-                    getActivity().finish();
+        if (item.getItemId() == R.id.save_menu) {
+            final boolean isValid = validateHubData();
+            if (isValid) {
+                if (_isNewHub) {
+                    _hubStorage.addNewHub(_hub);
+                } else {
+                    _hubStorage.updateHub(_hub);
                 }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                getActivity().finish();
+            }
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 

@@ -45,9 +45,9 @@ public class DetailYoctoAltimeterFragment extends DetailGenericModuleFragment
 
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _temperature.reloadBg();
         _altitude.reloadBg();
         _pressure.reloadBg();
@@ -60,15 +60,15 @@ public class DetailYoctoAltimeterFragment extends DetailGenericModuleFragment
         _temperature = new Temperature(_argSerial + ".temperature");
         _altitude = new Altitude(_argSerial + ".altitude");
         _pressure = new Pressure(_argSerial + ".pressure");
-        _tempCurTextView = (TextView) rootView.findViewById(R.id.temp_cur);
-        _tempMaxTextView = (TextView) rootView.findViewById(R.id.temp_max);
-        _tempMinTextView = (TextView) rootView.findViewById(R.id.temp_min);
-        _altCurTextView = (TextView) rootView.findViewById(R.id.alt_cur);
-        _altMaxTextView = (TextView) rootView.findViewById(R.id.alt_max);
-        _altMinTextView = (TextView) rootView.findViewById(R.id.alt_min);
-        _presCurTextView = (TextView) rootView.findViewById(R.id.pres_cur);
-        _presMaxTextView = (TextView) rootView.findViewById(R.id.pres_max);
-        _presMinTextView = (TextView) rootView.findViewById(R.id.pres_min);
+        _tempCurTextView = rootView.findViewById(R.id.temp_cur);
+        _tempMaxTextView = rootView.findViewById(R.id.temp_max);
+        _tempMinTextView = rootView.findViewById(R.id.temp_min);
+        _altCurTextView = rootView.findViewById(R.id.alt_cur);
+        _altMaxTextView = rootView.findViewById(R.id.alt_max);
+        _altMinTextView = rootView.findViewById(R.id.alt_min);
+        _presCurTextView = rootView.findViewById(R.id.pres_cur);
+        _presMaxTextView = rootView.findViewById(R.id.pres_max);
+        _presMinTextView = rootView.findViewById(R.id.pres_min);
     }
 
 

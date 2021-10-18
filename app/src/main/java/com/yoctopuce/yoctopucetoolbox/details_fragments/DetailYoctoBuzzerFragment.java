@@ -9,8 +9,9 @@ import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YAnButton;
@@ -19,6 +20,8 @@ import com.yoctopuce.yoctopucetoolbox.R;
 import com.yoctopuce.yoctopucetoolbox.functions.AnButton;
 import com.yoctopuce.yoctopucetoolbox.functions.Buzzer;
 import com.yoctopuce.yoctopucetoolbox.functions.Led;
+import com.yoctopuce.yoctopucetoolbox.service.BgRunnable;
+import com.yoctopuce.yoctopucetoolbox.service.UseHubAPI;
 import com.yoctopuce.yoctopucetoolbox.widget.CustomCompoundButton;
 
 import java.util.Locale;
@@ -60,9 +63,9 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
     }
 
     @Override
-    protected void reloadDataInBG() throws YAPI_Exception
+    protected void reloadDataInBG(boolean firstReload) throws YAPI_Exception
     {
-        super.reloadDataInBG();
+        super.reloadDataInBG(firstReload);
         _anButton1.reloadBg();
         _anButton2.reloadBg();
         _ledGreen.reloadBg();
@@ -79,8 +82,8 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
         _anButton1 = new AnButton(_argSerial + ".anButton1");
         _anButton2 = new AnButton(_argSerial + ".anButton2");
         _buzzer = new Buzzer(_argSerial + ".buzzer");
-        _frequencyValue = (TextView) rootView.findViewById(R.id.frequency);
-        _frequencySeekBar = (SeekBar) rootView.findViewById(R.id.seekBarFrequency);
+        _frequencyValue = rootView.findViewById(R.id.frequency);
+        _frequencySeekBar = rootView.findViewById(R.id.seekBarFrequency);
         _frequencySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
             @Override
@@ -91,7 +94,7 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
                     if (now - _lastchangeupdate > 250) {
                         // prevents too many updates while the user is moving the cursor
                         _lastchangeupdate = now;
-                        _bgHandler.post(new BGHandler.BgRunnable()
+                        postBg(new BgRunnable()
                         {
                             @Override
                             public void runBg() throws YAPI_Exception
@@ -113,7 +116,7 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
             @Override
             public void onStopTrackingTouch(final SeekBar seekBar)
             {
-                _bgHandler.post(new BGHandler.BgRunnable()
+                postBg(new BgRunnable()
                 {
 
                     @Override
@@ -124,8 +127,8 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
                 });
             }
         });
-        _volumeValue = (TextView) rootView.findViewById(R.id.volume);
-        _volumeSeekBar = (SeekBar) rootView.findViewById(R.id.seekBarVolume);
+        _volumeValue = rootView.findViewById(R.id.volume);
+        _volumeSeekBar = rootView.findViewById(R.id.seekBarVolume);
         _volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
             @Override
@@ -136,7 +139,7 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
                     if (now - _lastchangeupdate > 250) {
                         // prevents too many updates while the user is moving the cursor
                         _lastchangeupdate = now;
-                        _bgHandler.post(new BGHandler.BgRunnable()
+                        postBg(new BgRunnable()
                         {
 
                             @Override
@@ -161,7 +164,7 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
             @Override
             public void onStopTrackingTouch(final SeekBar seekBar)
             {
-                _bgHandler.post(new BGHandler.BgRunnable()
+                postBg(new BgRunnable()
                 {
 
                     @Override
@@ -174,8 +177,8 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
         });
 
 
-        Switch greenSwitch = (Switch) rootView.findViewById(R.id.green_switch);
-        _greenSwitch = new CustomCompoundButton(greenSwitch, _bgHandler, new CustomCompoundButton.CustomSwitchListener()
+        SwitchCompat greenSwitch = rootView.findViewById(R.id.green_switch);
+        _greenSwitch = new CustomCompoundButton(greenSwitch, this, new CustomCompoundButton.CustomSwitchListener()
         {
             @Override
             public void onPreChangedFg(boolean isChecked)
@@ -199,19 +202,14 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
                 _greenSeekBar.setProgress(_ledGreen.getLuminosity());
             }
 
-            @Override
-            public void onErrorFg(YAPI_Exception error)
-            {
-                onIOError(error.getLocalizedMessage());
-            }
 
 
         });
 
-        _spinner_green = (Spinner) rootView.findViewById(R.id.spinner_green);
-        _spinner_green.setOnItemSelectedListener(new CustomOnItemSelectedListener(_bgHandler, _ledGreen));
-        _greenTextView = (TextView) rootView.findViewById(R.id.green);
-        _greenSeekBar = (SeekBar) rootView.findViewById(R.id.green_luminosity);
+        _spinner_green = rootView.findViewById(R.id.spinner_green);
+        _spinner_green.setOnItemSelectedListener(new CustomOnItemSelectedListener(this, _ledGreen));
+        _greenTextView = rootView.findViewById(R.id.green);
+        _greenSeekBar = rootView.findViewById(R.id.green_luminosity);
         _greenSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
             @Override
@@ -222,7 +220,7 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
                     if (now - _lastchangeupdate > 250) {
                         // prevents too many updates while the user is moving the cursor
                         _lastchangeupdate = now;
-                        _bgHandler.post(new BGHandler.BgRunnable()
+                        postBg(new BgRunnable()
                         {
 
                             @Override
@@ -248,7 +246,7 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
             public void onStopTrackingTouch(final SeekBar seekBar)
             {
                 _greenSwitch.setCheckedNoNotify(seekBar.getProgress() > 0);
-                _bgHandler.post(new BGHandler.BgRunnable()
+                postBg(new BgRunnable()
                 {
 
                     @Override
@@ -261,8 +259,8 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
         });
 
 
-        Switch redSwitch = (Switch) rootView.findViewById(R.id.red_switch);
-        _redSwitch = new CustomCompoundButton(redSwitch, _bgHandler, new CustomCompoundButton.CustomSwitchListener()
+        SwitchCompat redSwitch = rootView.findViewById(R.id.red_switch);
+        _redSwitch = new CustomCompoundButton(redSwitch, this, new CustomCompoundButton.CustomSwitchListener()
         {
             @Override
             public void onPreChangedFg(boolean isChecked)
@@ -285,17 +283,12 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
                 _redSeekBar.setProgress(_ledRed.getLuminosity());
             }
 
-            @Override
-            public void onErrorFg(YAPI_Exception error)
-            {
-                onIOError(error.getLocalizedMessage());
-            }
 
         });
-        _spinner_red = (Spinner) rootView.findViewById(R.id.spinner_red);
-        _spinner_red.setOnItemSelectedListener(new CustomOnItemSelectedListener(_bgHandler, _ledRed));
-        _redTextView = (TextView) rootView.findViewById(R.id.red);
-        _redSeekBar = (SeekBar) rootView.findViewById(R.id.red_luminosity);
+        _spinner_red = rootView.findViewById(R.id.spinner_red);
+        _spinner_red.setOnItemSelectedListener(new CustomOnItemSelectedListener(this, _ledRed));
+        _redTextView = rootView.findViewById(R.id.red);
+        _redSeekBar = rootView.findViewById(R.id.red_luminosity);
         _redSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
             @Override
@@ -306,7 +299,7 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
                     if (now - _lastchangeupdate > 250) {
                         // prevents too many updates while the user is moving the cursor
                         _lastchangeupdate = now;
-                        _bgHandler.post(new BGHandler.BgRunnable()
+                        postBg(new BgRunnable()
                         {
 
                             @Override
@@ -332,7 +325,7 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
             public void onStopTrackingTouch(final SeekBar seekBar)
             {
                 _redSwitch.setCheckedNoNotify(seekBar.getProgress() > 0);
-                _bgHandler.post(new BGHandler.BgRunnable()
+                postBg(new BgRunnable()
                 {
 
                     @Override
@@ -344,10 +337,10 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
             }
         });
 
-        _isPressed1TextView = (TextView) rootView.findViewById(R.id.ispressed1);
-        _progress1 = (ProgressBar) rootView.findViewById(R.id.progressBar1);
-        _isPressed2TextView = (TextView) rootView.findViewById(R.id.ispressed2);
-        _progress2 = (ProgressBar) rootView.findViewById(R.id.progressBar2);
+        _isPressed1TextView = rootView.findViewById(R.id.ispressed1);
+        _progress1 = rootView.findViewById(R.id.progressBar1);
+        _isPressed2TextView = rootView.findViewById(R.id.ispressed2);
+        _progress2 = rootView.findViewById(R.id.progressBar2);
 
 
     }
@@ -377,22 +370,22 @@ public class DetailYoctoBuzzerFragment extends DetailGenericModuleFragment
     }
 
 
-    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener
+    public static class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener
     {
-        final BGHandler _bgHandler;
+        final UseHubAPI _useHubAPI;
         final Led _led;
 
-        CustomOnItemSelectedListener(BGHandler bgHandler, Led ledGreen)
+        CustomOnItemSelectedListener(UseHubAPI useHubAPI, Led ledGreen)
         {
 
-            _bgHandler = bgHandler;
+            _useHubAPI = useHubAPI;
             _led = ledGreen;
         }
 
         public void onItemSelected(AdapterView<?> parent, View view, final int pos, long id)
         {
             Log.d(TAG, String.format("Item_selected %d", pos));
-            _bgHandler.post(new BGHandler.BgRunnable()
+            _useHubAPI.postBg(new BgRunnable()
             {
                 @Override
                 public void runBg() throws YAPI_Exception

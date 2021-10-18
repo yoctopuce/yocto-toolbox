@@ -113,6 +113,7 @@ class WorkerThread extends Thread implements YAPI.DeviceArrivalCallback, YAPI.De
     {
         Intent intentUpdate = new Intent(ACTION_IO_ERROR);
         intentUpdate.putExtra(EXTRA_ERROR_MESSAGE, message);
+        intentUpdate.setPackage("com.yoctopuce.yoctopucetoolbox");
         _appContext.sendBroadcast(intentUpdate);
     }
 

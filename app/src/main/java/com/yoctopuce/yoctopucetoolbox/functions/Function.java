@@ -1,5 +1,5 @@
 /*********************************************************************
- * $Id: Function.java 26331 2017-01-11 16:50:06Z seb $
+ * $Id: Function.java 46698 2021-10-01 06:31:31Z web $
  * <p>
  * Implements Relay wrapper for Android toolbox
  * <p>
@@ -37,68 +37,64 @@
 
 package com.yoctopuce.yoctopucetoolbox.functions;
 
-import android.os.AsyncTask;
-
-import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YFunction;
 
-import java.net.URL;
-
 //--- (generated code: YFunction class start)
+
 /**
  * YFunction Class: Common function interface
- *
+ * <p>
  * This is the parent class for all public objects representing device functions documented in
  * the high-level programming API. This abstract class does all the real job, but without
  * knowledge of the specific function attributes.
- *
+ * <p>
  * Instantiating a child class of YFunction does not cause any communication.
  * The instance simply keeps track of its function identifier, and will dynamically bind
  * to a matching device at the time it is really being used to read or set an attribute.
  * In order to allow true hot-plug replacement of one device by another, the binding stay
  * dynamic through the life of the object.
- *
+ * <p>
  * The YFunction class implements a generic high-level cache for the attribute values of
  * the specified function, pre-parsed from the REST API string.
  */
- @SuppressWarnings("UnusedDeclaration")
-public class Function
-{
+@SuppressWarnings("UnusedDeclaration")
+public class Function {
     // Yoctopuce error codes, used by default as function return value
 
-// valueCallbackFunction
-    protected String _logicalName =  YFunction.LOGICALNAME_INVALID;
-    protected String _advertisedValue =  YFunction.ADVERTISEDVALUE_INVALID;
+    // valueCallbackFunction
+    protected String _logicalName = YFunction.LOGICALNAME_INVALID;
+    protected String _advertisedValue = YFunction.ADVERTISEDVALUE_INVALID;
     protected long _cacheExpiration = 0;
     protected String _serial;
     protected String _funId;
     protected String _hwId;
     protected YFunction _yfunction;
 
-    public Function(YFunction yfunc)
-    {
-       _yfunction = yfunc;
+    public Function(YFunction yfunc) {
+        _yfunction = yfunc;
     }
 
-    public Function(String hwid)
-    {
-       _yfunction = YFunction.FindFunction(hwid);
+    public Function(String hwid) {
+        _yfunction = YFunction.FindFunction(hwid);
     }
-    public void reloadBg () throws YAPI_Exception
-    {
+
+    public void reloadBg() throws YAPI_Exception {
+        _serial = _yfunction.get_serialNumber();
+        _funId = _yfunction.getFunctionId();
+        _hwId = _yfunction.getHardwareId();
         _logicalName = _yfunction.get_logicalName();
         _advertisedValue = _yfunction.get_advertisedValue();
     }
+
     /**
      * Returns the logical name of the function.
      *
      * @return a string corresponding to the logical name of the function
-     *
+     * <p>
      * On failure, throws an exception or returns Y_LOGICALNAME_INVALID.
      */
-    public String getLogicalName()
-    {
+    public String getLogicalName() {
         return _logicalName;
     }
 
@@ -109,13 +105,11 @@ public class Function
      * modification must be kept.
      *
      * @param newval : a string corresponding to the logical name of the function
-     *
      * @return YAPI_SUCCESS if the call succeeds.
-     *
+     * <p>
      * On failure, throws an exception or returns a negative error code.
      */
-    public void setLogicalNameBg(String newval) throws YAPI_Exception
-    {
+    public void setLogicalNameBg(String newval) throws YAPI_Exception {
         _logicalName = newval;
         _yfunction.set_logicalName(newval);
     }
@@ -124,36 +118,43 @@ public class Function
      * Returns a short string representing the current state of the function.
      *
      * @return a string corresponding to a short string representing the current state of the function
-     *
+     * <p>
      * On failure, throws an exception or returns Y_ADVERTISEDVALUE_INVALID.
      */
-    public String getAdvertisedValue()
-    {
+    public String getAdvertisedValue() {
         return _advertisedValue;
     }
 
-    public void setAdvertisedValueBg(String newval) throws YAPI_Exception
-    {
+    public void setAdvertisedValueBg(String newval) throws YAPI_Exception {
         _advertisedValue = newval;
         _yfunction.set_advertisedValue(newval);
     }
 
-    public static YFunction FindFunction(String func)
-    {
+    public static YFunction FindFunction(String func) {
         return YFunction.FindFunction(func);
     }
 
-    public int muteValueCallbacks() throws YAPI_Exception
-    {
+    public int muteValueCallbacks() throws YAPI_Exception {
         return _yfunction.muteValueCallbacks();
     }
 
-    public int unmuteValueCallbacks() throws YAPI_Exception
-    {
+    public int unmuteValueCallbacks() throws YAPI_Exception {
         return _yfunction.unmuteValueCallbacks();
     }
 
 //--- (end of generated code: YFunction class start)
 
+
+    public String getSerial() {
+        return _serial;
+    }
+
+    public String getFunId() {
+        return _funId;
+    }
+
+    public String getHwId() {
+        return _hwId;
+    }
 }
 

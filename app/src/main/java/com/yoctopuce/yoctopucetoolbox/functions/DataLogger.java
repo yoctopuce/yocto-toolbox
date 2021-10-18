@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- * $Id: DataLogger.java 26143 2016-12-02 16:58:26Z seb $
+ * $Id: DataLogger.java 46698 2021-10-01 06:31:31Z web $
  *
  * Implements DataLogger wrapper for Android toolbox
  *
@@ -38,7 +38,6 @@
  *********************************************************************/
 
 package com.yoctopuce.yoctopucetoolbox.functions;
-import com.yoctopuce.YoctoAPI.YAPI;
 import com.yoctopuce.YoctoAPI.YAPI_Exception;
 import com.yoctopuce.YoctoAPI.YDataLogger;
 import com.yoctopuce.YoctoAPI.YDataSet;
@@ -189,9 +188,10 @@ public class DataLogger extends Function
     }
 
     /**
-     * Return true if the data logger is synchronised with the localization beacon.
+     * Returns true if the data logger is synchronised with the localization beacon.
      *
-     * @return either Y_BEACONDRIVEN_OFF or Y_BEACONDRIVEN_ON
+     * @return either Y_BEACONDRIVEN_OFF or Y_BEACONDRIVEN_ON, according to true if the data logger is
+     * synchronised with the localization beacon
      *
      * On failure, throws an exception or returns Y_BEACONDRIVEN_INVALID.
      */
